@@ -35,7 +35,7 @@ public class MovementController : MonoBehaviour
     public int side = 1;
 
     // Used to normalize velocity when mushroom is in motion
-    private Vector2 mushroomVelocity;
+    private Vector2 movingPlatformVelocity;
 
     [Space]
     [Header("Playtest settings")]
@@ -62,31 +62,31 @@ public class MovementController : MonoBehaviour
         if (coll.onLeftWall)
         {
             Debug.Log("Player on left wall: ");
-            SetMushroomVelocity(coll.leftWallCollider);
+            SetMovingPlatormVelocity(coll.leftWallCollider);
         }
 
         if (coll.onRightWall)
         {
             Debug.Log("Player on right wall: ");
-            SetMushroomVelocity(coll.rightWallCollider);
+            SetMovingPlatormVelocity(coll.rightWallCollider);
         }
 
         if (coll.onGround)
         {
             Debug.Log("Player on ground: ");
-            SetMushroomVelocity(coll.groundCollider);
+            SetMovingPlatormVelocity(coll.groundCollider);
         }
 
         if (!coll.onLeftWall && !coll.onRightWall && !coll.onGround)
-            this.mushroomVelocity = Vector2.zero;
+            this.movingPlatformVelocity = Vector2.zero;
     }
 
-    private void SetMushroomVelocity(Collider2D collider)
+    private void SetMovingPlatormVelocity(Collider2D collider)
     {
-        var mushroomVelocity = collider.gameObject.GetComponentInParent<Rigidbody2D>().velocity;
-        this.mushroomVelocity = mushroomVelocity;
-        Debug.Log("Mushroom velocity: " + this.mushroomVelocity);
-        Debug.Log("Player velocity: " + rb.velocity);
+        // var mushroomVelocity = collider.gameObject.GetComponentInParent<Rigidbody2D>().velocity;
+        // this.mushroomVelocity = mushroomVelocity;
+        // Debug.Log("Mushroom velocity: " + this.mushroomVelocity);
+        // Debug.Log("Player velocity: " + rb.velocity);
     }
 
     // Update is called once per frame
@@ -135,7 +135,7 @@ public class MovementController : MonoBehaviour
             float speedModifier = y > 0 ? .6f : 1;
 
             // NOTE: Making x param = 0 fixed the weird wall climb bug
-            rb.velocity = new Vector2(0, y * (speed * speedModifier) + mushroomVelocity.y); // Add platform velocity 
+            rb.velocity = new Vector2(0, y * (speed * speedModifier) + movingPlatformVelocity.y); // Add platform velocity 
         }
         else
         {
@@ -163,6 +163,7 @@ public class MovementController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             ////anim.SetTrigger("jump");
+            Debug.Log("Jump");
 
             if (coll.onGround) // Normal jump
                 Jump(Vector2.up, false);
@@ -285,7 +286,7 @@ public class MovementController : MonoBehaviour
 
         Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
 
-        this.mushroomVelocity = Vector2.zero;
+        this.movingPlatformVelocity = Vector2.zero;
         Jump((Vector2.up / 1.25f + wallDir / 1.25f), true);
 
         wallJumped = true;
@@ -333,7 +334,7 @@ public class MovementController : MonoBehaviour
         //ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
 
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        rb.velocity += dir * (jumpForce + mushroomVelocity.y);
+        rb.velocity += dir * (jumpForce + movingPlatformVelocity.y);
 
         //particle.Play();
     }
