@@ -23,7 +23,6 @@ public class MovementController : MonoBehaviour
     [Space]
     [Header("Booleans")]
     public bool canMove;
-    public bool wallGrab;
     public bool wallJumped;
     public bool wallSlide;
     public bool isDashing;
@@ -68,41 +67,10 @@ public class MovementController : MonoBehaviour
         Walk(dir);
         //anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
-        if (coll.onWall && Input.GetButton("Fire3") && canMove && !coll.onGround)
-        {
-            //if (side != coll.wallSide)
-            //anim.Flip(side * -1);
-            wallGrab = true;
-            wallSlide = false;
-        }
-
-        if (Input.GetButtonUp("Fire3") || !coll.onWall || !canMove)
-        {
-            wallGrab = false;
-            wallSlide = false;
-        }
-
         if (coll.onGround && !isDashing)
         {
             wallJumped = false;
             GetComponent<BetterJumping>().enabled = true;
-        }
-
-        // MARK: Wall climbing
-        if (wallGrab && !isDashing)
-        {
-            rb.gravityScale = 0;
-            if (x > .2f || x < -.2f)
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-
-            float speedModifier = y > 0 ? .6f : 1;
-
-            // NOTE: Making x param = 0 fixed the weird wall climb bug
-            rb.velocity = new Vector2(0, y * (speed * speedModifier)); // Add platform velocity 
-        }
-        else
-        {
-            rb.gravityScale = defaultGravity;
         }
 
         // MARK: Wall sliding
@@ -112,7 +80,7 @@ public class MovementController : MonoBehaviour
             // Reset double jump
             this.hasDoubleJumped = false;
 
-            if (x != 0 && !wallGrab)
+            if (x != 0)
             {
                 wallSlide = true;
                 WallSlide();
@@ -156,7 +124,7 @@ public class MovementController : MonoBehaviour
         WallParticle(y);
 
         // Don't flip sprites if conditions:
-        if (wallGrab || wallSlide || !canMove)
+        if (wallSlide || !canMove)
             return;
 
         if (x > 0)
@@ -223,9 +191,6 @@ public class MovementController : MonoBehaviour
         if (!canMove)
             return;
 
-        if (wallGrab)
-            return;
-
         if (!wallJumped)
         {
             rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
@@ -272,7 +237,7 @@ public class MovementController : MonoBehaviour
     {
         // var main = slideParticle.main;
 
-        if (wallSlide || (wallGrab && vertical < 0))
+        if (wallSlide || vertical < 0)
         {
             // slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
             // main.startColor = Color.white;
