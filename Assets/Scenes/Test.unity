@@ -232,7 +232,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &71351513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -303,6 +303,7 @@ MonoBehaviour:
   jumpForce: 7
   slideSpeed: 1
   wallJumpLerp: 5
+  wallJumpMultiplier: 1.25
   dashSpeed: 8
   defaultGravity: 2
   canMove: 1

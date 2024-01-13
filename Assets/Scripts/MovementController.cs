@@ -16,6 +16,7 @@ public class MovementController : MonoBehaviour
     public float jumpForce = 7;
     public float slideSpeed = 1;
     public float wallJumpLerp = 5;
+    public float wallJumpMultiplier = 1.25f;
     public float dashSpeed = 8;
     public float defaultGravity = 2;
 
@@ -29,13 +30,9 @@ public class MovementController : MonoBehaviour
 
     [Space]
     private bool groundTouch;
-    private bool hasDashed;
     private bool hasDoubleJumped;
 
     public int side = 1;
-
-    // Used to normalize velocity when mushroom is in motion
-    private Vector2 movingPlatformVelocity;
 
     [Space]
     [Header("Playtest settings")]
@@ -57,38 +54,6 @@ public class MovementController : MonoBehaviour
         //anim = GetComponentInChildren<AnimationScript>();
     }
 
-    private void NormalizeMovingPlatformVelocity()
-    {
-        if (coll.onLeftWall)
-        {
-            Debug.Log("Player on left wall: ");
-            SetMovingPlatormVelocity(coll.leftWallCollider);
-        }
-
-        if (coll.onRightWall)
-        {
-            Debug.Log("Player on right wall: ");
-            SetMovingPlatormVelocity(coll.rightWallCollider);
-        }
-
-        if (coll.onGround)
-        {
-            Debug.Log("Player on ground: ");
-            SetMovingPlatormVelocity(coll.groundCollider);
-        }
-
-        if (!coll.onLeftWall && !coll.onRightWall && !coll.onGround)
-            this.movingPlatformVelocity = Vector2.zero;
-    }
-
-    private void SetMovingPlatormVelocity(Collider2D collider)
-    {
-        // var mushroomVelocity = collider.gameObject.GetComponentInParent<Rigidbody2D>().velocity;
-        // this.mushroomVelocity = mushroomVelocity;
-        // Debug.Log("Mushroom velocity: " + this.mushroomVelocity);
-        // Debug.Log("Player velocity: " + rb.velocity);
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -99,8 +64,6 @@ public class MovementController : MonoBehaviour
         Vector2 dir = new Vector2(x, y);
 
         godMode = Input.GetKey(KeyCode.G);
-
-        NormalizeMovingPlatformVelocity();
 
         Walk(dir);
         //anim.SetHorizontalMovement(x, y, rb.velocity.y);
@@ -135,7 +98,7 @@ public class MovementController : MonoBehaviour
             float speedModifier = y > 0 ? .6f : 1;
 
             // NOTE: Making x param = 0 fixed the weird wall climb bug
-            rb.velocity = new Vector2(0, y * (speed * speedModifier) + movingPlatformVelocity.y); // Add platform velocity 
+            rb.velocity = new Vector2(0, y * (speed * speedModifier)); // Add platform velocity 
         }
         else
         {
@@ -163,7 +126,6 @@ public class MovementController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             ////anim.SetTrigger("jump");
-            Debug.Log("Jump");
 
             if (coll.onGround) // Normal jump
                 Jump(Vector2.up, false);
@@ -177,13 +139,6 @@ public class MovementController : MonoBehaviour
 
             if (!godMode) return;
             GodModeJump();
-        }
-
-        // MARK: Dashing
-        if (Input.GetButtonDown("Fire1") && !hasDashed)
-        {
-            //if (xRaw != 0 || yRaw != 0)
-            //    Dash(xRaw, yRaw);
         }
 
         // Reset atrributes on groundtouch
@@ -218,58 +173,11 @@ public class MovementController : MonoBehaviour
 
     void GroundTouch()
     {
-        hasDashed = false;
-        isDashing = false;
         hasDoubleJumped = false;
 
         //side = anim.sr.flipX ? -1 : 1;
 
         //jumpParticle.Play();
-    }
-
-    private void Dash(float x, float y)
-    {
-        //Camera.main.transform.DOComplete();
-        //Camera.main.transform.DOShakePosition(.2f, .5f, 14, 90, false, true);
-        //FindObjectOfType<RippleEffect>().Emit(Camera.main.WorldToViewportPoint(transform.position));
-
-        hasDashed = true;
-
-        // anim.SetTrigger("dash");
-
-        rb.velocity = Vector2.zero;
-        Vector2 dir = new Vector2(x, y);
-
-        rb.velocity += dir.normalized * dashSpeed;
-        StartCoroutine(DashWait());
-    }
-
-    IEnumerator DashWait()
-    {
-        //FindObjectOfType<GhostTrail>().ShowGhost();
-        StartCoroutine(GroundDash());
-        //DOVirtual.Float(14, 0, .8f, RigidbodyDrag);
-
-        //ashParticle.Play();
-        rb.gravityScale = 0;
-        GetComponent<BetterJumping>().enabled = false;
-        wallJumped = true;
-        isDashing = true;
-
-        yield return new WaitForSeconds(.3f);
-
-        //ashParticle.Stop();
-        rb.gravityScale = defaultGravity;
-        GetComponent<BetterJumping>().enabled = true;
-        wallJumped = false;
-        isDashing = false;
-    }
-
-    IEnumerator GroundDash()
-    {
-        yield return new WaitForSeconds(.15f);
-        if (coll.onGround)
-            hasDashed = false;
     }
 
     // MARK: Wall jump
@@ -286,8 +194,8 @@ public class MovementController : MonoBehaviour
 
         Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
 
-        this.movingPlatformVelocity = Vector2.zero;
-        Jump((Vector2.up / 1.25f + wallDir / 1.25f), true);
+        Vector2 jumpDirection = new Vector2(wallDir.x + .5f, .5f).normalized * wallJumpMultiplier;
+        Jump(jumpDirection, true);
 
         wallJumped = true;
     }
@@ -334,7 +242,7 @@ public class MovementController : MonoBehaviour
         //ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
 
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        rb.velocity += dir * (jumpForce + movingPlatformVelocity.y);
+        rb.velocity += dir * jumpForce;
 
         //particle.Play();
     }
@@ -349,8 +257,10 @@ public class MovementController : MonoBehaviour
     IEnumerator DisableMovement(float time)
     {
         canMove = false;
+        rb.gravityScale = 0;
         yield return new WaitForSeconds(time);
         canMove = true;
+        rb.gravityScale = defaultGravity;
     }
 
     void RigidbodyDrag(float x)
