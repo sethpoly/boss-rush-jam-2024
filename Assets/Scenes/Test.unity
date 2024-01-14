@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  speed: 6
+  speed: 20
   canMove: 1
   godMode: 0
   side: 1

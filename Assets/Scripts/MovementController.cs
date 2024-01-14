@@ -34,13 +34,15 @@ public class MovementController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+        Vector3 move = new Vector2(horizontal, vertical);
+        move = speed * Time.fixedDeltaTime * move.normalized;
+        rb.velocity = move;
     }
 
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
         godMode = Input.GetKey(KeyCode.G);
     }
 }
