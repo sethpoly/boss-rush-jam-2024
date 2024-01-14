@@ -14,7 +14,7 @@ public class MovementController : MonoBehaviour
     [Header("Stats")]
     public float speed = 4;
     public float jumpForce = 7;
-    public float slideSpeed = 1;
+    public float slideSpeed = 2f;
     public float wallJumpLerp = 5;
     public float wallJumpMultiplier = 1.25f;
     public float dashSpeed = 8;
@@ -38,6 +38,17 @@ public class MovementController : MonoBehaviour
     public bool godMode;
     public float godJumpForce = 15;
 
+    // Wall Jumping
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    private float wallJumpingTime = 0.2f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.4f;
+    private Vector2 wallJumpingPower = new Vector2(9f, 4f);
+
+    private float horizontal;
+    private float vertical;
+
     //[Space]
     //[Header("Polish")]
     // public ParticleSystem dashParticle;
@@ -53,90 +64,75 @@ public class MovementController : MonoBehaviour
         //anim = GetComponentInChildren<AnimationScript>();
     }
 
+    /// <summary>
+    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void FixedUpdate()
+    {
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
         float xRaw = Input.GetAxisRaw("Horizontal");
         float yRaw = Input.GetAxisRaw("Vertical");
-        Vector2 dir = new Vector2(x, y);
 
         godMode = Input.GetKey(KeyCode.G);
 
-        Walk(dir);
-        //anim.SetHorizontalMovement(x, y, rb.velocity.y);
-
-        if (coll.onGround && !isDashing)
-        {
-            wallJumped = false;
-            GetComponent<BetterJumping>().enabled = true;
-        }
+        //Walk(dir);
 
         // MARK: Wall sliding
-        if (coll.onWall && !coll.onGround)
-        {
-            // TODO: Put somewhere else
-            // Reset double jump
-            this.hasDoubleJumped = false;
-
-            if (x != 0)
-            {
-                wallSlide = true;
-                WallSlide();
-            }
-        }
-
-        if (!coll.onWall || coll.onGround)
-            wallSlide = false;
+        WallSlide();
+        WallJump();
 
         // MARK: Jumping, Wall jumping
         if (Input.GetButtonDown("Jump"))
         {
-            ////anim.SetTrigger("jump");
 
             if (coll.onGround) // Normal jump
                 Jump(Vector2.up, false);
-            if (coll.onWall && !coll.onGround) // Wall jump
-                WallJump();
-            if (!coll.onWall && !coll.onGround && !hasDoubleJumped) // Double jump
-            {
-                Jump(Vector2.up, false);
-                hasDoubleJumped = true;
-            }
+            // if (!coll.onWall && !coll.onGround && !hasDoubleJumped) // Double jump
+            // {
+            //     Jump(Vector2.up, false);
+            //     hasDoubleJumped = true;
+            // }
 
             if (!godMode) return;
             GodModeJump();
         }
 
+
         // Reset atrributes on groundtouch
-        if (coll.onGround && !groundTouch)
-        {
-            GroundTouch();
-            groundTouch = true;
-        }
+        // if (coll.onGround && !groundTouch)
+        // {
+        //     GroundTouch();
+        //     groundTouch = true;
+        // }
 
-        if (!coll.onGround && groundTouch)
-        {
-            groundTouch = false;
-        }
+        // if (!coll.onGround && groundTouch)
+        // {
+        //     groundTouch = false;
+        // }
 
-        WallParticle(y);
+        // WallParticle(vertical);
 
-        // Don't flip sprites if conditions:
-        if (wallSlide || !canMove)
-            return;
+        // // Don't flip sprites if conditions:
+        // if (wallSlide || !canMove)
+        //     return;
 
-        if (x > 0)
-        {
-            side = 1;
-            //anim.Flip(side);
-        }
-        if (x < 0)
-        {
-            side = -1;
-            //anim.Flip(side);
-        }
+        // if (horizontal > 0)
+        // {
+        //     side = 1;
+        //     //anim.Flip(side);
+        // }
+        // if (horizontal < 0)
+        // {
+        //     side = -1;
+        //     //anim.Flip(side);
+        // }
     }
 
     void GroundTouch()
@@ -148,47 +144,39 @@ public class MovementController : MonoBehaviour
         //jumpParticle.Play();
     }
 
-    // MARK: Wall jump
-    private void WallJump()
-    {
-        if ((side == 1 && coll.onRightWall) || side == -1 && !coll.onRightWall)
-        {
-            side *= -1;
-            //anim.Flip(side);
-        }
-
-        StopCoroutine(DisableMovement(0));
-        StartCoroutine(DisableMovement(.1f));
-
-        Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
-
-        Vector2 jumpDirection = new Vector2(wallDir.x + .5f, .5f).normalized * wallJumpMultiplier;
-        Jump(jumpDirection, true);
-
-        wallJumped = true;
-    }
-
     private void WallSlide()
     {
-        if (coll.wallSide != side)
-            //anim.Flip(side * -1);
-
-            if (!canMove)
-                return;
-
-        bool pushingWall = false;
-        if ((rb.velocity.x > 0 && coll.onRightWall) || (rb.velocity.x < 0 && coll.onLeftWall))
+        if (coll.onWall && !coll.onGround && horizontal != 0f)
         {
-            pushingWall = true;
-        }
-        float push = pushingWall ? 0 : rb.velocity.x;
+            this.hasDoubleJumped = false;
+            wallSlide = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -slideSpeed, float.MaxValue));
+            Debug.Log("Wall Sliding");
 
-        rb.velocity = new Vector2(push, -slideSpeed);
+            // if (coll.wallSide != side)
+            //     //anim.Flip(side * -1);
+
+            //     if (!canMove)
+            //         return;
+
+            // bool pushingWall = false;
+            // if ((rb.velocity.x > 0 && coll.onRightWall) || (rb.velocity.x < 0 && coll.onLeftWall))
+            // {
+            //     pushingWall = true;
+            // }
+            // float push = pushingWall ? 0 : rb.velocity.x;
+
+            // rb.velocity = new Vector2(push, -slideSpeed);
+        } 
+        else
+        {
+            wallSlide = false;
+        }
     }
 
     private void Walk(Vector2 dir)
     {
-        if (!canMove)
+        if (!canMove || isWallJumping)
             return;
 
         if (!wallJumped)
@@ -210,6 +198,54 @@ public class MovementController : MonoBehaviour
         rb.velocity += dir * jumpForce;
 
         //particle.Play();
+    }
+
+    private void WallJump()
+    {
+        if (wallSlide) 
+        {
+            isWallJumping = false;
+            wallJumpingDirection = coll.onRightWall ? Vector2.left.x : Vector2.right.x;
+            wallJumpingCounter = wallJumpingTime;
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f) 
+        {
+            isWallJumping = true;
+            rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            wallJumpingCounter = 0f;
+
+            // TODO: Flip Player
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
+        }
+        // if ((side == 1 && coll.onRightWall) || side == -1 && !coll.onRightWall)
+        // {
+        //     side *= -1;
+        //     //anim.Flip(side);
+        // }
+
+        // StopCoroutine(DisableMovement(0));
+        // StartCoroutine(DisableMovement(.1f));
+
+        // Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
+        // wallJumpingCounter = wallJumpingTime;    
+
+
+        // //Vector2 jumpDirection = new Vector2(wallDir.x + .5f, .5f).normalized * wallJumpMultiplier;
+        // rb.velocity = new Vector2(wallDir.x * wallJumpingPower.x, wallJumpingPower.y);
+        // //Jump(jumpDirection, true);
+
+        // wallJumped = true;
+    }
+
+    private void StopWallJumping()
+    {
+        isWallJumping = false;
     }
 
     // God mode
