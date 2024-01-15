@@ -12,7 +12,7 @@ public class PlayerGun : MonoBehaviour
     public GameObject bulletPrefab;
 
     // Auto-locked target
-    private Vector2 currentTarget;
+    private Vector2? currentTarget;
 
     const String targetTag = "Boss";
 
@@ -23,23 +23,42 @@ public class PlayerGun : MonoBehaviour
     void Update()
     {
         SearchForTarget();
+        ShootTimer();
 
-        // Attempt shoot if cooldown is finished
-        if(Time.time > lastShotTime)
+        if (canShoot && currentTarget.HasValue)
         {
-            lastShotTime = Time.time + cooldown;
             Shoot();
         }
     }
 
+    // Lock on to the boss if it exists in the world
     private void SearchForTarget()
     {
-        var target = GameObject.FindGameObjectWithTag(targetTag);
-        currentTarget = target.transform.position;
+        try {
+            var target = GameObject.FindGameObjectWithTag(targetTag);
+            currentTarget = target.transform.position;
+        } catch {
+            currentTarget = null;
+        }
+    }
+
+    // Cooldown timer for bullet fire rate
+    private void ShootTimer()
+    {
+        if(Time.time > lastShotTime)
+        {
+            lastShotTime = Time.time + cooldown;
+            canShoot = true;
+        } 
+        else 
+        {
+            canShoot = false;
+        }
     }
 
     private void Shoot()
     {
         Debug.Log("Shooting...");
+        GameObject.Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, 0f), transform.rotation);
     }
 }
