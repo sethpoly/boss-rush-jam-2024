@@ -21,8 +21,6 @@ public class MovementController : MonoBehaviour
     [Header("Playtest settings")]
     public bool godMode;
 
-    public int side = 1;
-
     private float horizontal;
     private float vertical;
 
