@@ -10,6 +10,7 @@ public class MovementController : MonoBehaviour
 
     [Space]
     [Header("Stats")]
+    public float defaultSpeed;
     public float speed = 4;
 
     [Space]
@@ -28,6 +29,7 @@ public class MovementController : MonoBehaviour
     {
         coll = GetComponent<Collision>();
         rb = GetComponent<Rigidbody2D>();
+        defaultSpeed = speed;
     }
 
     void FixedUpdate()
@@ -42,5 +44,15 @@ public class MovementController : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
         godMode = Input.GetKey(KeyCode.G);
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
+    public void ResetSpeed()
+    {
+        this.speed = defaultSpeed;
     }
 }
