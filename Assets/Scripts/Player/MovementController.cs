@@ -14,11 +14,6 @@ public class MovementController : MonoBehaviour
     public float speed = 4;
 
     [Space]
-    [Header("Booleans")]
-    public bool canMove;
-
-
-    [Space]
     [Header("Playtest settings")]
     public bool godMode;
 

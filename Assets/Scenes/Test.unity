@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  defaultSpeed: 0
   speed: 200
   canMove: 1
   godMode: 0
@@ -330,6 +331,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementController: {fileID: 71351515}
+  activeCards: []
+  selectedCards:
+  - {fileID: 776828701}
+  cardsInHand: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
