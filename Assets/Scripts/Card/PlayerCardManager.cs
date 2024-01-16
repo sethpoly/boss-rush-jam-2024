@@ -4,11 +4,22 @@ using UnityEngine;
 class PlayerCardManager: MonoBehaviour
 {
     public int drawCount = 4;
-    public List<Card> cardsInDeck;
-    public List<Card> selectedCards;
-    public List<Card> cardsInHand;
+    public List<GameObject> cardsInDeck;
+    public List<GameObject> selectedCards;
+    public List<GameObject> cardsInHand;
 
     public Player player;
+    public GameObject cardPrefab;
+    public Transform playerHand;
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        StartNewRound();
+    }
 
     /// <summary>
     /// Deactivate selected cards, discard selected cards, draw X new cards
@@ -18,11 +29,35 @@ class PlayerCardManager: MonoBehaviour
         DeactivateAllSelectedCards();
         DiscardAllSelectedCards();
         DiscardAllCardsInHand();
+        ResetAndCreateDeck();
 
         for(int i = 0; i < drawCount; i++)
         {
             DrawCard();
         }
+    }
+
+    private void ResetAndCreateDeck()
+    {
+        cardsInDeck.Clear();
+        float? lastXLocation = null;
+        for(int i = 0; i < 10; i++)
+        {
+            if(lastXLocation == null)
+            {
+                lastXLocation = playerHand.position.x - 4f;
+            } 
+            else 
+            {
+                lastXLocation -= -.6f;
+            }
+            var card = new MovementSpeedCard("Speed x" + i, 1, i);
+            var spawnLocation = new Vector3(lastXLocation.Value, playerHand.position.y, 0);
+            var cardPrefab = Instantiate(this.cardPrefab, spawnLocation, Quaternion.identity);
+            cardPrefab.GetComponent<CardController>().card = card;
+            cardsInDeck.Add(cardPrefab);
+        }
+        Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
     }
 
     /// <summary>
@@ -35,7 +70,7 @@ class PlayerCardManager: MonoBehaviour
             int index = cardsInDeck.Count - 1;
             cardsInHand.Add(cardsInDeck[index]);
             cardsInDeck.RemoveAt(index);
-            Debug.Log("Player drew card: " + cardsInHand[^1].cardName);
+            Debug.Log("Player drew card: " + GetController(cardsInHand[^1]).card.cardName);
         }
     }
 
@@ -51,7 +86,7 @@ class PlayerCardManager: MonoBehaviour
         {
             selectedCards.Add(cardsInHand[cardInHandIndex]);
             cardsInHand.RemoveAt(cardInHandIndex);
-            Debug.Log("Player selected card from hand: " + selectedCards[^1].cardName);
+            Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
         else
         {
@@ -69,7 +104,7 @@ class PlayerCardManager: MonoBehaviour
 
         for(int i = 0; i < selectedCards.Count; i++)
         {
-            selectedCards[i].ApplyEffect(player);
+            GetController(selectedCards[i]).card.ApplyEffect(player);
         }
         Debug.Log("Activated all selected cards");
     }
@@ -84,7 +119,7 @@ class PlayerCardManager: MonoBehaviour
 
         for(int i = 0; i < selectedCards.Count; i++)
         {
-            selectedCards[i].ResetEffect(player);
+            GetController(selectedCards[i]).card.ResetEffect(player);
         }
         Debug.Log("Deactivated all selected cards");
     }
@@ -98,5 +133,10 @@ class PlayerCardManager: MonoBehaviour
     {
         cardsInHand.Clear();
         Debug.Log("Discarding all cards in hand");
+    }
+
+    private CardController GetController(GameObject obj)
+    {
+        return obj.GetComponent<CardController>();
     }
 }
