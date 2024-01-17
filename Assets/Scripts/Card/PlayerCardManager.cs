@@ -54,7 +54,9 @@ class PlayerCardManager: MonoBehaviour
             var card = new MovementSpeedCard("Speed x" + i, 1, i);
             var spawnLocation = new Vector3(lastXLocation.Value, playerHand.position.y, 0);
             var cardPrefab = Instantiate(this.cardPrefab, spawnLocation, Quaternion.identity);
-            cardPrefab.GetComponent<CardController>().card = card;
+            var controller = cardPrefab.GetComponent<CardController>();
+            controller.card = card;
+            controller.SetSortOrder(-i);
             cardsInDeck.Add(cardPrefab);
         }
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");

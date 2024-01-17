@@ -9,7 +9,10 @@ using UnityEngine;
 public class CardController : MonoBehaviour
 {
     public Card card;
-    public TextMeshPro title;
+    public TextMeshProUGUI title;
+    public Canvas canvas;
+    public SpriteRenderer frontRenderer;
+    public SpriteRenderer backRenderer;
 
     void Start()
     {
@@ -19,5 +22,12 @@ public class CardController : MonoBehaviour
     private void InitializeTitle()
     {
         title.text = card.cardName;
+    }
+
+    public void SetSortOrder(int order)
+    {
+        frontRenderer.sortingOrder = order;
+        backRenderer.sortingOrder = order;
+        canvas.sortingOrder = order;
     }
 }
