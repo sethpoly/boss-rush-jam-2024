@@ -12,9 +12,21 @@ public class CardController : MonoBehaviour
     public SpriteRenderer frontRenderer;
     public SpriteRenderer backRenderer;
 
+    Ray ray;    
+    RaycastHit2D hit;
+
     void Start()
     {
-        //InitializeTitle();
+        InitializeTitle();
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        OnHover(ray, hit); 
     }
 
     private void InitializeTitle()
@@ -32,6 +44,19 @@ public class CardController : MonoBehaviour
         backRenderer.sortingOrder = order;
         canvas.sortingOrder = order;
     }
+
+    public void OnHover(Ray ray, RaycastHit2D hit)
+    {
+        // hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+        // if(hit.collider == GetComponent<Collider2D>())
+        // {
+        //     frontRenderer.color = Color.green;
+        // }         
+        // else
+        // {
+        //     frontRenderer.color = Color.white;
+        // }
+    }   
 
     void OnMouseEnter()
     {

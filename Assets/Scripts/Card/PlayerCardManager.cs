@@ -41,7 +41,7 @@ class PlayerCardManager: MonoBehaviour
     {
         cardsInDeck.Clear();
         float? lastXLocation = null;
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 5; i++)
         {
             if(lastXLocation == null)
             {
@@ -49,7 +49,7 @@ class PlayerCardManager: MonoBehaviour
             } 
             else 
             {
-                lastXLocation -= -.6f;
+                lastXLocation -= -1.5f;
             }
             var card = new MovementSpeedCard("Speed x" + i, 1, i);
             var spawnLocation = new Vector3(lastXLocation.Value, playerHand.position.y, 0);
