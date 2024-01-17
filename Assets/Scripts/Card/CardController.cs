@@ -33,18 +33,12 @@ public class CardController : MonoBehaviour
         canvas.sortingOrder = order;
     }
 
-    /// <summary>
-    /// Called every frame while the mouse is over the GUIElement or Collider.
-    /// </summary>
-    void OnMouseOver()
+    void OnMouseEnter()
     {
         Debug.Log("Mouse over" + card.cardName);
         frontRenderer.color = Color.green;
     }
 
-    /// <summary>
-    /// Called when the mouse is not any longer over the GUIElement or Collider.
-    /// </summary>
     void OnMouseExit()
     {
         Debug.Log("Mouse exit" + card.cardName);
