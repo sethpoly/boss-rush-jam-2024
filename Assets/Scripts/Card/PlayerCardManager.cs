@@ -56,7 +56,7 @@ class PlayerCardManager: MonoBehaviour
             var cardPrefab = Instantiate(this.cardPrefab, spawnLocation, Quaternion.identity);
             var controller = cardPrefab.GetComponent<CardController>();
             controller.card = card;
-            controller.SetSortOrder(-i);
+            controller.SetSortOrder( i % 10);
             cardsInDeck.Add(cardPrefab);
         }
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
