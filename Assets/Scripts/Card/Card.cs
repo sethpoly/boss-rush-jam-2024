@@ -1,6 +1,7 @@
 [System.Serializable]
 public class Card 
 {
+    public string id = System.Guid.NewGuid().ToString();
     public string cardName = "Card";
     public int cardCost = 0;
     public bool isActive = false;

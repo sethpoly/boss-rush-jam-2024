@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
@@ -13,8 +14,7 @@ public class CardController : MonoBehaviour
     public Canvas canvas;
     public SpriteRenderer frontRenderer;
     public SpriteRenderer backRenderer;
-    public float speed = 2f;
-
+    public event Action<string> MouseClickOccuredOnCardWithId;
     private Vector2 startingPosition;
 
     void Start()
@@ -39,25 +39,31 @@ public class CardController : MonoBehaviour
         canvas.sortingOrder = order;
     }
 
+    void OnMouseDown()
+    {
+        Debug.Log("Player clicked " + card.cardName);
+        MouseClickOccuredOnCardWithId.Invoke(card.id);
+    }
+
     void OnMouseEnter()
     {
         frontRenderer.color = Color.green;
-        MoveCardUp();
+        MoveCardUpAnimation();
     }
 
     void OnMouseExit()
     {
         frontRenderer.color = Color.white;
-        MoveCardDown();
+        MoveCardDownAnimation();
     }
 
-    private void MoveCardUp()
+    private void MoveCardUpAnimation()
     {
         var yOffset = startingPosition.y + .5f;
         iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));    
     }
 
-    private void MoveCardDown()
+    private void MoveCardDownAnimation()
     {
         var yOffset = startingPosition.y;
         iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 class PlayerCardManager: MonoBehaviour
@@ -57,6 +58,7 @@ class PlayerCardManager: MonoBehaviour
             var controller = cardPrefab.GetComponent<CardController>();
             controller.card = card;
             controller.SetSortOrder( i % 10);
+            controller.MouseClickOccuredOnCardWithId += OnCardMouseClick;
             cardsInDeck.Add(cardPrefab);
         }
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
@@ -82,17 +84,18 @@ class PlayerCardManager: MonoBehaviour
     /// This card will be removed from the cardsInHand list.
     /// </summary>
     /// <param name="cardInHandIndex"></param>
-    public void SelectCard(int cardInHandIndex)
+    public void SelectCard(string cardId)
     {
-        if(cardsInHand.Count - 1 >= cardInHandIndex)
+        int existingCardIndex = cardsInHand.FindIndex(card => card.GetComponent<CardController>().card.id == cardId);
+        if (existingCardIndex != -1)
         {
-            selectedCards.Add(cardsInHand[cardInHandIndex]);
-            cardsInHand.RemoveAt(cardInHandIndex);
+            selectedCards.Add(cardsInHand[existingCardIndex]);
+            cardsInHand.RemoveAt(existingCardIndex);
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
         else
         {
-            Debug.LogError("Card with index: " + cardInHandIndex + " does not exist in cardsinHand list");
+            Debug.LogError("Card with index: " + existingCardIndex + " does not exist in cardsinHand list");
         }
     }
 
@@ -140,5 +143,10 @@ class PlayerCardManager: MonoBehaviour
     private CardController GetController(GameObject obj)
     {
         return obj.GetComponent<CardController>();
+    }
+
+    private void OnCardMouseClick(string cardIndex) 
+    {
+        SelectCard(cardIndex);
     }
 }
