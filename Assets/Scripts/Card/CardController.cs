@@ -15,9 +15,12 @@ public class CardController : MonoBehaviour
     public SpriteRenderer backRenderer;
     public float speed = 2f;
 
+    private Vector2 startingPosition;
+
     void Start()
     {
         InitializeTitle();
+        startingPosition = transform.position;
     }
 
     private void InitializeTitle()
@@ -39,15 +42,24 @@ public class CardController : MonoBehaviour
     void OnMouseEnter()
     {
         frontRenderer.color = Color.green;
+        MoveCardUp();
     }
 
     void OnMouseExit()
     {
         frontRenderer.color = Color.white;
+        MoveCardDown();
+    }
+
+    private void MoveCardUp()
+    {
+        var yOffset = startingPosition.y + .5f;
+        iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));    
     }
 
     private void MoveCardDown()
     {
-
+        var yOffset = startingPosition.y;
+        iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));
     }
 }
