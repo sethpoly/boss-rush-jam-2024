@@ -48,3 +48,6 @@ TagManager:
   - name: Card
     uniqueID: 2677221847
     locked: 0
+  - name: CardText
+    uniqueID: 2292345743
+    locked: 0

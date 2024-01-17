@@ -754,7 +754,7 @@ MonoBehaviour:
   selectedCards: []
   cardsInHand: []
   player: {fileID: 71351518}
-  cardPrefab: {fileID: 5626729128807601289, guid: 039cc63ed0aaa4adeb79a3d8466d659b, type: 3}
+  cardPrefab: {fileID: 5626729128807601289, guid: 2d4b7fa34f87a4ca7a33337df9a03d17, type: 3}
   playerHand: {fileID: 47562932}
 --- !u!4 &1105022658
 Transform:
