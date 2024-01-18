@@ -58,7 +58,6 @@ public class PlayerGun : MonoBehaviour
 
     private void Shoot()
     {
-        Debug.Log("Shooting...");
         GameObject.Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, 0f), transform.rotation);
     }
 }

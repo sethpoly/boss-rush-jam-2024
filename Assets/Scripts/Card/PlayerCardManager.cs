@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 class PlayerCardManager: MonoBehaviour
@@ -11,6 +13,7 @@ class PlayerCardManager: MonoBehaviour
     public Player player;
     public GameObject cardPrefab;
     public Transform playerHand;
+    public GameObject deck;
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -40,23 +43,13 @@ class PlayerCardManager: MonoBehaviour
     private void ResetAndCreateDeck()
     {
         cardsInDeck.Clear();
-        float? lastXLocation = null;
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 5; i++)
         {
-            if(lastXLocation == null)
-            {
-                lastXLocation = playerHand.position.x - 4f;
-            } 
-            else 
-            {
-                lastXLocation -= -.6f;
-            }
             var card = new MovementSpeedCard("Speed x" + i, 1, i);
-            var spawnLocation = new Vector3(lastXLocation.Value, playerHand.position.y, 0);
-            var cardPrefab = Instantiate(this.cardPrefab, spawnLocation, Quaternion.identity);
+            var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity);
             var controller = cardPrefab.GetComponent<CardController>();
             controller.card = card;
-            controller.SetSortOrder(-i);
+            controller.MouseClickOccuredOnCardWithId += OnCardMouseClick;
             cardsInDeck.Add(cardPrefab);
         }
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
@@ -70,6 +63,16 @@ class PlayerCardManager: MonoBehaviour
         if (cardsInDeck.Count > 0) 
         {
             int index = cardsInDeck.Count - 1;
+
+            // Draw animation
+            float xOffset = 1.5f; // Adjust this value to control the spacing
+            float y = playerHand.position.y;
+            float x = playerHand.position.x - 4f + (cardsInHand.Count + 1) * xOffset;
+            
+            iTween.MoveTo(cardsInDeck[index], iTween.Hash("y", y, "x", x, "time", 1, "islocal", true));  
+
+            var controller = cardsInDeck[index].GetComponent<CardController>();
+            controller.SetSortOrder( cardsInHand.Count + 1 % 10);
             cardsInHand.Add(cardsInDeck[index]);
             cardsInDeck.RemoveAt(index);
             Debug.Log("Player drew card: " + GetController(cardsInHand[^1]).card.cardName);
@@ -82,17 +85,18 @@ class PlayerCardManager: MonoBehaviour
     /// This card will be removed from the cardsInHand list.
     /// </summary>
     /// <param name="cardInHandIndex"></param>
-    public void SelectCard(int cardInHandIndex)
+    public void SelectCard(string cardId)
     {
-        if(cardsInHand.Count - 1 >= cardInHandIndex)
+        int existingCardIndex = cardsInHand.FindIndex(card => card.GetComponent<CardController>().card.id == cardId);
+        if (existingCardIndex != -1)
         {
-            selectedCards.Add(cardsInHand[cardInHandIndex]);
-            cardsInHand.RemoveAt(cardInHandIndex);
+            selectedCards.Add(cardsInHand[existingCardIndex]);
+            cardsInHand.RemoveAt(existingCardIndex);
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
         else
         {
-            Debug.LogError("Card with index: " + cardInHandIndex + " does not exist in cardsinHand list");
+            Debug.LogError("Card with index: " + existingCardIndex + " does not exist in cardsinHand list");
         }
     }
 
@@ -140,5 +144,10 @@ class PlayerCardManager: MonoBehaviour
     private CardController GetController(GameObject obj)
     {
         return obj.GetComponent<CardController>();
+    }
+
+    private void OnCardMouseClick(string cardIndex) 
+    {
+        SelectCard(cardIndex);
     }
 }

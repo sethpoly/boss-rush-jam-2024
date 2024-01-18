@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -13,10 +14,13 @@ public class CardController : MonoBehaviour
     public Canvas canvas;
     public SpriteRenderer frontRenderer;
     public SpriteRenderer backRenderer;
+    public event Action<string> MouseClickOccuredOnCardWithId;
+    private Vector2 startingPosition;
 
     void Start()
     {
         InitializeTitle();
+        startingPosition = transform.position;
     }
 
     private void InitializeTitle()
@@ -24,10 +28,44 @@ public class CardController : MonoBehaviour
         title.text = card.cardName;
     }
 
+    /// <summary>
+    /// Set the sort order of this card so text doesnt overlap
+    /// </summary>
+    /// <param name="order"></param>
     public void SetSortOrder(int order)
     {
         frontRenderer.sortingOrder = order;
         backRenderer.sortingOrder = order;
         canvas.sortingOrder = order;
+    }
+
+    void OnMouseDown()
+    {
+        Debug.Log("Player clicked " + card.cardName);
+        MouseClickOccuredOnCardWithId.Invoke(card.id);
+    }
+
+    void OnMouseEnter()
+    {
+        frontRenderer.color = Color.green;
+        MoveCardUpAnimation();
+    }
+
+    void OnMouseExit()
+    {
+        frontRenderer.color = Color.white;
+        MoveCardDownAnimation();
+    }
+
+    private void MoveCardUpAnimation()
+    {
+        var yOffset = startingPosition.y + .5f;
+        iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));    
+    }
+
+    private void MoveCardDownAnimation()
+    {
+        var yOffset = startingPosition.y;
+        iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));
     }
 }

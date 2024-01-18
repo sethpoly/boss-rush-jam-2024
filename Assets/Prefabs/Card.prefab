@@ -196,6 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5626729128807601295}
   - component: {fileID: 3108219304807254497}
+  - component: {fileID: 5994416876448180814}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -240,6 +241,32 @@ MonoBehaviour:
   canvas: {fileID: 8737430172709227936}
   frontRenderer: {fileID: 3668463986939326840}
   backRenderer: {fileID: 8827137051875250251}
+--- !u!61 &5994416876448180814
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5626729128807601289}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08145094, y: 0.36653042}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.864485, y: 9.796726}
+  m_EdgeRadius: 0
 --- !u!1 &7662355816585208511
 GameObject:
   m_ObjectHideFlags: 0
