@@ -65,9 +65,9 @@ class PlayerCardManager: MonoBehaviour
             int index = cardsInDeck.Count - 1;
 
             // Draw animation
-            float xOffset = 1.5f; // Adjust this value to control the spacing
+            float xOffset = 1f; // Adjust this value to control the spacing
             float y = playerHand.position.y;
-            float x = playerHand.position.x - 4f + (cardsInHand.Count + 1) * xOffset;
+            float x = playerHand.position.x - 2f + (cardsInHand.Count + 1) * xOffset;
             
             iTween.MoveTo(cardsInDeck[index], iTween.Hash("y", y, "x", x, "time", 1, "islocal", true));  
 

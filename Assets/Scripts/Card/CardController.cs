@@ -20,7 +20,7 @@ public class CardController : MonoBehaviour
     void Start()
     {
         InitializeTitle();
-        startingPosition = transform.position;
+        SetStartingPosition(new Vector2(transform.position.x, -4.5f));
     }
 
     private void InitializeTitle()
@@ -37,6 +37,11 @@ public class CardController : MonoBehaviour
         frontRenderer.sortingOrder = order;
         backRenderer.sortingOrder = order;
         canvas.sortingOrder = order;
+    }
+
+    private void SetStartingPosition(Vector2 startingPosition)
+    {
+        this.startingPosition = startingPosition;
     }
 
     void OnMouseDown()
