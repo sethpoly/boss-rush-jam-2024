@@ -14,6 +14,7 @@ class PlayerCardManager: MonoBehaviour
     public GameObject cardPrefab;
     public Transform playerHand;
     public GameObject deck;
+    public GameObject cardSelectionContainer;
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -49,7 +50,7 @@ class PlayerCardManager: MonoBehaviour
             var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity);
             var controller = cardPrefab.GetComponent<CardController>();
             controller.card = card;
-            controller.MouseClickOccuredOnCardWithId += OnCardMouseClick;
+            controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
             cardsInDeck.Add(cardPrefab);
         }
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
@@ -73,6 +74,7 @@ class PlayerCardManager: MonoBehaviour
 
             var controller = cardsInDeck[index].GetComponent<CardController>();
             controller.SetSortOrder( cardsInHand.Count + 1 % 10);
+            controller.SetCardState(CardState.drawn);
             cardsInHand.Add(cardsInDeck[index]);
             cardsInDeck.RemoveAt(index);
             Debug.Log("Player drew card: " + GetController(cardsInHand[^1]).card.cardName);
@@ -92,6 +94,26 @@ class PlayerCardManager: MonoBehaviour
         {
             selectedCards.Add(cardsInHand[existingCardIndex]);
             cardsInHand.RemoveAt(existingCardIndex);
+            var controller = selectedCards.Last().GetComponent<CardController>();
+            controller.SetCardState(CardState.selected);
+
+            // TODO: 
+            //  Enable "Selected" state of CardController
+            //  "Selected" state shows the name of card when it hovers
+            //  "Selected" state allows deselection as well which reverses this process
+
+            // Tween scale
+            Vector3 desiredSize = new(.1f, .1f, .1f);
+            float time = 1f;           
+            iTween.ScaleTo(selectedCards.Last(), desiredSize, time);
+
+            // Tween card location
+            float offset = .75f;
+            Vector2 position = new(cardSelectionContainer.transform.position.x + (selectedCards.Count - 1)  * offset, cardSelectionContainer.transform.position.y);
+            iTween.MoveTo(selectedCards.Last(), position, time);
+
+            controller.MouseClickOccuredOnSelectedCardWithId += OnSelectedCardClicked;
+            
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
         else
@@ -99,6 +121,9 @@ class PlayerCardManager: MonoBehaviour
             Debug.LogError("Card with index: " + existingCardIndex + " does not exist in cardsinHand list");
         }
     }
+
+    private void DeselectCard(string cardId)
+    {}
 
     public void ActivateAllSelectedCards()
     {
@@ -146,8 +171,13 @@ class PlayerCardManager: MonoBehaviour
         return obj.GetComponent<CardController>();
     }
 
-    private void OnCardMouseClick(string cardIndex) 
+    private void OnDrawnCardClicked(string cardIndex) 
     {
         SelectCard(cardIndex);
+    }
+
+    private void OnSelectedCardClicked(string cardIndex)
+    {
+        DeselectCard(cardIndex);
     }
 }
