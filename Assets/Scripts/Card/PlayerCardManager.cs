@@ -123,7 +123,34 @@ class PlayerCardManager: MonoBehaviour
     }
 
     private void DeselectCard(string cardId)
-    {}
+    {
+        int existingCardIndex = selectedCards.FindIndex(card => card.GetComponent<CardController>().card.id == cardId);
+        if (existingCardIndex != -1)
+        {
+            cardsInHand.Add(selectedCards[existingCardIndex]);
+            selectedCards.RemoveAt(existingCardIndex);
+            var controller = cardsInHand.Last().GetComponent<CardController>();
+            controller.SetCardState(CardState.drawn);
+
+            // Tween scale
+            Vector3 desiredSize = new(.15f, .15f, .15f);
+            float time = 1f;           
+            iTween.ScaleTo(cardsInHand.Last(), desiredSize, time);
+
+            // Tween card location
+            float xOffset = 1f; 
+            float y = playerHand.position.y;
+            float x = playerHand.position.x - 2f + cardsInHand.Count * xOffset;
+            
+            iTween.MoveTo(cardsInHand.Last(), iTween.Hash("y", y, "x", x, "time", 1, "islocal", true));
+            
+            Debug.Log("Player deselected card: " + GetController(selectedCards[^1]).card.cardName);
+        }
+        else
+        {
+            Debug.LogError("Card with index: " + existingCardIndex + " does not exist in selectedCards list");
+        }
+    }
 
     public void ActivateAllSelectedCards()
     {
