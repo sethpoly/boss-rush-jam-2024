@@ -78,6 +78,16 @@ public class CardController : MonoBehaviour
         MoveCardDownAnimation();
     }
 
+    public void OnDidFinishRefreshing()
+    {
+        cardState = CardState.drawn;
+    }
+
+    public void DidStartRefreshing()
+    {
+        cardState = CardState.refreshing;
+    }
+
     private void MoveCardUpAnimation()
     {
         if(cardState != CardState.drawn) return;

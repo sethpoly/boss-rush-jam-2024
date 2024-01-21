@@ -3,6 +3,6 @@ public enum CardState
     decked,
     drawn,
     selected,
-    active
-
+    active,
+    refreshing,
 }

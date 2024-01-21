@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 class PlayerCardManager: MonoBehaviour
 {
@@ -16,10 +17,12 @@ class PlayerCardManager: MonoBehaviour
     public GameObject deck;
     public GameObject cardSelectionContainer;
 
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
+    // Positions where cards in hand can go
+    public Transform cardSlotLeft;
+    public Transform cardSlotLeftMiddle;
+    public Transform cardSlotRightMiddle;
+    public Transform cardSlotRight;
+
     void Start()
     {
         StartNewRound();
@@ -65,12 +68,13 @@ class PlayerCardManager: MonoBehaviour
         {
             int index = cardsInDeck.Count - 1;
 
+            Transform newPosition = PositionForNextDrawnCard(cardsInHand.Count);
             // Draw animation
-            float xOffset = 1f; // Adjust this value to control the spacing
-            float y = playerHand.position.y;
-            float x = playerHand.position.x - 2f + (cardsInHand.Count + 1) * xOffset;
+            // float xOffset = 1f; // Adjust this value to control the spacing
+            // float y = playerHand.position.y;
+            // float x = playerHand.position.x - 2f + (cardsInHand.Count + 1) * xOffset;
             
-            iTween.MoveTo(cardsInDeck[index], iTween.Hash("y", y, "x", x, "time", 1, "islocal", true));  
+            iTween.MoveTo(cardsInDeck[index], iTween.Hash("y", newPosition.position.y, "x", newPosition.position.x, "time", 1, "islocal", true));  
 
             var controller = cardsInDeck[index].GetComponent<CardController>();
             controller.SetSortOrder( cardsInHand.Count + 1 % 10);
@@ -113,6 +117,7 @@ class PlayerCardManager: MonoBehaviour
             iTween.MoveTo(selectedCards.Last(), position, time);
 
             controller.MouseClickOccuredOnSelectedCardWithId += OnSelectedCardClicked;
+            RefreshCardsInHandPositions(existingCardIndex);
             
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
@@ -191,6 +196,31 @@ class PlayerCardManager: MonoBehaviour
     {
         cardsInHand.Clear();
         Debug.Log("Discarding all cards in hand");
+    }
+
+    private Transform PositionForNextDrawnCard(int cardsInHandCount)
+    {
+        return cardsInHandCount switch
+        {
+            0 => cardSlotLeft,
+            1 => cardSlotLeftMiddle,
+            2 => cardSlotRightMiddle,
+            3 => cardSlotRight,
+            _ => null,
+        };
+    }
+
+    private void RefreshCardsInHandPositions(int cardInHandIndexRemoved)
+    {
+        if(cardInHandIndexRemoved >= 3) return; // Max cards is 4
+        int startCardIndex = cardInHandIndexRemoved++;
+        for(int i = startCardIndex; i < 4; i++)
+        {
+            Transform blankPosition = PositionForNextDrawnCard(i);
+            GameObject cardToMove = cardsInHand[i];
+            cardToMove.GetComponent<CardController>().DidStartRefreshing();
+            iTween.MoveTo(cardToMove, iTween.Hash("y", blankPosition.position.y, "x", blankPosition.position.x, "time", 1, "islocal", true, "onComplete", "OnDidFinishRefreshing"));  
+        }
     }
 
     private CardController GetController(GameObject obj)
