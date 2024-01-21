@@ -69,11 +69,6 @@ class PlayerCardManager: MonoBehaviour
             int index = cardsInDeck.Count - 1;
 
             Transform newPosition = PositionForNextDrawnCard(cardsInHand.Count);
-            // Draw animation
-            // float xOffset = 1f; // Adjust this value to control the spacing
-            // float y = playerHand.position.y;
-            // float x = playerHand.position.x - 2f + (cardsInHand.Count + 1) * xOffset;
-            
             iTween.MoveTo(cardsInDeck[index], iTween.Hash("y", newPosition.position.y, "x", newPosition.position.x, "time", 1, "islocal", true));  
 
             var controller = cardsInDeck[index].GetComponent<CardController>();
@@ -132,24 +127,29 @@ class PlayerCardManager: MonoBehaviour
         int existingCardIndex = selectedCards.FindIndex(card => card.GetComponent<CardController>().card.id == cardId);
         if (existingCardIndex != -1)
         {
-            cardsInHand.Add(selectedCards[existingCardIndex]);
-            selectedCards.RemoveAt(existingCardIndex);
-            var controller = cardsInHand.Last().GetComponent<CardController>();
-            controller.SetCardState(CardState.drawn);
-
             // Tween scale
             Vector3 desiredSize = new(.15f, .15f, .15f);
             float time = 1f;           
-            iTween.ScaleTo(cardsInHand.Last(), desiredSize, time);
+            iTween.ScaleTo(selectedCards[existingCardIndex], desiredSize, time);
+
+            var pos = PositionForNextDrawnCard(cardsInHand.Count);
+            Debug.Log("MOVING TO POS = " + pos);
+            iTween.MoveTo(selectedCards[existingCardIndex], iTween.Hash("y", pos.position.y, "x", pos.position.x, "time", 1, "islocal", true, "onComplete", "OnDidFinishRefreshing"));
+
 
             // Tween card location
-            float xOffset = 1f; 
-            float y = playerHand.position.y;
-            float x = playerHand.position.x - 2f + cardsInHand.Count * xOffset;
+            // float xOffset = 1f; 
+            // float y = playerHand.position.y;
+            // float x = playerHand.position.x - 2f + cardsInHand.Count * xOffset;
             
-            iTween.MoveTo(cardsInHand.Last(), iTween.Hash("y", y, "x", x, "time", 1, "islocal", true));
-            
-            Debug.Log("Player deselected card: " + GetController(selectedCards[^1]).card.cardName);
+            // iTween.MoveTo(cardsInHand.Last(), iTween.Hash("y", y, "x", x, "time", 1, "islocal", true));
+
+            var controller = selectedCards[existingCardIndex].GetComponent<CardController>();
+            controller.SetSortOrder(cardsInHand.Count + 1 % 10);
+            //controller.SetCardState(CardState.drawn);
+            cardsInHand.Add(selectedCards[existingCardIndex]);
+            selectedCards.RemoveAt(existingCardIndex);
+            Debug.Log("Player deselected card: " + GetController(cardsInHand[^1]).card.cardName);
         }
         else
         {
@@ -210,6 +210,10 @@ class PlayerCardManager: MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// Move cards over in hand once a card leaves the hand
+    /// </summary>
+    /// <param name="cardInHandIndexRemoved"></param>
     private void RefreshCardsInHandPositions(int cardInHandIndexRemoved)
     {
         if(cardInHandIndexRemoved >= 3) return; // Max cards is 4
