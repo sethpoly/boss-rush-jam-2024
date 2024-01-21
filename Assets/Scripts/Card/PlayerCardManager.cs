@@ -216,6 +216,8 @@ class PlayerCardManager: MonoBehaviour
         int startCardIndex = cardInHandIndexRemoved++;
         for(int i = startCardIndex; i < 4; i++)
         {
+            if(i >= cardsInHand.Count) continue;
+
             Transform blankPosition = PositionForNextDrawnCard(i);
             GameObject cardToMove = cardsInHand[i];
             cardToMove.GetComponent<CardController>().DidStartRefreshing();
