@@ -96,11 +96,6 @@ class PlayerCardManager: MonoBehaviour
             var controller = selectedCards.Last().GetComponent<CardController>();
             controller.SetCardState(CardState.selected);
 
-            // TODO: 
-            //  Enable "Selected" state of CardController
-            //  "Selected" state shows the name of card when it hovers
-            //  "Selected" state allows deselection as well which reverses this process
-
             // Tween scale
             Vector3 desiredSize = new(.1f, .1f, .1f);
             float time = 1f;           
@@ -136,17 +131,8 @@ class PlayerCardManager: MonoBehaviour
             Debug.Log("MOVING TO POS = " + pos);
             iTween.MoveTo(selectedCards[existingCardIndex], iTween.Hash("y", pos.position.y, "x", pos.position.x, "time", 1, "islocal", true, "onComplete", "OnDidFinishRefreshing"));
 
-
-            // Tween card location
-            // float xOffset = 1f; 
-            // float y = playerHand.position.y;
-            // float x = playerHand.position.x - 2f + cardsInHand.Count * xOffset;
-            
-            // iTween.MoveTo(cardsInHand.Last(), iTween.Hash("y", y, "x", x, "time", 1, "islocal", true));
-
             var controller = selectedCards[existingCardIndex].GetComponent<CardController>();
             controller.SetSortOrder(cardsInHand.Count + 1 % 10);
-            //controller.SetCardState(CardState.drawn);
             cardsInHand.Add(selectedCards[existingCardIndex]);
             selectedCards.RemoveAt(existingCardIndex);
             Debug.Log("Player deselected card: " + GetController(cardsInHand[^1]).card.cardName);
