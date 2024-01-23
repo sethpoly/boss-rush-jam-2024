@@ -10,7 +10,8 @@ using UnityEngine;
 public class CardController : MonoBehaviour
 {
     public Card card;
-    public TextMeshProUGUI title;
+    public TextMeshProUGUI titleLabel;
+    public TextMeshProUGUI energyLabel;
     public Canvas canvas;
     public SpriteRenderer frontRenderer;
     public SpriteRenderer backRenderer;
@@ -28,7 +29,8 @@ public class CardController : MonoBehaviour
 
     private void InitializeTitle()
     {
-        title.text = card.cardName;
+        titleLabel.text = card.cardName;
+        energyLabel.text = card.cardCost.ToString();
     }
 
     /// <summary>
