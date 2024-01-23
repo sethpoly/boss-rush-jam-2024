@@ -912,6 +912,7 @@ MonoBehaviour:
   cardSlotLeftMiddle: {fileID: 1360643494}
   cardSlotRightMiddle: {fileID: 1845905031}
   cardSlotRight: {fileID: 1737874372}
+  energyController: {fileID: 1379121976}
 --- !u!4 &1105022658
 Transform:
   m_ObjectHideFlags: 0

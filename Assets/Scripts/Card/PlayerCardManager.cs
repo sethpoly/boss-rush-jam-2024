@@ -23,6 +23,9 @@ class PlayerCardManager: MonoBehaviour
     public Transform cardSlotRightMiddle;
     public Transform cardSlotRight;
 
+    // Player energy reference
+    public EnergyController energyController;
+
     void Start()
     {
         StartNewRound();
@@ -108,6 +111,9 @@ class PlayerCardManager: MonoBehaviour
 
             controller.MouseClickOccuredOnSelectedCardWithId += OnSelectedCardClicked;
             RefreshCardsInHandPositions(existingCardIndex);
+
+            // Use energy
+            energyController.UseEnergy(amount: controller.card.cardCost);
             
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
@@ -135,6 +141,10 @@ class PlayerCardManager: MonoBehaviour
             controller.SetSortOrder(cardsInHand.Count + 1 % 10);
             cardsInHand.Add(selectedCards[existingCardIndex]);
             selectedCards.RemoveAt(existingCardIndex);
+
+            // Replace energy
+            energyController.ReplaceEnergy(amount: controller.card.cardCost);
+
             Debug.Log("Player deselected card: " + GetController(cardsInHand[^1]).card.cardName);
         }
         else
