@@ -21,8 +21,9 @@ public class CardController : MonoBehaviour
 
     void Start()
     {
+        GameObject hand = GameObject.FindGameObjectWithTag("hand");
         InitializeTitle();
-        SetStartingPosition(new Vector2(transform.position.x, -4.5f));
+        SetStartingPosition(new Vector2(transform.position.x, hand.transform.position.y));
     }
 
     private void InitializeTitle()
