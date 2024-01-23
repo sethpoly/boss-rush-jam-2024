@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494342425822658751}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 0.33, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4235499511200250782}
@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: -1617745449
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 504ae1b9865714c5d98257065afff179, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8299b7f0a778248d1b5c84b8c5ad2bb5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.86, y: 9.76}
+  m_Size: {x: 10.71, y: 16.07}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -242,6 +242,7 @@ MonoBehaviour:
   canvas: {fileID: 8737430172709227936}
   frontRenderer: {fileID: 3668463986939326840}
   backRenderer: {fileID: 8827137051875250251}
+  cardState: 0
 --- !u!61 &5994416876448180814
 BoxCollider2D:
   m_ObjectHideFlags: 0
