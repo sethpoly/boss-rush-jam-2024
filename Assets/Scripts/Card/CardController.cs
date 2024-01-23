@@ -10,7 +10,8 @@ using UnityEngine;
 public class CardController : MonoBehaviour
 {
     public Card card;
-    public TextMeshProUGUI title;
+    public TextMeshProUGUI titleLabel;
+    public TextMeshProUGUI energyLabel;
     public Canvas canvas;
     public SpriteRenderer frontRenderer;
     public SpriteRenderer backRenderer;
@@ -21,13 +22,15 @@ public class CardController : MonoBehaviour
 
     void Start()
     {
+        GameObject hand = GameObject.FindGameObjectWithTag("hand");
         InitializeTitle();
-        SetStartingPosition(new Vector2(transform.position.x, -4.5f));
+        SetStartingPosition(new Vector2(transform.position.x, hand.transform.position.y));
     }
 
     private void InitializeTitle()
     {
-        title.text = card.cardName;
+        titleLabel.text = card.cardName;
+        energyLabel.text = card.cardCost.ToString();
     }
 
     /// <summary>
