@@ -10,6 +10,7 @@ using UnityEngine;
 public class CardController : MonoBehaviour
 {
     public Card card;
+    public Color hoverColor;
     public TextMeshProUGUI titleLabel;
     public TextMeshProUGUI energyLabel;
     public Canvas canvas;
@@ -71,7 +72,7 @@ public class CardController : MonoBehaviour
 
     void OnMouseEnter()
     {
-        frontRenderer.color = Color.green;
+        frontRenderer.color = hoverColor;
         MoveCardUpAnimation();
     }
 
