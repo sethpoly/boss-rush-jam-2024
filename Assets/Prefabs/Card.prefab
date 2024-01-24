@@ -239,6 +239,7 @@ MonoBehaviour:
     cardName: 
     cardCost: 0
     isActive: 0
+  hoverColor: {r: 1, g: 0.827451, b: 0.8352941, a: 1}
   titleLabel: {fileID: 8749480896860539626}
   energyLabel: {fileID: 869041090833582428}
   canvas: {fileID: 8737430172709227936}
