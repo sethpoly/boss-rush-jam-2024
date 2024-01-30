@@ -9,6 +9,7 @@ public class MovementSpeedCard: Card
     
     public override void ApplyEffect(Player player)
     {
+        if(isActive) return;
         base.ApplyEffect(player);
 
         // Apply movement speed increase to the player
@@ -17,6 +18,7 @@ public class MovementSpeedCard: Card
 
     public override void ResetEffect(Player player)
     {
+        if(!isActive) return;
         base.ResetEffect(player);
         player.ResetMovementSpeed();
     }
