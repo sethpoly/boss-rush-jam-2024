@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-class PlayerCardManager: MonoBehaviour
+class DraftPhaseManager: MonoBehaviour
 {
     public int drawCount = 4;
     public List<GameObject> cardsInDeck;

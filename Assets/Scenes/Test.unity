@@ -1918,6 +1918,7 @@ MonoBehaviour:
   cardSlotRight: {fileID: 1737874372}
   energyController: {fileID: 1379121976}
   levelLoader: {fileID: 1992979321}
+  battlePhaseManager: {fileID: 387805569}
 --- !u!4 &1105022658
 Transform:
   m_ObjectHideFlags: 0
