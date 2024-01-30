@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-class PlayerCardManager: MonoBehaviour
+class DraftPhaseManager: MonoBehaviour
 {
     public int drawCount = 4;
     public List<GameObject> cardsInDeck;
@@ -23,11 +23,10 @@ class PlayerCardManager: MonoBehaviour
     public Transform cardSlotRightMiddle;
     public Transform cardSlotRight;
 
-    // Player energy reference
     public EnergyController energyController;
-
-    // Level loader reference
     public LevelLoader levelLoader;
+    public BattlePhaseManager battlePhaseManager;
+
 
     void Start()
     {
@@ -56,7 +55,7 @@ class PlayerCardManager: MonoBehaviour
         for(int i = 0; i < 5; i++)
         {
             var card = new MovementSpeedCard("Speed x" + i, 1, i);
-            var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity);
+            var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
             var controller = cardPrefab.GetComponent<CardController>();
             controller.card = card;
             controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
