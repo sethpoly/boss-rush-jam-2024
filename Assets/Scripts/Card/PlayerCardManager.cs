@@ -206,7 +206,7 @@ class PlayerCardManager: MonoBehaviour
         levelLoader.LoadNextPhase();
 
         // Activate player selected cards
-        Debug.LogError("TODO: Activate selected cards");
+        ActivateAllSelectedCards();
     }
 
     private Transform PositionForNextDrawnCard(int cardsInHandCount)
