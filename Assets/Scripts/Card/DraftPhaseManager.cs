@@ -55,7 +55,7 @@ class DraftPhaseManager: MonoBehaviour
         for(int i = 0; i < 5; i++)
         {
             var card = new MovementSpeedCard("Speed x" + i, 1, i);
-            var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity);
+            var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
             var controller = cardPrefab.GetComponent<CardController>();
             controller.card = card;
             controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
