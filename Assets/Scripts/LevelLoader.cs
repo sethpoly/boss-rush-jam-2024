@@ -9,14 +9,6 @@ public class LevelLoader : MonoBehaviour
     public GameObject currentPhase;
     public GameObject nextPhase;
 
-    void Update()
-    {
-        if(Input.GetMouseButtonDown(0)) 
-        {
-            LoadNextPhase();
-        }
-    }
-
     public void LoadNextPhase()
     {
         StartCoroutine(LoadPhase(nextPhase));
