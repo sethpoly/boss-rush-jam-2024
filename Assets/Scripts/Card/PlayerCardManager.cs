@@ -26,6 +26,9 @@ class PlayerCardManager: MonoBehaviour
     // Player energy reference
     public EnergyController energyController;
 
+    // Level loader reference
+    public LevelLoader levelLoader;
+
     void Start()
     {
         StartNewRound();
@@ -192,6 +195,18 @@ class PlayerCardManager: MonoBehaviour
     {
         cardsInHand.Clear();
         Debug.Log("Discarding all cards in hand");
+    }
+
+    /// <summary>
+    /// End the current draft phase and transition to Battle phase
+    /// </summary>
+    public void EndDraftPhase()
+    {
+        // Call levelLoader.loadNextPhase
+        levelLoader.LoadNextPhase();
+
+        // Activate player selected cards
+        Debug.LogError("TODO: Activate selected cards");
     }
 
     private Transform PositionForNextDrawnCard(int cardsInHandCount)
