@@ -954,6 +954,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 387805568}
+  - component: {fileID: 387805569}
   m_Layer: 0
   m_Name: BattlePhase
   m_TagString: Untagged
@@ -982,6 +983,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &387805569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387805567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8bb1740acc2f45c3afd44a0f4ce8017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelLoader: {fileID: 563868021}
+  minutes: 0
+  seconds: 3
 --- !u!1 &448736602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1203,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5165552859612984599, guid: ed1b8514fb7af4552b8f920a0868a323, type: 3}
   m_PrefabInstance: {fileID: 3964879795602700348}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &563868021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3964879794844191557, guid: ed1b8514fb7af4552b8f920a0868a323, type: 3}
+  m_PrefabInstance: {fileID: 508816759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12fc2173b885d454a8cf213b10d03c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &762705864
 GameObject:
   m_ObjectHideFlags: 0

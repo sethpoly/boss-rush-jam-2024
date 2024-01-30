@@ -23,11 +23,10 @@ class PlayerCardManager: MonoBehaviour
     public Transform cardSlotRightMiddle;
     public Transform cardSlotRight;
 
-    // Player energy reference
     public EnergyController energyController;
-
-    // Level loader reference
     public LevelLoader levelLoader;
+    public BattlePhaseManager battlePhaseManager;
+
 
     void Start()
     {
