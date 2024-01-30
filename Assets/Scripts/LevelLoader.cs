@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelLoader : MonoBehaviour
 {
     public Animator transition;
-    public float transitionTime = 1f;
+    public float transitionTime = .25f;
     public GameObject currentPhase;
     public GameObject nextPhase;
 
