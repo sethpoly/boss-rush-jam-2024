@@ -77,13 +77,14 @@ class DraftPhaseManager: MonoBehaviour
         if (cardsInDeck.Count > 0) 
         {
             int index = cardsInDeck.Count - 1;
+            var controller = cardsInDeck[index].GetComponent<CardController>();
+            var cardToMove = cardsInDeck[index];
 
             Transform newPosition = PositionForNextDrawnCard(cardsInHand.Count);
-            iTween.MoveTo(cardsInDeck[index], iTween.Hash("y", newPosition.position.y, "x", newPosition.position.x, "time", 1, "islocal", true));  
+            controller.DidStartRefreshing();
+            iTween.MoveTo(cardToMove, iTween.Hash("y", newPosition.position.y, "x", newPosition.position.x, "time", 1.5, "islocal", true, "onComplete", "OnDidFinishRefreshing"));  
 
-            var controller = cardsInDeck[index].GetComponent<CardController>();
             controller.SetSortOrder( cardsInHand.Count + 1 % 10);
-            controller.SetCardState(CardState.drawn);
             cardsInHand.Add(cardsInDeck[index]);
             cardsInDeck.RemoveAt(index);
             Debug.Log("Player drew card: " + GetController(cardsInHand[^1]).card.cardName);

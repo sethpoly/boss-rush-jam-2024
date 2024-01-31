@@ -5,4 +5,5 @@ public enum CardState
     selected,
     active,
     refreshing,
+    beingDrawn
 }

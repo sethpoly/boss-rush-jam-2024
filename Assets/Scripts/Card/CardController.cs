@@ -95,15 +95,18 @@ public class CardController : MonoBehaviour
     public void OnDidFinishRefreshing()
     {
         cardState = CardState.drawn;
+        Debug.Log("OnDidFinishRefreshing");
     }
 
     public void DidStartRefreshing()
     {
         cardState = CardState.refreshing;
+        Debug.Log("DidStartRefreshing");
     }
 
     private void MoveCardUpAnimation()
     {
+        Debug.Log(card.cardName + " = " + cardState);
         if(cardState != CardState.drawn) return;
         var yOffset = startingPosition.y + .5f;
         iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));    
