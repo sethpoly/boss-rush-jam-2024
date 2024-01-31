@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public void IncreaseMovementSpeed(float multiplier)
     {
         Debug.Log("Increasing speed by " + multiplier);
-        movementController.SetSpeed(movementController.speed * multiplier);
+        movementController.SetSpeed(movementController.speed + multiplier);
     }
 
     public void ResetMovementSpeed()
