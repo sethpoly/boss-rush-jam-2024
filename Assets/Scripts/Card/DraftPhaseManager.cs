@@ -10,6 +10,7 @@ class DraftPhaseManager: MonoBehaviour
     public List<GameObject> cardsInDeck;
     public List<GameObject> selectedCards;
     public List<GameObject> cardsInHand;
+    public List<GameObject> playerCards; // Current cards that the player selected and are active
 
     public Player player;
     public GameObject cardPrefab;
@@ -196,6 +197,26 @@ class DraftPhaseManager: MonoBehaviour
         Debug.Log("Discarding all cards in hand");
     }
 
+    private void PlaceHandAtBottomOfDeck()
+    {
+
+    }
+
+    private void MoveSelectedCardsToPlayerCardsList()
+    {
+        for (int i = selectedCards.Count - 1; i >= 0; i--)
+        {
+            if(!playerCards.Contains(selectedCards[i]))
+            {
+                var controller = selectedCards[i].GetComponent<CardController>();
+                playerCards.Add(selectedCards[i]);
+                controller.SetCardState(CardState.active);
+                selectedCards.RemoveAt(i);
+                Debug.Log("Added card: " + controller.card.cardName + " to playerCards list");
+            }
+        }
+    }
+
     /// <summary>
     /// End the current draft phase and transition to Battle phase
     /// </summary>
@@ -206,6 +227,15 @@ class DraftPhaseManager: MonoBehaviour
 
         // Activate player selected cards
         ActivateAllSelectedCards();
+
+        // Move SelectedCards to PlayerCards list
+        MoveSelectedCardsToPlayerCardsList();
+
+        // Discard cards in hand
+        PlaceHandAtBottomOfDeck();
+
+        // Replenish energy
+        // TODO
     }
 
     private Transform PositionForNextDrawnCard(int cardsInHandCount)

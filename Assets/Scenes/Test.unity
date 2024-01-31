@@ -1054,7 +1054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &387805568
 Transform:
   m_ObjectHideFlags: 0
@@ -2061,7 +2061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1105022657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2078,6 +2078,7 @@ MonoBehaviour:
   cardsInDeck: []
   selectedCards: []
   cardsInHand: []
+  playerCards: []
   player: {fileID: 71351518}
   cardPrefab: {fileID: 5626729128807601289, guid: 2d4b7fa34f87a4ca7a33337df9a03d17, type: 3}
   playerHand: {fileID: 762705865}
