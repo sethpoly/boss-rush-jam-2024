@@ -79,6 +79,11 @@ class DraftPhaseManager: MonoBehaviour
             var card = DefenseBuffCard.Default();
             AddCardToDeck(card);
         }
+        for(int i = 0; i < 5; i++)
+        {
+            var card = PotionCard.Default();
+            AddCardToDeck(card);
+        }
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
     }
 

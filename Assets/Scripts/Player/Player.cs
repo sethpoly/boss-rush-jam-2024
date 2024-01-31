@@ -32,6 +32,12 @@ public class Player : MonoBehaviour
         playerHealth.SetDefenseBuff(playerHealth.defenseBuffMultiplier + defenseBuff);
     }
 
+    public void ApplyPotion(float potionAmount)
+    {
+        Debug.Log("Applying potion: " + potionAmount);
+        playerHealth.Heal(potionAmount);
+    }
+
     public void ResetMovementSpeed()
     {
         Debug.Log("Reset movement speed effect");

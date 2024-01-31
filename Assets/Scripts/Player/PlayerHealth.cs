@@ -22,7 +22,14 @@ public class PlayerHealth: MonoBehaviour {
 
     public void Heal(float healAmount)
     {
-        currentHitPoints += healAmount;
+        if(currentHitPoints + healAmount > maxHitPoints) 
+        {
+            currentHitPoints = maxHitPoints;
+        } 
+        else
+        {
+            currentHitPoints += healAmount;
+        }
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
     }
 
