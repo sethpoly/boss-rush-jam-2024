@@ -14,16 +14,22 @@ public class Player : MonoBehaviour
         movementController.SetSpeed(movementController.speed + multiplier);
     }
 
-    public void ResetMovementSpeed()
-    {
-        Debug.Log("Reset movement speed effect");
-        movementController.ResetSpeed();
-    }
-
     public void IncreaseFireRate(float fireRate)
     {
         Debug.Log("Increasing fire rate by " + fireRate);
         playerGun.SetFireRate(playerGun.fireRate - fireRate);
+    }
+
+    public void IncreaseDamageRate(float damageRate)
+    {
+        Debug.Log("Increasing damage rate by " + damageRate);
+        playerGun.SetDamageRate(playerGun.damageRate + damageRate);
+    }
+
+    public void ResetMovementSpeed()
+    {
+        Debug.Log("Reset movement speed effect");
+        movementController.ResetSpeed();
     }
 
     public void ResetFireRate()

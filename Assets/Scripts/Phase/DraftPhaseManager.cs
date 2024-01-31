@@ -62,22 +62,28 @@ class DraftPhaseManager: MonoBehaviour
         for(int i = 0; i < 5; i++)
         {
             var card = MovementSpeedCard.Default();
-            var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
-            var controller = cardPrefab.GetComponent<CardController>();
-            controller.card = card;
-            controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
-            cardsInDeck.Add(cardPrefab);
+            AddCardToDeck(card);
         }
         for(int i = 0; i < 5; i++)
         {
             var card = FireRateCard.Default();
-            var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
-            var controller = cardPrefab.GetComponent<CardController>();
-            controller.card = card;
-            controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
-            cardsInDeck.Add(cardPrefab);
+            AddCardToDeck(card);
+        }
+        for(int i = 0; i < 5; i++)
+        {
+            var card = DamageRateCard.Default();
+            AddCardToDeck(card);
         }
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
+    }
+
+    private void AddCardToDeck(Card card)
+    {
+        var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
+        var controller = cardPrefab.GetComponent<CardController>();
+        controller.card = card;
+        controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
+        cardsInDeck.Add(cardPrefab);
     }
 
     /// <summary>

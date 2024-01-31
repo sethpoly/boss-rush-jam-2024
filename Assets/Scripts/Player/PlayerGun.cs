@@ -16,9 +16,10 @@ public class PlayerGun : MonoBehaviour
     private bool canShoot = false;
     private float lastShotTime;
 
+    public float startingDamageRate = 1f;
     public float startingFireRate = 2f;
-
     public float fireRate;
+    public float damageRate;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -26,6 +27,7 @@ public class PlayerGun : MonoBehaviour
     void Awake()
     {
         fireRate = startingFireRate;
+        damageRate = startingDamageRate;
     }
 
     // Update is called once per frame
@@ -73,6 +75,11 @@ public class PlayerGun : MonoBehaviour
     public void SetFireRate(float fireRate)
     {
         this.fireRate = fireRate;
+    }
+
+    public void SetDamageRate(float damageRate)
+    {
+        this.damageRate = damageRate;
     }
 
     public void ResetFireRate()
