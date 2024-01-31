@@ -6,18 +6,27 @@ using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
 {
-    // Cooldown between shots
-    public float cooldown = .5f;
+    const string targetTag = "Boss";
 
     public GameObject bulletPrefab;
 
     // Auto-locked target
     private Vector2? currentTarget;
 
-    const String targetTag = "Boss";
-
     private bool canShoot = false;
     private float lastShotTime;
+
+    public float startingFireRate = 2f;
+
+    public float fireRate;
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        fireRate = startingFireRate;
+    }
 
     // Update is called once per frame
     void Update()
@@ -47,7 +56,7 @@ public class PlayerGun : MonoBehaviour
     {
         if(Time.time > lastShotTime)
         {
-            lastShotTime = Time.time + cooldown;
+            lastShotTime = Time.time + fireRate;
             canShoot = true;
         } 
         else 
@@ -59,5 +68,15 @@ public class PlayerGun : MonoBehaviour
     private void Shoot()
     {
         GameObject.Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, 0f), transform.rotation);
+    }
+
+    public void SetFireRate(float fireRate)
+    {
+        this.fireRate = fireRate;
+    }
+
+    public void ResetFireRate()
+    {
+        this.fireRate = startingFireRate;
     }
 }

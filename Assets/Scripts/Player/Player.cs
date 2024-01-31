@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public MovementController movementController;
     public PlayerHealth playerHealth;
+    public PlayerGun playerGun;
 
     public void IncreaseMovementSpeed(float multiplier)
     {
@@ -17,5 +18,17 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Reset movement speed effect");
         movementController.ResetSpeed();
+    }
+
+    public void IncreaseFireRate(float fireRate)
+    {
+        Debug.Log("Increasing fire rate by " + fireRate);
+        playerGun.SetFireRate(playerGun.fireRate - fireRate);
+    }
+
+    public void ResetFireRate()
+    {
+        Debug.Log("Reset fire rate");
+        playerGun.ResetFireRate();
     }
 }

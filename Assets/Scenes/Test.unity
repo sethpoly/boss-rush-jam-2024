@@ -400,8 +400,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18ac0d471be34d2f9a1ab27752837e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0.5
   bulletPrefab: {fileID: 7807686846547790051, guid: f4b60bf12dfea48c5adcbb7bc6267b56, type: 3}
+  startingFireRate: 1
+  fireRate: 0
 --- !u!114 &71351518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,6 +417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementController: {fileID: 71351515}
   playerHealth: {fileID: 71351519}
+  playerGun: {fileID: 71351517}
 --- !u!114 &71351519
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -59,9 +59,18 @@ class DraftPhaseManager: MonoBehaviour
     private void ResetAndCreateDeck()
     {
         cardsInDeck.Clear();
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 5; i++)
         {
             var card = MovementSpeedCard.Default();
+            var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
+            var controller = cardPrefab.GetComponent<CardController>();
+            controller.card = card;
+            controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
+            cardsInDeck.Add(cardPrefab);
+        }
+        for(int i = 0; i < 5; i++)
+        {
+            var card = FireRateCard.Default();
             var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
             var controller = cardPrefab.GetComponent<CardController>();
             controller.card = card;
