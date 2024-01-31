@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -27,7 +29,7 @@ class DraftPhaseManager: MonoBehaviour
     public EnergyController energyController;
     public LevelLoader levelLoader;
     public BattlePhaseManager battlePhaseManager;
-
+    public TextMeshProUGUI cardListText;
 
     void Awake()
     {
@@ -234,6 +236,17 @@ class DraftPhaseManager: MonoBehaviour
         }
     }
 
+    private void UpdateCardListUi()
+    {
+        var cardList = "";
+        for(int i = 0; i < playerCards.Count; i++)
+        {
+            var controller = playerCards[i].GetComponent<CardController>();
+            cardList += controller.card.cardName + "\n";
+        }
+        cardListText.text = cardList;
+    }
+
     /// <summary>
     /// End the current draft phase and transition to Battle phase
     /// </summary>
@@ -247,6 +260,9 @@ class DraftPhaseManager: MonoBehaviour
 
         // Move SelectedCards to PlayerCards list
         MoveSelectedCardsToPlayerCardsList();
+
+        // Update card list ui
+        UpdateCardListUi();
 
         // Discard cards in hand
         DestroyCardsInHand();
