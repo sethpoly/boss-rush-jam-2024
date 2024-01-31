@@ -197,9 +197,14 @@ class DraftPhaseManager: MonoBehaviour
         Debug.Log("Discarding all cards in hand");
     }
 
-    private void PlaceHandAtBottomOfDeck()
+    private void DestroyCardsInHand()
     {
-
+        for (int i = cardsInHand.Count - 1; i >= 0; i--)
+        {
+            Destroy(cardsInHand[i]);
+            cardsInHand.RemoveAt(i);
+            Debug.Log("Destroyed card in hand");
+        }
     }
 
     private void MoveSelectedCardsToPlayerCardsList()
@@ -212,7 +217,7 @@ class DraftPhaseManager: MonoBehaviour
                 playerCards.Add(selectedCards[i]);
                 controller.SetCardState(CardState.active);
                 selectedCards.RemoveAt(i);
-                Debug.Log("Added card: " + controller.card.cardName + " to playerCards list");
+                Debug.Log("Added card: " + controller.card.cardName + " to playerCards");
             }
         }
     }
@@ -232,7 +237,7 @@ class DraftPhaseManager: MonoBehaviour
         MoveSelectedCardsToPlayerCardsList();
 
         // Discard cards in hand
-        PlaceHandAtBottomOfDeck();
+        DestroyCardsInHand();
 
         // Replenish energy
         // TODO
