@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,6 +12,7 @@ class DraftPhaseManager: MonoBehaviour
     public List<GameObject> cardsInDeck;
     public List<GameObject> selectedCards;
     public List<GameObject> cardsInHand;
+    public List<GameObject> playerCards; // Current cards that the player selected and are active
 
     public Player player;
     public GameObject cardPrefab;
@@ -26,22 +29,26 @@ class DraftPhaseManager: MonoBehaviour
     public EnergyController energyController;
     public LevelLoader levelLoader;
     public BattlePhaseManager battlePhaseManager;
+    public TextMeshProUGUI cardListText;
 
-
-    void Start()
+    void Awake()
     {
-        StartNewRound();
+        ResetAndCreateDeck();
     }
 
     /// <summary>
-    /// Deactivate selected cards, discard selected cards, draw X new cards
+    /// This function is called when the object becomes enabled and active.
     /// </summary>
-    public void StartNewRound()
+    void OnEnable()
+    {
+        OnDraftPhaseResume();
+    }
+
+    private void OnDraftPhaseResume()
     {
         DeactivateAllSelectedCards();
         DiscardAllSelectedCards();
         DiscardAllCardsInHand();
-        ResetAndCreateDeck();
 
         for(int i = 0; i < drawCount; i++)
         {
@@ -54,14 +61,39 @@ class DraftPhaseManager: MonoBehaviour
         cardsInDeck.Clear();
         for(int i = 0; i < 5; i++)
         {
-            var card = new MovementSpeedCard("Speed x" + i, 1, i);
-            var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
-            var controller = cardPrefab.GetComponent<CardController>();
-            controller.card = card;
-            controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
-            cardsInDeck.Add(cardPrefab);
+            var card = MovementSpeedCard.Default();
+            AddCardToDeck(card);
+        }
+        for(int i = 0; i < 5; i++)
+        {
+            var card = FireRateCard.Default();
+            AddCardToDeck(card);
+        }
+        for(int i = 0; i < 5; i++)
+        {
+            var card = DamageRateCard.Default();
+            AddCardToDeck(card);
+        }
+        for(int i = 0; i < 5; i++)
+        {
+            var card = DefenseBuffCard.Default();
+            AddCardToDeck(card);
+        }
+        for(int i = 0; i < 5; i++)
+        {
+            var card = PotionCard.Default();
+            AddCardToDeck(card);
         }
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
+    }
+
+    private void AddCardToDeck(Card card)
+    {
+        var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
+        var controller = cardPrefab.GetComponent<CardController>();
+        controller.card = card;
+        controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
+        cardsInDeck.Add(cardPrefab);
     }
 
     /// <summary>
@@ -72,13 +104,14 @@ class DraftPhaseManager: MonoBehaviour
         if (cardsInDeck.Count > 0) 
         {
             int index = cardsInDeck.Count - 1;
+            var controller = cardsInDeck[index].GetComponent<CardController>();
+            var cardToMove = cardsInDeck[index];
 
             Transform newPosition = PositionForNextDrawnCard(cardsInHand.Count);
-            iTween.MoveTo(cardsInDeck[index], iTween.Hash("y", newPosition.position.y, "x", newPosition.position.x, "time", 1, "islocal", true));  
+            controller.DidStartRefreshing();
+            iTween.MoveTo(cardToMove, iTween.Hash("y", newPosition.position.y, "x", newPosition.position.x, "time", 1.5, "islocal", true, "onComplete", "OnDidFinishRefreshing"));  
 
-            var controller = cardsInDeck[index].GetComponent<CardController>();
             controller.SetSortOrder( cardsInHand.Count + 1 % 10);
-            controller.SetCardState(CardState.drawn);
             cardsInHand.Add(cardsInDeck[index]);
             cardsInDeck.RemoveAt(index);
             Debug.Log("Player drew card: " + GetController(cardsInHand[^1]).card.cardName);
@@ -96,9 +129,19 @@ class DraftPhaseManager: MonoBehaviour
         int existingCardIndex = cardsInHand.FindIndex(card => card.GetComponent<CardController>().card.id == cardId);
         if (existingCardIndex != -1)
         {
+            var controller = cardsInHand[existingCardIndex].GetComponent<CardController>();
+
+            // Attempt to use energy
+            bool enoughEnergy = energyController.UseEnergy(amount: controller.card.cardCost);
+
+            if(!enoughEnergy) 
+            {
+                // TODO: Screenshake?
+                return;
+            }
+
             selectedCards.Add(cardsInHand[existingCardIndex]);
             cardsInHand.RemoveAt(existingCardIndex);
-            var controller = selectedCards.Last().GetComponent<CardController>();
             controller.SetCardState(CardState.selected);
 
             // Tween scale
@@ -113,9 +156,6 @@ class DraftPhaseManager: MonoBehaviour
 
             controller.MouseClickOccuredOnSelectedCardWithId += OnSelectedCardClicked;
             RefreshCardsInHandPositions(existingCardIndex);
-
-            // Use energy
-            energyController.UseEnergy(amount: controller.card.cardCost);
             
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
@@ -196,6 +236,42 @@ class DraftPhaseManager: MonoBehaviour
         Debug.Log("Discarding all cards in hand");
     }
 
+    private void DestroyCardsInHand()
+    {
+        for (int i = cardsInHand.Count - 1; i >= 0; i--)
+        {
+            Destroy(cardsInHand[i]);
+            cardsInHand.RemoveAt(i);
+            Debug.Log("Destroyed card in hand");
+        }
+    }
+
+    private void MoveSelectedCardsToPlayerCardsList()
+    {
+        for (int i = selectedCards.Count - 1; i >= 0; i--)
+        {
+            if(!playerCards.Contains(selectedCards[i]))
+            {
+                var controller = selectedCards[i].GetComponent<CardController>();
+                playerCards.Add(selectedCards[i]);
+                controller.SetCardState(CardState.active);
+                selectedCards.RemoveAt(i);
+                Debug.Log("Added card: " + controller.card.cardName + " to playerCards");
+            }
+        }
+    }
+
+    private void UpdateCardListUi()
+    {
+        var cardList = "";
+        for(int i = 0; i < playerCards.Count; i++)
+        {
+            var controller = playerCards[i].GetComponent<CardController>();
+            cardList += controller.card.cardName + "\n";
+        }
+        cardListText.text = cardList;
+    }
+
     /// <summary>
     /// End the current draft phase and transition to Battle phase
     /// </summary>
@@ -206,6 +282,18 @@ class DraftPhaseManager: MonoBehaviour
 
         // Activate player selected cards
         ActivateAllSelectedCards();
+
+        // Move SelectedCards to PlayerCards list
+        MoveSelectedCardsToPlayerCardsList();
+
+        // Update card list ui
+        UpdateCardListUi();
+
+        // Discard cards in hand
+        DestroyCardsInHand();
+
+        // Replenish energy
+        // TODO
     }
 
     private Transform PositionForNextDrawnCard(int cardsInHandCount)

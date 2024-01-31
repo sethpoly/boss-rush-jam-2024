@@ -22,4 +22,9 @@ public class MovementSpeedCard: Card
         base.ResetEffect(player);
         player.ResetMovementSpeed();
     }
+
+    public static MovementSpeedCard Default()
+    {
+        return new MovementSpeedCard("Speed++", 1, 15f);
+    }
 }
