@@ -101,9 +101,19 @@ class DraftPhaseManager: MonoBehaviour
         int existingCardIndex = cardsInHand.FindIndex(card => card.GetComponent<CardController>().card.id == cardId);
         if (existingCardIndex != -1)
         {
+            var controller = cardsInHand[existingCardIndex].GetComponent<CardController>();
+
+            // Attempt to use energy
+            bool enoughEnergy = energyController.UseEnergy(amount: controller.card.cardCost);
+
+            if(!enoughEnergy) 
+            {
+                // TODO: Screenshake?
+                return;
+            }
+
             selectedCards.Add(cardsInHand[existingCardIndex]);
             cardsInHand.RemoveAt(existingCardIndex);
-            var controller = selectedCards.Last().GetComponent<CardController>();
             controller.SetCardState(CardState.selected);
 
             // Tween scale
@@ -118,9 +128,6 @@ class DraftPhaseManager: MonoBehaviour
 
             controller.MouseClickOccuredOnSelectedCardWithId += OnSelectedCardClicked;
             RefreshCardsInHandPositions(existingCardIndex);
-
-            // Use energy
-            energyController.UseEnergy(amount: controller.card.cardCost);
             
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
