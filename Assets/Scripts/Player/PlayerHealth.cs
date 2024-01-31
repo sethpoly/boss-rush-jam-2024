@@ -5,6 +5,7 @@ public class PlayerHealth: MonoBehaviour {
     public float maxHitPoints;
     public float currentHitPoints;
     public Image healthBar;
+    public float defenseBuffMultiplier = 0;
 
     void Awake()
     {
@@ -13,7 +14,9 @@ public class PlayerHealth: MonoBehaviour {
 
     public void TakeDamage(float hitPoints) 
     {
-        currentHitPoints -= hitPoints;
+        float ignoredDamage = hitPoints * defenseBuffMultiplier;
+        float damageToTake = hitPoints - ignoredDamage;
+        currentHitPoints -= damageToTake;
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
     }
 
@@ -21,5 +24,10 @@ public class PlayerHealth: MonoBehaviour {
     {
         currentHitPoints += healAmount;
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
+    }
+
+    public void SetDefenseBuff(float defenseBuff)
+    {
+        defenseBuffMultiplier = defenseBuff;
     }
 }

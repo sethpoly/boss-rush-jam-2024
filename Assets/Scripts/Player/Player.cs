@@ -26,6 +26,12 @@ public class Player : MonoBehaviour
         playerGun.SetDamageRate(playerGun.damageRate + damageRate);
     }
 
+    public void IncreaseDefenseBuff(float defenseBuff)
+    {
+        Debug.Log("Increasing defense buff by " + defenseBuff);
+        playerHealth.SetDefenseBuff(playerHealth.defenseBuffMultiplier + defenseBuff);
+    }
+
     public void ResetMovementSpeed()
     {
         Debug.Log("Reset movement speed effect");

@@ -74,6 +74,11 @@ class DraftPhaseManager: MonoBehaviour
             var card = DamageRateCard.Default();
             AddCardToDeck(card);
         }
+        for(int i = 0; i < 5; i++)
+        {
+            var card = DefenseBuffCard.Default();
+            AddCardToDeck(card);
+        }
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
     }
 
