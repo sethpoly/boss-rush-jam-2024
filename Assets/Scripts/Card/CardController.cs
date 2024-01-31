@@ -48,6 +48,16 @@ public class CardController : MonoBehaviour
     public void SetCardState(CardState cardState)
     {
         this.cardState = cardState;
+
+        switch(cardState)
+        {
+            case CardState.active:
+                gameObject.SetActive(false);
+                break;
+            default:
+                gameObject.SetActive(true);
+                break;
+        }
     }
 
     private void SetStartingPosition(Vector2 startingPosition)
