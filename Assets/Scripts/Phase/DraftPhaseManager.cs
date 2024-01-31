@@ -29,20 +29,24 @@ class DraftPhaseManager: MonoBehaviour
     public BattlePhaseManager battlePhaseManager;
 
 
-    void Start()
+    void Awake()
     {
-        StartNewRound();
+        ResetAndCreateDeck();
     }
 
     /// <summary>
-    /// Deactivate selected cards, discard selected cards, draw X new cards
+    /// This function is called when the object becomes enabled and active.
     /// </summary>
-    public void StartNewRound()
+    void OnEnable()
+    {
+        OnDraftPhaseResume();
+    }
+
+    private void OnDraftPhaseResume()
     {
         DeactivateAllSelectedCards();
         DiscardAllSelectedCards();
         DiscardAllCardsInHand();
-        ResetAndCreateDeck();
 
         for(int i = 0; i < drawCount; i++)
         {
@@ -53,7 +57,7 @@ class DraftPhaseManager: MonoBehaviour
     private void ResetAndCreateDeck()
     {
         cardsInDeck.Clear();
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 10; i++)
         {
             var card = new MovementSpeedCard("Speed x" + i, 1, i);
             var cardPrefab = Instantiate(this.cardPrefab, deck.transform.position, Quaternion.identity, this.transform);
