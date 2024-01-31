@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public MovementController movementController;
+    public PlayerHealth playerHealth;
 
     public void IncreaseMovementSpeed(float multiplier)
     {

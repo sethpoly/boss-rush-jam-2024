@@ -218,10 +218,11 @@ GameObject:
   - component: {fileID: 71351511}
   - component: {fileID: 71351510}
   - component: {fileID: 71351513}
-  - component: {fileID: 71351515}
-  - component: {fileID: 71351514}
   - component: {fileID: 71351516}
+  - component: {fileID: 71351514}
+  - component: {fileID: 71351515}
   - component: {fileID: 71351517}
+  - component: {fileID: 71351519}
   - component: {fileID: 71351518}
   m_Layer: 0
   m_Name: Player
@@ -414,6 +415,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementController: {fileID: 71351515}
+  playerHealth: {fileID: 71351519}
+--- !u!114 &71351519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71351509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dd089fa55454e28ab4ea50e637eb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHitPoints: 0
+  currentHitPoints: 0
+  healthBar: {fileID: 0}
 --- !u!1 &76521526
 GameObject:
   m_ObjectHideFlags: 0
