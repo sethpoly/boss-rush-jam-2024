@@ -16,19 +16,10 @@ public class PlayerGun : MonoBehaviour
     private bool canShoot = false;
     private float lastShotTime;
 
-    public float startingDamageRate = 1f;
-    public float startingFireRate = 2f;
+    public float baseDamageRate = 1f;
+    public float baseFireRate = 2f;
     public float fireRate;
     public float damageRate;
-
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
-    void Awake()
-    {
-        fireRate = startingFireRate;
-        damageRate = startingDamageRate;
-    }
 
     // Update is called once per frame
     void Update()
@@ -58,7 +49,7 @@ public class PlayerGun : MonoBehaviour
     {
         if(Time.time > lastShotTime)
         {
-            lastShotTime = Time.time + fireRate;
+            lastShotTime = Time.time + baseFireRate - fireRate;
             canShoot = true;
         } 
         else 
@@ -84,6 +75,22 @@ public class PlayerGun : MonoBehaviour
 
     public void ResetFireRate()
     {
-        this.fireRate = startingFireRate;
+        this.fireRate = baseFireRate;
+    }
+
+    public void ApplyNewGun(GunType gunType)
+    {
+        switch(gunType)
+        {
+            case GunType.tommyGun:
+            ApplyTommyGun();
+            break;
+        }
+    }
+
+    private void ApplyTommyGun()
+    {
+        baseFireRate = .2f;
+        baseDamageRate = 1f;
     }
 }

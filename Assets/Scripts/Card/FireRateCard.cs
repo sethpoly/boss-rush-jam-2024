@@ -12,7 +12,6 @@ public class FireRateCard: Card
         if(isActive) return;
         base.ApplyEffect(player);
 
-        // Apply movement speed increase to the player
         player.IncreaseFireRate(fireRateIncrease);
     }
 

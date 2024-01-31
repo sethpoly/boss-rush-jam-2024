@@ -17,13 +17,13 @@ public class Player : MonoBehaviour
     public void IncreaseFireRate(float fireRate)
     {
         Debug.Log("Increasing fire rate by " + fireRate);
-        playerGun.SetFireRate(playerGun.fireRate - fireRate);
+        playerGun.SetFireRate(fireRate);
     }
 
     public void IncreaseDamageRate(float damageRate)
     {
         Debug.Log("Increasing damage rate by " + damageRate);
-        playerGun.SetDamageRate(playerGun.damageRate + damageRate);
+        playerGun.SetDamageRate(damageRate);
     }
 
     public void IncreaseDefenseBuff(float defenseBuff)
@@ -36,6 +36,12 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Applying potion: " + potionAmount);
         playerHealth.Heal(potionAmount);
+    }
+
+    public void ChangeGun(GunType gunType)
+    {
+        Debug.Log("Applying new gun: " + gunType);
+        playerGun.ApplyNewGun(gunType);
     }
 
     public void ResetMovementSpeed()

@@ -401,8 +401,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7807686846547790051, guid: f4b60bf12dfea48c5adcbb7bc6267b56, type: 3}
-  startingFireRate: 1
+  baseDamageRate: 1
+  baseFireRate: 2
   fireRate: 0
+  damageRate: 0
 --- !u!114 &71351518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +435,7 @@ MonoBehaviour:
   maxHitPoints: 0
   currentHitPoints: 0
   healthBar: {fileID: 0}
+  defenseBuffMultiplier: 0
 --- !u!1 &76521526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,7 +1059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &387805568
 Transform:
   m_ObjectHideFlags: 0
@@ -2199,7 +2202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1105022657
 MonoBehaviour:
   m_ObjectHideFlags: 0

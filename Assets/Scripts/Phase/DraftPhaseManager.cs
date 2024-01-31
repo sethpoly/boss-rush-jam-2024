@@ -84,6 +84,7 @@ class DraftPhaseManager: MonoBehaviour
             var card = PotionCard.Default();
             AddCardToDeck(card);
         }
+        AddCardToDeck(TommyGunCard.Default());
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
     }
 
