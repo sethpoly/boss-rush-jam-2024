@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         // save direction by offsetting the target position and the initial object's position.
-        m_Direction= Camera.main.ScreenToWorldPoint(Input.mousePosition) - this.transform.position;
+        m_Direction = Vector2.up;
     }
 
     // Update is called once per frame
