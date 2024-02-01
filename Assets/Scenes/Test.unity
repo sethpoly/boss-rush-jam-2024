@@ -432,10 +432,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2dd089fa55454e28ab4ea50e637eb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 0
+  maxHitPoints: 10
   currentHitPoints: 0
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 829370025}
   defenseBuffMultiplier: 0
+  bossController: {fileID: 1707900682}
 --- !u!1 &76521526
 GameObject:
   m_ObjectHideFlags: 0
@@ -2351,7 +2352,7 @@ MonoBehaviour:
   defenseSprite: {fileID: 21300000, guid: e215c479bf9af41a7a98c2eb32e38eb0, type: 3}
   movementSprite: {fileID: 21300000, guid: c13f65be8e97046ea95e25ffe2ebba51, type: 3}
   firerateSprite: {fileID: 21300000, guid: 9f043f9708ed54cac9e674128e129ad0, type: 3}
-  potionSprite: {fileID: 21300000, guid: ab3b92ac3eb784436a9d20353e3e81d8, type: 3}
+  potionSprite: {fileID: 21300000, guid: 23747da858c214bd5877b969433824ca, type: 3}
 --- !u!4 &1105022658
 Transform:
   m_ObjectHideFlags: 0
@@ -3745,6 +3746,7 @@ MonoBehaviour:
   maxHitPoints: 48
   currentHitPoints: 0
   healthBar: {fileID: 76521528}
+  damageOutput: 1
 --- !u!212 &1707900683
 SpriteRenderer:
   m_ObjectHideFlags: 0

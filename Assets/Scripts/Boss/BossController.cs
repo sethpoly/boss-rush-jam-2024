@@ -7,8 +7,8 @@ public class BossController : MonoBehaviour
 {
     public float maxHitPoints;
     public float currentHitPoints;
-
     public Image healthBar;
+    public float damageOutput = 1f;
 
     void Awake()
     {
