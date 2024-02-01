@@ -154,7 +154,7 @@ public class BulletPatternGenerator : MonoBehaviour
 
     private void DetachParticles(ParticleSystem emit)
     {
-        // this stops the particle from creating more bits
         emit.Stop();
+        emit.transform.parent = null;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class BossController : MonoBehaviour
     public PlayerGun playerGun;
     public BulletPatternGenerator patternGeneratorMain;
     private BulletPatternConfig patternEasyOne;
+    private BulletPatternConfig patternEasyTwo;
 
     void Awake()
     {
@@ -28,6 +30,11 @@ public class BossController : MonoBehaviour
             patternGeneratorMain.SetConfig(patternEasyOne);
             patternGeneratorMain.Restart();
         }
+        if (Input.GetKeyDown(KeyCode.J)) 
+        {
+            patternGeneratorMain.SetConfig(patternEasyTwo);
+            patternGeneratorMain.Restart();
+        }
     }
 
     private void InitializeBulletPatterns()
@@ -36,11 +43,24 @@ public class BossController : MonoBehaviour
         {
             columnNumber = 10,
             baseAngle = 180f,
-            speed = .75f,
+            speed = 1.5f,
             color = Color.white,
             lifetime = 5f,
             firerate = 1.5f,
-            size = .1f,
+            size = .2f,
+            shouldSpin = false,
+            spinSpeed = 0f,
+            direction = 0f
+        };
+        patternEasyTwo = new()
+        {
+            columnNumber = 10,
+            baseAngle = 180f,
+            speed = 2f,
+            color = Color.red,
+            lifetime = 5f,
+            firerate = 1f,
+            size = .2f,
             shouldSpin = false,
             spinSpeed = 0f,
             direction = 0f
