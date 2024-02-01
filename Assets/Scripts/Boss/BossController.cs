@@ -11,22 +11,43 @@ public class BossController : MonoBehaviour
     public Image healthBar;
     public float damageOutput = 1f;
     public PlayerGun playerGun;
+    public BulletPatternGenerator patternGeneratorMain;
+    private BulletPatternConfig patternEasyOne;
 
     void Awake()
     {
         currentHitPoints = maxHitPoints;
+        InitializeBulletPatterns();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.H))
         {
-            TakeDamage(1f);
+            patternGeneratorMain.SetConfig(patternEasyOne);
+            patternGeneratorMain.Restart();
         }
     }
 
-    public void TakeDamage(float hitPoints) 
+    private void InitializeBulletPatterns()
+    {
+        patternEasyOne = new()
+        {
+            columnNumber = 10,
+            baseAngle = 180f,
+            speed = .75f,
+            color = Color.white,
+            lifetime = 5f,
+            firerate = 1.5f,
+            size = .1f,
+            shouldSpin = false,
+            spinSpeed = 0f,
+            direction = 0f
+        };
+    }
+
+    public void TakeDamage(float hitPoints)
     {
         currentHitPoints -= hitPoints;
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
@@ -35,7 +56,8 @@ public class BossController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("bullet")) {
+        if (other.gameObject.CompareTag("bullet"))
+        {
             float damageToTake = playerGun.baseDamageRate + playerGun.damageRate;
             TakeDamage(damageToTake);
             Destroy(other.gameObject);

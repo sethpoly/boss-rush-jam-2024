@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletHellGenerator : MonoBehaviour
+public class BulletPatternGenerator : MonoBehaviour
 {
-
     public bool reset;
     public ParticleSystem system;
     public int columnNumber;
@@ -27,7 +26,6 @@ public class BulletHellGenerator : MonoBehaviour
     void Awake()
     {   
         _reset = reset;
-        Summon();
     }
 
     void Update()
@@ -35,10 +33,37 @@ public class BulletHellGenerator : MonoBehaviour
         if(_reset != reset)
         {
             _reset = reset;
-            CancelInvoke();
-            RemoveAllParticleSystems();
-            Summon();
+            Restart();
         }
+    }
+
+    /// <summary>
+    /// Updates all properties of this config. Does NOT restart
+    /// </summary>
+    /// <param name="config"></param>
+    public void SetConfig(BulletPatternConfig config)
+    {
+        columnNumber = config.columnNumber;
+        baseAngle = config.baseAngle;
+        speed = config.speed;
+        color = config.color;
+        lifetime = config.lifetime;
+        firerate = config.firerate;
+        size = config.size;
+        shouldSpin = config.shouldSpin;
+        spinSpeed = config.spinSpeed;
+        direction = config.direction;
+    }
+
+    /// <summary>
+    /// Restart the generator with the current properties set. Note: Call SetConfig to configure the params
+    /// before calling this function
+    /// </summary>
+    public void Restart()
+    {
+        CancelInvoke();
+        RemoveAllParticleSystems();
+        Summon();
     }
 
     void FixedUpdate()
@@ -122,7 +147,14 @@ public class BulletHellGenerator : MonoBehaviour
     {
         foreach(Transform child in transform)
         {
-            Destroy(child.gameObject);
+            DetachParticles(child.GetComponent<ParticleSystem>());
+            Destroy(child.gameObject, 5.0f);
         }
+    }
+
+    private void DetachParticles(ParticleSystem emit)
+    {
+        // this stops the particle from creating more bits
+        emit.Stop();
     }
 }
