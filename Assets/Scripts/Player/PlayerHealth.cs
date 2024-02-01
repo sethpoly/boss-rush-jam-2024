@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth: MonoBehaviour {
+    [SerializeField] GameManager gameManager;
     public float maxHitPoints;
     public float currentHitPoints;
     public Image healthBar;
@@ -19,6 +20,7 @@ public class PlayerHealth: MonoBehaviour {
         float damageToTake = hitPoints - ignoredDamage;
         currentHitPoints -= damageToTake;
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
+        gameManager.ScreenShake();
 
         // Check if player died
         if(currentHitPoints <= 0)
@@ -26,7 +28,7 @@ public class PlayerHealth: MonoBehaviour {
             currentHitPoints = 0;
             Debug.Log("Game over");
             // TODO: Go to menu
-        }_
+        }
     }
 
     public void Heal(float healAmount)
