@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Boss
   - hand
+  - bullet
   layers:
   - Default
   - TransparentFX

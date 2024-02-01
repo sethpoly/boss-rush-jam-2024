@@ -9,6 +9,7 @@ public class BossController : MonoBehaviour
     public float currentHitPoints;
     public Image healthBar;
     public float damageOutput = 1f;
+    public PlayerGun playerGun;
 
     void Awake()
     {
@@ -28,5 +29,15 @@ public class BossController : MonoBehaviour
     {
         currentHitPoints -= hitPoints;
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("bullet")) {
+            float damageToTake = playerGun.baseDamageRate + playerGun.damageRate;
+            TakeDamage(damageToTake);
+            Destroy(other.gameObject);
+            // TODO: Play SFX
+        }
     }
 }
