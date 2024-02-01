@@ -6,10 +6,10 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] Camera mainCamera;
 
-    public void ScreenShake() 
+    public void ScreenShake(float duration = .1f, float magnitude = .3f) 
     {
         var shaker = mainCamera.GetComponent<CameraShake>();
-        StartCoroutine(shaker.Shake(duration: .1f, magnitude: .3f));
+        StartCoroutine(shaker.Shake(duration: duration, magnitude: magnitude));
     }
 
 }

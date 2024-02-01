@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
+    [SerializeField] GameManager gameManager;
     public float maxHitPoints;
     public float currentHitPoints;
     public Image healthBar;
@@ -29,6 +30,7 @@ public class BossController : MonoBehaviour
     {
         currentHitPoints -= hitPoints;
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
+        gameManager.ScreenShake(duration: .1f, magnitude: .05f);
     }
 
     void OnTriggerEnter2D(Collider2D other)
