@@ -17,12 +17,26 @@ public class BulletHellGenerator : MonoBehaviour
     public float spinSpeed;
     public LayerMask collisionLayerMask;
 
+     private int _columnNumber;
+
     private float angle;
     private float time;
 
     void Awake()
     {   
+        _columnNumber = columnNumber;
         Summon();
+    }
+
+    void Update()
+    {
+        if(_columnNumber != columnNumber)
+        {
+            _columnNumber = columnNumber;
+            CancelInvoke();
+            RemoveAllParticleSystems();
+            Summon();
+        }
     }
 
     void FixedUpdate()
@@ -34,8 +48,8 @@ public class BulletHellGenerator : MonoBehaviour
 
     void Summon()
     {
-        angle = 360f / columnNumber;
-        for(int i = 0; i < columnNumber; i++)
+        angle = 360f / _columnNumber;
+        for(int i = 0; i < _columnNumber; i++)
         {
             // A simple particle material with no texture.
             Material particleMaterial = material;
@@ -93,6 +107,14 @@ public class BulletHellGenerator : MonoBehaviour
             };
             system.Emit(emitParams, 10);
             system.Play(); // Continue normal emissions
+        }
+    }
+
+    private void RemoveAllParticleSystems()
+    {
+        foreach(Transform child in transform)
+        {
+            Destroy(child.gameObject);
         }
     }
 }
