@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class TommyGunCard: Card
 {
     public TommyGunCard(string name, int cost) : base(name, cost)
@@ -17,8 +19,10 @@ public class TommyGunCard: Card
         base.ResetEffect(player);
     }
 
-    public static TommyGunCard Default()
+    public static TommyGunCard Default(Sprite sprite)
     {
-        return new TommyGunCard("Tommy Gun", 3);
+        var card = new TommyGunCard("Tommy Gun", 3);
+        card.sprite = sprite;
+        return card;
     }
 }

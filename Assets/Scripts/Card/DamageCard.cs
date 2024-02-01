@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class DamageRateCard: Card
 {
     public float damageRateIncrease;
@@ -22,8 +24,10 @@ public class DamageRateCard: Card
         player.ResetFireRate();
     }
 
-    public static DamageRateCard Default()
+    public static DamageRateCard Default(Sprite sprite)
     {
-        return new DamageRateCard("Damage Rate++", 1, 5f);
+        var card = new DamageRateCard("Damage Rate++", 1, 5f);
+        card.sprite = sprite;
+        return card;
     }
 }

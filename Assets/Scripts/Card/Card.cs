@@ -9,6 +9,7 @@ public class Card
     public string cardName = "Card";
     public int cardCost = 0;
     public bool isActive = false;
+    public Sprite sprite;
 
     public Card(string name, int cost)
     {

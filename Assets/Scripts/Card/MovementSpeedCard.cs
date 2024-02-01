@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class MovementSpeedCard: Card
 {
     public float speedIncrease;
@@ -23,8 +25,10 @@ public class MovementSpeedCard: Card
         player.ResetMovementSpeed();
     }
 
-    public static MovementSpeedCard Default()
+    public static MovementSpeedCard Default(Sprite sprite)
     {
-        return new MovementSpeedCard("Speed++", 1, 15f);
+        var card = new MovementSpeedCard("Speed++", 1, 15f);
+        card.sprite = sprite;
+        return card;
     }
 }
