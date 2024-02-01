@@ -5,8 +5,10 @@ using UnityEngine;
 public class BulletHellGenerator : MonoBehaviour
 {
 
+    public bool reset;
     public ParticleSystem system;
     public int columnNumber;
+    public float baseAngle;
     public float speed;
     public Color color;
     public float lifetime;
@@ -14,25 +16,25 @@ public class BulletHellGenerator : MonoBehaviour
     public float size;
     public Material material;
     public Sprite sprite;
+    public bool shouldSpin;
     public float spinSpeed;
+    public float direction;
     public LayerMask collisionLayerMask;
-
-     private int _columnNumber;
-
     private float angle;
     private float time;
+    private bool _reset;
 
     void Awake()
     {   
-        _columnNumber = columnNumber;
+        _reset = reset;
         Summon();
     }
 
     void Update()
     {
-        if(_columnNumber != columnNumber)
+        if(_reset != reset)
         {
-            _columnNumber = columnNumber;
+            _reset = reset;
             CancelInvoke();
             RemoveAllParticleSystems();
             Summon();
@@ -42,14 +44,20 @@ public class BulletHellGenerator : MonoBehaviour
     void FixedUpdate()
     {
         time += Time.fixedDeltaTime;
-
-        transform.rotation = Quaternion.Euler(0, 0, time * spinSpeed);
+        
+        if(shouldSpin)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, time * spinSpeed);
+        } else 
+        {
+            transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z + direction);
+        }
     }
 
     void Summon()
     {
-        angle = 360f / _columnNumber;
-        for(int i = 0; i < _columnNumber; i++)
+        angle = baseAngle / columnNumber;
+        for(int i = 0; i < columnNumber; i++)
         {
             // A simple particle material with no texture.
             Material particleMaterial = material;
