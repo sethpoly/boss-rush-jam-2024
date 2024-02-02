@@ -70,7 +70,7 @@ public class PlayerGunManager : MonoBehaviour
     private void ApplyPistol()
     {
         var gun = gameObject.AddComponent<Gun>();
-        gun.Setup(bulletPrefab: laserPrefab, fireRate: 1f, GunType.pistol);
+        gun.Setup(bulletPrefab: bulletPrefab, fireRate: 1f, GunType.pistol);
     }
 
     private void ApplyLaser()

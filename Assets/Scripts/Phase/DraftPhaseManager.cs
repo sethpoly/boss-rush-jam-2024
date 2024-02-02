@@ -73,6 +73,8 @@ class DraftPhaseManager: MonoBehaviour
         AddCardToDeck(DefenseBuffCard.Default(sprite: defenseSprite));
         AddCardToDeck(PotionCard.Default(sprite: potionSprite));
         AddCardToDeck(TommyGunCard.Default(sprite: machineGunSprite));
+        AddCardToDeck(LaserCard.Default(sprite: laserSprite));
+        AddCardToDeck(PistolCard.Default(sprite: pistolSprite));
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
         ShuffleDeck();
     }
