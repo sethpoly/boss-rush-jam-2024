@@ -5,12 +5,12 @@ using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 
-public class PlayerGun : MonoBehaviour
+public class PlayerGunManager : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public float baseDamageRate = 1f;
+    public GameObject laserPrefab;
     public float fireRateBuff = 0f;
-    public float damageRate;
+    public float damageRateBuff = 0f;
 
     void Awake()
     {
@@ -37,7 +37,7 @@ public class PlayerGun : MonoBehaviour
 
     public void SetDamageRate(float damageRate)
     {
-        this.damageRate = damageRate;
+        this.damageRateBuff = damageRate;
     }
 
     public void ResetFireRate()
@@ -55,6 +55,9 @@ public class PlayerGun : MonoBehaviour
             case GunType.pistol:
             ApplyPistol();
             break;
+            case GunType.laser:
+            ApplyLaser();
+            break;
         }
     }
 
@@ -67,6 +70,12 @@ public class PlayerGun : MonoBehaviour
     private void ApplyPistol()
     {
         var gun = gameObject.AddComponent<Gun>();
-        gun.Setup(bulletPrefab: bulletPrefab, fireRate: 1f, GunType.pistol);
+        gun.Setup(bulletPrefab: laserPrefab, fireRate: 1f, GunType.pistol);
+    }
+
+    private void ApplyLaser()
+    {
+        var gun = gameObject.AddComponent<Gun>();
+        gun.Setup(bulletPrefab: laserPrefab, fireRate: 2f, GunType.laser);
     }
 }

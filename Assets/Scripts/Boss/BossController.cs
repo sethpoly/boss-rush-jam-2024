@@ -14,7 +14,7 @@ public class BossController : MonoBehaviour
     public float currentHitPoints;
     public Image healthBar;
     public float damageOutput = 1f;
-    public PlayerGun playerGun;
+    public PlayerGunManager playerGun;
     public BulletPatternGenerator patternGeneratorMain;
     public BulletPatternGenerator patternGeneratorSecondary;
     private Tuple<BulletPatternConfig, BulletPatternConfig?> currentPattern;
@@ -103,10 +103,12 @@ public class BossController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("bullet"))
         {
-            float damageToTake = playerGun.baseDamageRate + playerGun.damageRate;
+            var bullet = other.gameObject.GetComponent<Bullet>();
+            float damageToTake = playerGun.damageRateBuff + bullet.bulletDamage;
             TakeDamage(damageToTake);
-            Destroy(other.gameObject);
-            // TODO: Play SFX
+            if(bullet.gunType != GunType.laser) Destroy(other.gameObject);
+            
+            // TODO: Play hit SFX
         }
     }
 

@@ -37,7 +37,7 @@ public class Gun: MonoBehaviour {
 
     public void Shoot(float fireRateBuff)
     {
-        //this.fireRateBuff = fireRateBuff;
+        this.fireRateBuff = fireRateBuff;
         if (canShoot && bullet != null)
         {
             Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, 0f), transform.rotation);

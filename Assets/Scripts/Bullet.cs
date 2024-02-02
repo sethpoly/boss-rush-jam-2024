@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
 
     private Vector2 m_Direction;
     [SerializeField] private ParticleSystem hitParticleSystem;
+    public float bulletDamage = 1;
+    public GunType gunType;
 
     void Start()
     {
@@ -21,7 +23,7 @@ public class Bullet : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, transform.position.y) + m_Direction, speed * Time.deltaTime);
     }
-    
+
     void OnDestroy()
     {
         hitParticleSystem.transform.parent = null;

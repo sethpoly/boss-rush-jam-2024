@@ -527,6 +527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7807686846547790051, guid: f4b60bf12dfea48c5adcbb7bc6267b56, type: 3}
+  laserPrefab: {fileID: 1888893938348753908, guid: 3c0a5334d34064b139b7163886185e56, type: 3}
   baseDamageRate: 1
   fireRateBuff: 0
   damageRate: 0
