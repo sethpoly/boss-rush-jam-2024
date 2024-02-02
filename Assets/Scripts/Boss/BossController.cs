@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -18,6 +19,7 @@ public class BossController : MonoBehaviour
     public BulletPatternGenerator patternGeneratorSecondary;
     private Tuple<BulletPatternConfig, BulletPatternConfig?> currentPattern;
     [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private bool facingRight = true;
     [SerializeField] private Transform locationLeft;
     [SerializeField] private Transform locationRight;
@@ -26,12 +28,16 @@ public class BossController : MonoBehaviour
     private Transform currentPosition;
     private float movementSpeed = 1f;
 
+    private Color originalColor;
+    private bool flashing = false;
+
     void Awake()
     {
         currentHitPoints = maxHitPoints;
         possibleLocations.Add(locationLeft);
         possibleLocations.Add(locationRight);
         possibleLocations.Add(locationMiddle);
+        originalColor = spriteRenderer.color;
     }
 
     void Update() 
@@ -51,6 +57,17 @@ public class BossController : MonoBehaviour
         if (currentHitPoints <= 0)
         {
             // TODO: Game over - explode boss
+            gameManager.PlayExplosion(transform);
+            Destroy(this);
+            Debug.Log("Game Over");
+            // TODO: Show credits
+        } else 
+        {
+            // Toggle flashing
+            if(!flashing)
+            {
+                StartCoroutine(Flash());
+            }
         }
     }
 
@@ -114,5 +131,16 @@ public class BossController : MonoBehaviour
         // Apply random movement speed
         movementSpeed = Random.Range(1f, 4f);
         currentPosition = possibleLocations[randIndex];
+    }
+
+    private IEnumerator Flash() 
+    {
+        flashing = true;
+        var tmpColor = originalColor;
+        tmpColor.a = 0.7f;
+        spriteRenderer.color = tmpColor;
+        yield return new WaitForSeconds(.1f);
+        spriteRenderer.color = originalColor;
+        flashing = false;
     }
 }
