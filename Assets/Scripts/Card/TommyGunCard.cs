@@ -21,7 +21,7 @@ public class TommyGunCard: Card
 
     public static TommyGunCard Default(Sprite sprite)
     {
-        var card = new TommyGunCard("Tommy Gun", 3);
+        var card = new TommyGunCard("Machine Gun", 3);
         card.sprite = sprite;
         return card;
     }

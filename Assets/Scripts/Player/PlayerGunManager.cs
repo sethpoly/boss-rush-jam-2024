@@ -9,6 +9,7 @@ public class PlayerGunManager : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public GameObject laserPrefab;
+    public GameObject machineGunBulletPrefab;
     public float fireRateBuff = 0f;
     public float damageRateBuff = 0f;
 
@@ -64,7 +65,7 @@ public class PlayerGunManager : MonoBehaviour
     private void ApplyTommyGun()
     {
         var gun = gameObject.AddComponent<Gun>();
-        gun.Setup(bulletPrefab: bulletPrefab, fireRate: .2f, GunType.tommyGun);
+        gun.Setup(bulletPrefab: machineGunBulletPrefab, fireRate: .4f, GunType.tommyGun);
     }
 
     private void ApplyPistol()
@@ -76,6 +77,6 @@ public class PlayerGunManager : MonoBehaviour
     private void ApplyLaser()
     {
         var gun = gameObject.AddComponent<Gun>();
-        gun.Setup(bulletPrefab: laserPrefab, fireRate: 2f, GunType.laser);
+        gun.Setup(bulletPrefab: laserPrefab, fireRate: 3f, GunType.laser);
     }
 }
