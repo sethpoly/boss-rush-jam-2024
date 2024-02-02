@@ -559,11 +559,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1023263121}
+  sr: {fileID: 71351510}
   maxHitPoints: 25
   currentHitPoints: 0
   healthBar: {fileID: 829370025}
   defenseBuffMultiplier: 0
   bossController: {fileID: 1707900682}
+  invincibleActive: 0
 --- !u!1 &76521526
 GameObject:
   m_ObjectHideFlags: 0
@@ -9243,7 +9245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1023263121}
-  maxHitPoints: 100
+  maxHitPoints: 200
   currentHitPoints: 0
   healthBar: {fileID: 76521528}
   damageOutput: 1
