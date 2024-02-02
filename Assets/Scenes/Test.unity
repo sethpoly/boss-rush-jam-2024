@@ -9243,7 +9243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1023263121}
-  maxHitPoints: 48
+  maxHitPoints: 100
   currentHitPoints: 0
   healthBar: {fileID: 76521528}
   damageOutput: 1
