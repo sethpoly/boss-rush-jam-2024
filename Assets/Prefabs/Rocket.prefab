@@ -215,8 +215,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2805783913820534693, guid: 3925c304b07ae45d0a4ddd76b3cd6ac2, type: 3}
+      propertyPath: ShapeModule.arc.value
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 2805783913820534693, guid: 3925c304b07ae45d0a4ddd76b3cd6ac2, type: 3}
       propertyPath: ShapeModule.alignToDirection
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2805783913820534693, guid: 3925c304b07ae45d0a4ddd76b3cd6ac2, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2805783913820534693, guid: 3925c304b07ae45d0a4ddd76b3cd6ac2, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2805783913820534693, guid: 3925c304b07ae45d0a4ddd76b3cd6ac2, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
