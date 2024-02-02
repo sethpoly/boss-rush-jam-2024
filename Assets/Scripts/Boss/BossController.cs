@@ -56,9 +56,8 @@ public class BossController : MonoBehaviour
 
         if (currentHitPoints <= 0)
         {
-            // TODO: Game over - explode boss
             gameManager.PlayExplosion(transform);
-            Destroy(this);
+            Destroy(transform.parent.gameObject);
             Debug.Log("Game Over");
             // TODO: Show credits
         } else 
