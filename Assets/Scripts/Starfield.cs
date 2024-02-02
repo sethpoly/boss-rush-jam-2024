@@ -35,7 +35,6 @@ public class Starfield : MonoBehaviour
             _stars[i].startColor = (Color32)new Color(1f, scaledColor, scaledColor, 1f);
         }
         _particles.SetParticles(_stars, _stars.Length);
-        Debug.Log("Stars = " + _stars.Length);
     }
 
     void Update()

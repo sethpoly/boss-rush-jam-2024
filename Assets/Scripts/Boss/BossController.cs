@@ -15,7 +15,11 @@ public class BossController : MonoBehaviour
     public PlayerGun playerGun;
     public BulletPatternGenerator patternGeneratorMain;
     public BulletPatternGenerator patternGeneratorSecondary;
+    public SpriteRenderer spriteRenderer;
     private Tuple<BulletPatternConfig, BulletPatternConfig?> currentPattern;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private bool facingRight = true;
 
     void Awake()
     {
@@ -28,7 +32,7 @@ public class BossController : MonoBehaviour
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
         gameManager.ScreenShake(duration: .1f, magnitude: .05f);
 
-        if(currentHitPoints <= 0)
+        if (currentHitPoints <= 0)
         {
             // TODO: Game over - explode boss
         }
@@ -40,7 +44,7 @@ public class BossController : MonoBehaviour
         patternGeneratorMain.SetConfig(pattern.Item1);
 
         // Set pattern two
-        if(pattern.Item2 != null)
+        if (pattern.Item2 != null)
         {
             patternGeneratorSecondary.SetConfig(pattern.Item2.Value);
         }
@@ -52,6 +56,8 @@ public class BossController : MonoBehaviour
 
         bool restartSecondary = currentPattern.Item2 != null;
         patternGeneratorSecondary.Cancel(restart: restartSecondary);
+
+        FlipSprite();
     }
 
     public void EndPatternGenerators()
@@ -69,5 +75,18 @@ public class BossController : MonoBehaviour
             Destroy(other.gameObject);
             // TODO: Play SFX
         }
+    }
+
+    private void FlipSprite()
+    {
+        if(facingRight)
+        {
+            animator.SetTrigger("FlipLeft");
+        }
+        else 
+        {
+            animator.SetTrigger("FlipRight");
+        }
+        facingRight = !facingRight;
     }
 }
