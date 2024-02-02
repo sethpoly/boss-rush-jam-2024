@@ -1,4 +1,5 @@
 public enum GunType
 {
-    tommyGun
+    tommyGun,
+    pistol
 }

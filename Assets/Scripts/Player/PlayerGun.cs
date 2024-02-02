@@ -2,52 +2,37 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    private bool canShoot = false;
-    private float lastShotTime;
-
     public float baseDamageRate = 1f;
-    public float baseFireRate = 1.5f;
-    public float fireRate;
+    public float fireRateBuff = 0f;
     public float damageRate;
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        ShootTimer();
-
-        if (canShoot)
-        {
-            Shoot();
-        }
+        ApplyPistol();
     }
 
-    // Cooldown timer for bullet fire rate
-    private void ShootTimer()
+    void Update()
     {
-        if(Time.time > lastShotTime)
-        {
-            lastShotTime = Time.time + baseFireRate - fireRate;
-            canShoot = true;
-        } 
-        else 
-        {
-            canShoot = false;
-        }
+        Shoot();
     }
 
     private void Shoot()
     {
-        GameObject.Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, 0f), transform.rotation);
+        foreach(Gun gun in GetComponents<Gun>())
+        {
+            gun.Shoot(fireRateBuff: fireRateBuff);
+        }
     }
 
     public void SetFireRate(float fireRate)
     {
-        this.fireRate = fireRate;
+        this.fireRateBuff = fireRate;
     }
 
     public void SetDamageRate(float damageRate)
@@ -57,7 +42,7 @@ public class PlayerGun : MonoBehaviour
 
     public void ResetFireRate()
     {
-        this.fireRate = baseFireRate;
+        this.fireRateBuff = 0f;
     }
 
     public void ApplyNewGun(GunType gunType)
@@ -67,12 +52,21 @@ public class PlayerGun : MonoBehaviour
             case GunType.tommyGun:
             ApplyTommyGun();
             break;
+            case GunType.pistol:
+            ApplyPistol();
+            break;
         }
     }
 
     private void ApplyTommyGun()
     {
-        baseFireRate = .2f;
-        baseDamageRate = 1f;
+        var gun = gameObject.AddComponent<Gun>();
+        gun.Setup(bulletPrefab: bulletPrefab, fireRate: .2f, GunType.tommyGun);
+    }
+
+    private void ApplyPistol()
+    {
+        var gun = gameObject.AddComponent<Gun>();
+        gun.Setup(bulletPrefab: bulletPrefab, fireRate: 1f, GunType.pistol);
     }
 }

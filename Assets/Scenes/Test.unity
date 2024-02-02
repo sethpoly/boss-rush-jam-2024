@@ -528,8 +528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7807686846547790051, guid: f4b60bf12dfea48c5adcbb7bc6267b56, type: 3}
   baseDamageRate: 1
-  baseFireRate: 1.5
-  fireRate: 0
+  fireRateBuff: 0
   damageRate: 0
 --- !u!114 &71351518
 MonoBehaviour:
@@ -560,7 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1023263121}
   sr: {fileID: 71351510}
-  maxHitPoints: 25
+  maxHitPoints: 15
   currentHitPoints: 0
   healthBar: {fileID: 829370025}
   defenseBuffMultiplier: 0
