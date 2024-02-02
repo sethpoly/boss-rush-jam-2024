@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Camera mainCamera;
 
     [SerializeField] private ParticleSystem ps;
+    [SerializeField] private LevelLoader levelLoader;
 
     public void ScreenShake(float duration = .1f, float magnitude = .3f) 
     {
@@ -20,4 +21,8 @@ public class GameManager : MonoBehaviour
         ps.Play();
     }
 
+    public void LoadScene(string sceneName)
+    {
+        StartCoroutine(levelLoader.LoadScene(sceneName, 1f));
+    }
 }

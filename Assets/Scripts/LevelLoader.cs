@@ -28,8 +28,9 @@ public class LevelLoader : MonoBehaviour
         phase.SetActive(true);
     }
 
-    public IEnumerator LoadScene(string sceneName)
+    public IEnumerator LoadScene(string sceneName, float delay = 0)
     {
+        yield return new WaitForSeconds(delay);
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(sceneName);

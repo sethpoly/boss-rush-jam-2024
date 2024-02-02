@@ -57,9 +57,8 @@ public class BossController : MonoBehaviour
         if (currentHitPoints <= 0)
         {
             gameManager.PlayExplosion(transform);
+            gameManager.LoadScene("Credits");
             Destroy(transform.parent.gameObject);
-            Debug.Log("Game Over");
-            // TODO: Show credits
         } else 
         {
             // Toggle flashing
