@@ -21,7 +21,7 @@ class EnergyController: MonoBehaviour {
         ResetEnergy();
     }
 
-    private void ResetEnergy()
+    public void ResetEnergy()
     {
         currentEnergy = startingEnergy;
     }

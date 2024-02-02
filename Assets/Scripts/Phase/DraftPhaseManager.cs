@@ -306,7 +306,7 @@ class DraftPhaseManager: MonoBehaviour
         DestroyCardsInHand();
 
         // Replenish energy
-        // TODO
+        energyController.ResetEnergy();
     }
 
     private Transform PositionForNextDrawnCard(int cardsInHandCount)
