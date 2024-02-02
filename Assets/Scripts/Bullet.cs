@@ -13,8 +13,13 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
+        // Get random offset 
+        float xOffset = Random.Range(-.1f, .1f);
+
         // save direction by offsetting the target position and the initial object's position.
         m_Direction = Vector2.up;
+        m_Direction.x += xOffset;
+
         StartCoroutine(DestroySelf());
     }
 
