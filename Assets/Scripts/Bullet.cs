@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     public float speed = 20;
 
     private Vector2 m_Direction;
+    [SerializeField] private ParticleSystem hitParticleSystem;
 
     void Start()
     {
@@ -18,5 +19,12 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, transform.position.y) + m_Direction, speed * Time.deltaTime);
+    }
+
+    void OnDestroy()
+    {
+        hitParticleSystem.transform.parent = null;
+        hitParticleSystem.Play();
+        Destroy(hitParticleSystem, 3);
     }
 }
