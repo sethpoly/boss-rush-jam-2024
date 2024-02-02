@@ -529,6 +529,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7807686846547790051, guid: f4b60bf12dfea48c5adcbb7bc6267b56, type: 3}
   laserPrefab: {fileID: 1888893938348753908, guid: 3c0a5334d34064b139b7163886185e56, type: 3}
   machineGunBulletPrefab: {fileID: 7807686846547790051, guid: bdc0ffd29de8944c1a48d9ce52d4daf5, type: 3}
+  rocketPrefab: {fileID: 7807686846547790051, guid: bdb9fc9cc48a1494bb36cce5086fbda8, type: 3}
   fireRateBuff: 0
   damageRateBuff: 0
 --- !u!114 &71351518
@@ -8385,7 +8386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b12ad05626e4794a57f449d2df857c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingEnergy: 5
+  startingEnergy: 3
   energyLabel: {fileID: 79769977}
 --- !u!1 &1393519074
 GameObject:

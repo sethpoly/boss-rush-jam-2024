@@ -10,6 +10,7 @@ public class PlayerGunManager : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject laserPrefab;
     public GameObject machineGunBulletPrefab;
+    public GameObject rocketPrefab;
     public float fireRateBuff = 0f;
     public float damageRateBuff = 0f;
 
@@ -59,6 +60,9 @@ public class PlayerGunManager : MonoBehaviour
             case GunType.laser:
             ApplyLaser();
             break;
+            case GunType.rocket:
+            ApplyRocketLauncher();
+            break;
         }
     }
 
@@ -78,5 +82,11 @@ public class PlayerGunManager : MonoBehaviour
     {
         var gun = gameObject.AddComponent<Gun>();
         gun.Setup(bulletPrefab: laserPrefab, fireRate: 3f, GunType.laser);
+    }
+
+    private void ApplyRocketLauncher()
+    {
+        var gun = gameObject.AddComponent<Gun>();
+        gun.Setup(bulletPrefab: rocketPrefab, fireRate: 7f, GunType.rocket);
     }
 }
