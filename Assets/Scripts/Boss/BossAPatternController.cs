@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = System.Random;
 
 public class BossAPatternController: MonoBehaviour {
     [SerializeField] BossController boss;
@@ -17,20 +20,46 @@ public class BossAPatternController: MonoBehaviour {
     private Tuple<BulletPatternConfig, BulletPatternConfig?> patternHardTwo;
 
 
-    private List<Tuple<BulletPatternConfig, BulletPatternConfig?>> easyPatterns;
-    private List<Tuple<BulletPatternConfig, BulletPatternConfig?>> mediumPatterns;
-    private List<Tuple<BulletPatternConfig, BulletPatternConfig?>> hardPatterns;
+    private List<Tuple<BulletPatternConfig, BulletPatternConfig?>> easyPatterns = new();
+    private List<Tuple<BulletPatternConfig, BulletPatternConfig?>> mediumPatterns = new();
+    private List<Tuple<BulletPatternConfig, BulletPatternConfig?>> hardPatterns = new();
+    private List<Tuple<BulletPatternConfig, BulletPatternConfig?>> easyMediumPatterns = new();
+    private List<Tuple<BulletPatternConfig, BulletPatternConfig?>> mediumHardPatterns = new();
+    private List<Tuple<BulletPatternConfig, BulletPatternConfig?>> allPatterns = new();
 
-    public Transform bottomReference;
+
+    public int patternChangeCooldown;
+
+    private Random random = new Random();
 
     void Awake()
+    {
+        InitializeAllPatterns();
+    }
+
+    private void InitializeAllPatterns()
     {
         InitializeEasyPatterns();  
         InitializeMediumPatterns();
         InitializeHardPatterns(); 
+        easyMediumPatterns.AddRange(easyPatterns);
+        easyMediumPatterns.AddRange(mediumPatterns);
+        mediumHardPatterns.AddRange(mediumPatterns);
+        mediumHardPatterns.AddRange(hardPatterns);
+        allPatterns.AddRange(easyMediumPatterns);
+        allPatterns.AddRange(hardPatterns);
     }
 
-    // Update is called once per frame
+    void OnEnable()
+    {
+        InvokeRepeating(nameof(ChooseNextPattern), 2f, patternChangeCooldown);
+    }
+
+    void OnDisable()
+    {
+        CancelInvoke();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.H))
@@ -70,6 +99,36 @@ public class BossAPatternController: MonoBehaviour {
         }
     }
 
+    private void ChooseNextPattern()
+    {
+        float percentageOfBossHealth = boss.currentHitPoints / boss.maxHitPoints;
+        if(percentageOfBossHealth > .75f)
+        {
+            var nextIndex = random.Next(easyPatterns.Count);
+            boss.SetPattern(easyPatterns[nextIndex]);
+            boss.RestartCurrentPattern();
+        } else if(percentageOfBossHealth < .75f && percentageOfBossHealth > .5f)
+        {
+            var nextIndex = random.Next(easyMediumPatterns.Count);
+            boss.SetPattern(easyMediumPatterns[nextIndex]);
+            boss.RestartCurrentPattern();
+        } else if(percentageOfBossHealth < .5f && percentageOfBossHealth > .3f)
+        {
+            var nextIndex = random.Next(allPatterns.Count);
+            boss.SetPattern(allPatterns[nextIndex]);
+            boss.RestartCurrentPattern();
+        } 
+        else if(percentageOfBossHealth > 0 && percentageOfBossHealth < .3f)
+        {
+            var nextIndex = random.Next(mediumHardPatterns.Count);
+            boss.SetPattern(mediumHardPatterns[nextIndex]);
+            boss.RestartCurrentPattern();
+        } else {
+            // Stop all patterns, boss is dead
+            boss.EndPatternGenerators();
+        }
+    }
+
     private void InitializeEasyPatterns()
     {
         patternEasyOne = new Tuple<BulletPatternConfig, BulletPatternConfig?>(new()
@@ -99,6 +158,8 @@ public class BossAPatternController: MonoBehaviour {
             spinSpeed = 0f,
             direction = 0f
         }, null);
+        easyPatterns.Add(patternEasyOne);
+        easyPatterns.Add(patternEasyTwo);
     }
 
     private void InitializeMediumPatterns()
@@ -169,6 +230,9 @@ public class BossAPatternController: MonoBehaviour {
             spinSpeed = 50f,
             direction = 0
         });
+        mediumPatterns.Add(patternMediumOne);
+        mediumPatterns.Add(patternMediumTwo);
+        mediumPatterns.Add(patternMediumThree);
     }
 
     private void InitializeHardPatterns()
@@ -213,5 +277,7 @@ public class BossAPatternController: MonoBehaviour {
             spinSpeed = 75f,
             direction = 0
         });
+        hardPatterns.Add(patternHardOne);
+        hardPatterns.Add(patternHardTwo);
     }
 }

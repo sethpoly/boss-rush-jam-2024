@@ -27,6 +27,11 @@ public class BossController : MonoBehaviour
         currentHitPoints -= hitPoints;
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
         gameManager.ScreenShake(duration: .1f, magnitude: .05f);
+
+        if(currentHitPoints <= 0)
+        {
+            // TODO: Game over - explode boss
+        }
     }
 
     public void SetPattern(Tuple<BulletPatternConfig, BulletPatternConfig?> pattern)
@@ -47,6 +52,12 @@ public class BossController : MonoBehaviour
 
         bool restartSecondary = currentPattern.Item2 != null;
         patternGeneratorSecondary.Cancel(restart: restartSecondary);
+    }
+
+    public void EndPatternGenerators()
+    {
+        patternGeneratorMain.Cancel(false);
+        patternGeneratorSecondary.Cancel(false);
     }
 
     void OnTriggerEnter2D(Collider2D other)
