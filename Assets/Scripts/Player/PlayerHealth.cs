@@ -19,6 +19,11 @@ public class PlayerHealth: MonoBehaviour {
         originalSpriteColor = sr.color;
     }
 
+    void OnEnable() {
+        invincibleActive = false;
+        sr.color = originalSpriteColor;
+    }
+
     public void TakeDamage(float hitPoints) 
     {
         if(invincibleActive) return;

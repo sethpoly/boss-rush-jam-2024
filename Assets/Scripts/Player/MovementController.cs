@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MovementController : MonoBehaviour
 {
@@ -19,12 +20,26 @@ public class MovementController : MonoBehaviour
 
     private float horizontal;
     private float vertical;
+    private Vector3 originalPosition;
+
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        originalPosition = transform.position;
+    }
 
     void Start()
     {
         coll = GetComponent<Collision>();
         rb = GetComponent<Rigidbody2D>();
         defaultSpeed = speed;
+    }
+
+    void OnEnable()
+    {
+        transform.position = originalPosition;
     }
 
     void FixedUpdate()

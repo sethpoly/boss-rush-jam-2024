@@ -106,13 +106,11 @@ public class CardController : MonoBehaviour
     public void OnDidFinishRefreshing()
     {
         cardState = CardState.drawn;
-        Debug.Log("OnDidFinishRefreshing");
     }
 
     public void DidStartRefreshing()
     {
         cardState = CardState.refreshing;
-        Debug.Log("DidStartRefreshing");
     }
 
     private void MoveCardUpAnimation()
