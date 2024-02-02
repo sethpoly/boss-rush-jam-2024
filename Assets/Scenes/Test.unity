@@ -7484,12 +7484,12 @@ MonoBehaviour:
   levelLoader: {fileID: 1992979321}
   battlePhaseManager: {fileID: 387805569}
   cardListText: {fileID: 723071561}
-  pistolSprite: {fileID: 21300000, guid: 2a9097de8b1a64d999bf8ce84f74e93a, type: 3}
-  rocketSprite: {fileID: 21300000, guid: ea39a79f40a7c4cc48df12b22c3e1ced, type: 3}
-  laserSprite: {fileID: 21300000, guid: 86b375d1a4e35440ca4e53c5e0b0f211, type: 3}
-  machineGunSprite: {fileID: 21300000, guid: 27b5bf644a144460a8b45002676b052f, type: 3}
+  pistolSprite: {fileID: 21300000, guid: b30bf02d5bbf04e41bf177ed11100eae, type: 3}
+  rocketSprite: {fileID: 21300000, guid: 00e581e6b337c42da968e30bdf10e3ad, type: 3}
+  laserSprite: {fileID: 21300000, guid: 2ab24536ae8784b25baa13351f0ed671, type: 3}
+  machineGunSprite: {fileID: 21300000, guid: c9b9ee421a6294bacafb803fd442fbfd, type: 3}
   damageSprite: {fileID: 21300000, guid: 2f62c1168a5e648819f6eae7d72b4f4c, type: 3}
-  defenseSprite: {fileID: 21300000, guid: e215c479bf9af41a7a98c2eb32e38eb0, type: 3}
+  defenseSprite: {fileID: 21300000, guid: d1ebca95e95df457e830dd9030c681e1, type: 3}
   movementSprite: {fileID: 21300000, guid: c13f65be8e97046ea95e25ffe2ebba51, type: 3}
   firerateSprite: {fileID: 21300000, guid: 9f043f9708ed54cac9e674128e129ad0, type: 3}
   potionSprite: {fileID: 21300000, guid: 23747da858c214bd5877b969433824ca, type: 3}
