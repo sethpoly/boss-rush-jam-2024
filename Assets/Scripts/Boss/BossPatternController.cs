@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Random = System.Random;
 
-public class BossAPatternController: MonoBehaviour {
+public class BossPatternController: MonoBehaviour {
     [SerializeField] BossController boss;
     private Tuple<BulletPatternConfig, BulletPatternConfig?> patternEasyOne;
     private Tuple<BulletPatternConfig, BulletPatternConfig?> patternEasyTwo;

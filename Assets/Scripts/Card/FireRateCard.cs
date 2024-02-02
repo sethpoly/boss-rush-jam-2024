@@ -26,7 +26,7 @@ public class FireRateCard: Card
 
     public static FireRateCard Default(Sprite sprite)
     {
-        var card = new FireRateCard("Fire Rate++", 1, .1f);
+        var card = new FireRateCard("Fire Rate++", 2, .2f);
         card.sprite = sprite;
         return card;
     }

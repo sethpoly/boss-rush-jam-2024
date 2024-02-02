@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class TommyGunCard: Card
+public class PistolCard: Card
 {
-    public TommyGunCard(string name, int cost) : base(name, cost)
+    public PistolCard(string name, int cost) : base(name, cost)
     {}
     
     public override void ApplyEffect(Player player)
@@ -10,7 +10,7 @@ public class TommyGunCard: Card
         if(isActive) return;
         base.ApplyEffect(player);
 
-        player.ChangeGun(GunType.tommyGun);
+        player.ChangeGun(GunType.pistol);
     }
 
     public override void ResetEffect(Player player)
@@ -19,9 +19,9 @@ public class TommyGunCard: Card
         base.ResetEffect(player);
     }
 
-    public static TommyGunCard Default(Sprite sprite)
+    public static PistolCard Default(Sprite sprite)
     {
-        var card = new TommyGunCard("Machine Gun", 3);
+        var card = new PistolCard("Pistol", 1);
         card.sprite = sprite;
         return card;
     }

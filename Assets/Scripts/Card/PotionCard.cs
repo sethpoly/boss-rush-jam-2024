@@ -25,7 +25,7 @@ public class PotionCard: Card
 
     public static PotionCard Default(Sprite sprite)
     {
-        var card = new PotionCard("Potion", 3, 25f);
+        var card = new PotionCard("Potion", 3, 10f);
         card.sprite = sprite;
         return card;
     }

@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public MovementController movementController;
     public PlayerHealth playerHealth;
-    public PlayerGun playerGun;
+    public PlayerGunManager playerGun;
 
     public void IncreaseMovementSpeed(float multiplier)
     {

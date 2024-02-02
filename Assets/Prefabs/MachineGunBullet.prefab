@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3448035934046895438}
   - component: {fileID: 6223114169922219289}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: MachineGunBullet
   m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,10 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d83f31369c142dcb2586cbd04c3b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   hitParticleSystem: {fileID: 5768417960422877452}
-  bulletDamage: 1
-  gunType: 1
+  bulletDamage: 0.3
+  gunType: 0
 --- !u!61 &3448035934046895438
 BoxCollider2D:
   m_ObjectHideFlags: 0
