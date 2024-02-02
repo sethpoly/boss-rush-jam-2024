@@ -15,7 +15,6 @@ public class BulletPatternGenerator : MonoBehaviour
     public float firerate;
     public float size;
     public Material material;
-    public Sprite sprite;
     public bool shouldSpin;
     public float spinSpeed;
     public float direction;
@@ -93,7 +92,7 @@ public class BulletPatternGenerator : MonoBehaviour
             // A simple particle material with no texture.
             Material particleMaterial = material;
 
-            // Create a green Particle System.
+            // Create a Particle System.
             var go = new GameObject("Particle System");
             go.transform.Rotate(angle * i, 90, 0); // Rotate so the system emits upwards.
             go.transform.parent = transform;
@@ -101,7 +100,7 @@ public class BulletPatternGenerator : MonoBehaviour
             system = go.AddComponent<ParticleSystem>();
             go.GetComponent<ParticleSystemRenderer>().material = particleMaterial;
             var mainModule = system.main;
-            mainModule.startColor = Color.green;
+            mainModule.startColor = Color.white;
             mainModule.startSize = 0.5f;
             mainModule.startSpeed = speed;
             mainModule.maxParticles = 100000;
@@ -122,11 +121,6 @@ public class BulletPatternGenerator : MonoBehaviour
             forma.enabled = true;
             forma.shapeType = ParticleSystemShapeType.Sprite;
             forma.sprite = null;
-
-            var texture = system.textureSheetAnimation;
-            texture.mode = ParticleSystemAnimationMode.Sprites;
-            texture.AddSprite(sprite);
-            texture.enabled = true;
         }
 
         // Every 2 secs we will emit.

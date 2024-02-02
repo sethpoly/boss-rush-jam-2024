@@ -7393,8 +7393,7 @@ MonoBehaviour:
   lifetime: 5
   firerate: 1
   size: 0.1
-  material: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  sprite: {fileID: 21300000, guid: 7e12c8ee41176496b877072e893c3633, type: 3}
+  material: {fileID: 2100000, guid: 4a633bf3080e24e6f956bd1e09180d3e, type: 2}
   shouldSpin: 0
   spinSpeed: 0
   direction: 0
@@ -8472,8 +8471,7 @@ MonoBehaviour:
   lifetime: 5
   firerate: 1
   size: 0.1
-  material: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  sprite: {fileID: 21300000, guid: 7e12c8ee41176496b877072e893c3633, type: 3}
+  material: {fileID: 2100000, guid: 4a633bf3080e24e6f956bd1e09180d3e, type: 2}
   shouldSpin: 0
   spinSpeed: 0
   direction: 0
