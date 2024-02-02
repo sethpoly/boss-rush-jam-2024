@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Controller for Card prefab (for runtime instantiation)
@@ -13,6 +14,7 @@ public class CardController : MonoBehaviour
     public Color hoverColor;
     public TextMeshProUGUI titleLabel;
     public TextMeshProUGUI energyLabel;
+    public Image cardIcon;
     public Canvas canvas;
     public SpriteRenderer frontRenderer;
     public SpriteRenderer backRenderer;
@@ -25,6 +27,7 @@ public class CardController : MonoBehaviour
     {
         GameObject hand = GameObject.FindGameObjectWithTag("hand");
         InitializeTitle();
+        InitializeCardIcon();
         SetStartingPosition(new Vector2(transform.position.x, hand.transform.position.y));
     }
 
@@ -32,6 +35,14 @@ public class CardController : MonoBehaviour
     {
         titleLabel.text = card.cardName;
         energyLabel.text = card.cardCost.ToString();
+    }
+
+    private void InitializeCardIcon()
+    {
+        if(card.sprite != null)
+        {
+            cardIcon.sprite = card.sprite;
+        }
     }
 
     /// <summary>

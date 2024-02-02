@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class FireRateCard: Card
 {
     public float fireRateIncrease;
@@ -22,8 +24,10 @@ public class FireRateCard: Card
         player.ResetFireRate();
     }
 
-    public static FireRateCard Default()
+    public static FireRateCard Default(Sprite sprite)
     {
-        return new FireRateCard("Fire Rate++", 1, .1f);
+        var card = new FireRateCard("Fire Rate++", 1, .1f);
+        card.sprite = sprite;
+        return card;
     }
 }

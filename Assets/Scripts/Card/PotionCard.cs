@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PotionCard: Card
 {
     public float potionAmount;
@@ -21,8 +23,10 @@ public class PotionCard: Card
         base.ResetEffect(player);
     }
 
-    public static PotionCard Default()
+    public static PotionCard Default(Sprite sprite)
     {
-        return new PotionCard("Potion", 3, 25f);
+        var card = new PotionCard("Potion", 3, 25f);
+        card.sprite = sprite;
+        return card;
     }
 }

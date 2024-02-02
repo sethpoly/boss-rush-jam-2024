@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth: MonoBehaviour {
+    [SerializeField] GameManager gameManager;
     public float maxHitPoints;
     public float currentHitPoints;
     public Image healthBar;
     public float defenseBuffMultiplier = 0;
+    public BossController bossController;
 
     void Awake()
     {
@@ -18,6 +20,15 @@ public class PlayerHealth: MonoBehaviour {
         float damageToTake = hitPoints - ignoredDamage;
         currentHitPoints -= damageToTake;
         healthBar.fillAmount = currentHitPoints / maxHitPoints;
+        gameManager.ScreenShake();
+
+        // Check if player died
+        if(currentHitPoints <= 0)
+        {
+            currentHitPoints = 0;
+            Debug.Log("Game over");
+            // TODO: Go to menu
+        }
     }
 
     public void Heal(float healAmount)
@@ -36,5 +47,14 @@ public class PlayerHealth: MonoBehaviour {
     public void SetDefenseBuff(float defenseBuff)
     {
         defenseBuffMultiplier = defenseBuff;
+    }
+
+    /// <summary>
+    /// OnParticleCollision is called when a particle hits a collider.
+    /// </summary>
+    /// <param name="other">The GameObject hit by the particle.</param>
+    void OnParticleCollision(GameObject other)
+    {
+        TakeDamage(bossController.damageOutput);
     }
 }

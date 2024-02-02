@@ -6,13 +6,7 @@ using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
 {
-    const string targetTag = "Boss";
-
     public GameObject bulletPrefab;
-
-    // Auto-locked target
-    private Vector2? currentTarget;
-
     private bool canShoot = false;
     private float lastShotTime;
 
@@ -24,23 +18,11 @@ public class PlayerGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SearchForTarget();
         ShootTimer();
 
-        if (canShoot && currentTarget.HasValue)
+        if (canShoot)
         {
             Shoot();
-        }
-    }
-
-    // Lock on to the boss if it exists in the world
-    private void SearchForTarget()
-    {
-        try {
-            var target = GameObject.FindGameObjectWithTag(targetTag);
-            currentTarget = target.transform.position;
-        } catch {
-            currentTarget = null;
         }
     }
 

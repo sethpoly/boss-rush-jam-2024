@@ -31,6 +31,18 @@ class DraftPhaseManager: MonoBehaviour
     public BattlePhaseManager battlePhaseManager;
     public TextMeshProUGUI cardListText;
 
+    [Space]
+    [Header("Card Sprites")]
+    public Sprite pistolSprite;
+    public Sprite rocketSprite;
+    public Sprite laserSprite;
+    public Sprite machineGunSprite;
+    public Sprite damageSprite;
+    public Sprite defenseSprite;
+    public Sprite movementSprite;
+    public Sprite firerateSprite;
+    public Sprite potionSprite;
+
     void Awake()
     {
         ResetAndCreateDeck();
@@ -61,30 +73,30 @@ class DraftPhaseManager: MonoBehaviour
         cardsInDeck.Clear();
         for(int i = 0; i < 5; i++)
         {
-            var card = MovementSpeedCard.Default();
+            var card = MovementSpeedCard.Default(sprite: movementSprite);
             AddCardToDeck(card);
         }
         for(int i = 0; i < 5; i++)
         {
-            var card = FireRateCard.Default();
+            var card = FireRateCard.Default(sprite: firerateSprite);
             AddCardToDeck(card);
         }
         for(int i = 0; i < 5; i++)
         {
-            var card = DamageRateCard.Default();
+            var card = DamageRateCard.Default(sprite: damageSprite);
             AddCardToDeck(card);
         }
         for(int i = 0; i < 5; i++)
         {
-            var card = DefenseBuffCard.Default();
+            var card = DefenseBuffCard.Default(sprite: defenseSprite);
             AddCardToDeck(card);
         }
         for(int i = 0; i < 5; i++)
         {
-            var card = PotionCard.Default();
+            var card = PotionCard.Default(sprite: potionSprite);
             AddCardToDeck(card);
         }
-        AddCardToDeck(TommyGunCard.Default());
+        AddCardToDeck(TommyGunCard.Default(sprite: machineGunSprite));
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
     }
 

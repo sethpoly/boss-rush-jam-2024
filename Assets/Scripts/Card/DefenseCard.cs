@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class DefenseBuffCard: Card
 {
     public float defenseBuffIncrease;
@@ -21,8 +23,10 @@ public class DefenseBuffCard: Card
         base.ResetEffect(player);
     }
 
-    public static DefenseBuffCard Default()
+    public static DefenseBuffCard Default(Sprite sprite)
     {
-        return new DefenseBuffCard("Defense Buff++", 1, .25f);
+        var card = new DefenseBuffCard("Defense Buff++", 1, .25f);
+        card.sprite = sprite;
+        return card;
     }
 }
