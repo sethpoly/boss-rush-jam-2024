@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     {
         // save direction by offsetting the target position and the initial object's position.
         m_Direction = Vector2.up;
+        StartCoroutine(DestroySelf());
     }
 
     // Update is called once per frame
@@ -26,5 +27,11 @@ public class Bullet : MonoBehaviour
         hitParticleSystem.transform.parent = null;
         hitParticleSystem.Play();
         Destroy(hitParticleSystem, 3);
+    }
+
+    private IEnumerator DestroySelf()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(this);
     }
 }
