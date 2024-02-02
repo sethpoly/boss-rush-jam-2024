@@ -3,9 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager: MonoBehaviour 
 {
+    [SerializeField] private LevelLoader levelLoader;
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        StartCoroutine(levelLoader.LoadScene("Game"));
     }
 
     public void QuitGame()
