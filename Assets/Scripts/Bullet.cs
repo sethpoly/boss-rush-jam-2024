@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, transform.position.y) + m_Direction, speed * Time.deltaTime);
+        transform.SetPositionAndRotation(Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, transform.position.y) + m_Direction, speed * Time.deltaTime), Quaternion.Euler(m_Direction.x, m_Direction.y, 0));
     }
 
     void OnDestroy()
