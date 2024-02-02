@@ -5912,7 +5912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelLoader: {fileID: 563868021}
   minutes: 0
-  seconds: 10000
+  seconds: 20
   timerLabel: {fileID: 271233394}
 --- !u!1 &439417124
 GameObject:
