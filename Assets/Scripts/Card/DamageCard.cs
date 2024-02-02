@@ -26,8 +26,10 @@ public class DamageRateCard: Card
 
     public static DamageRateCard Default(Sprite sprite)
     {
-        var card = new DamageRateCard("Damage Rate++", 1, 5f);
-        card.sprite = sprite;
+        var card = new DamageRateCard("Damage Rate++", 1, .5f)
+        {
+            sprite = sprite
+        };
         return card;
     }
 }
