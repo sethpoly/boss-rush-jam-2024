@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     {
         hitParticleSystem.transform.parent = null;
         hitParticleSystem.Play();
-        Destroy(hitParticleSystem, 3);
+        Destroy(hitParticleSystem, 2);
     }
 
     private IEnumerator DestroySelf()
