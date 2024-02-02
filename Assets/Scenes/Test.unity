@@ -491,7 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   defaultSpeed: 0
-  speed: 200
+  speed: 100
   godMode: 0
 --- !u!50 &71351516
 Rigidbody2D:
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7807686846547790051, guid: f4b60bf12dfea48c5adcbb7bc6267b56, type: 3}
   baseDamageRate: 1
-  baseFireRate: 2
+  baseFireRate: 1.5
   fireRate: 0
   damageRate: 0
 --- !u!114 &71351518
@@ -9251,10 +9251,11 @@ MonoBehaviour:
   patternGeneratorMain: {fileID: 1444257921}
   patternGeneratorSecondary: {fileID: 1051312604}
   animator: {fileID: 1707900685}
+  spriteRenderer: {fileID: 1707900683}
   facingRight: 0
   locationLeft: {fileID: 1575641894}
   locationRight: {fileID: 927428789}
-  locationMiddle: {fileID: 0}
+  locationMiddle: {fileID: 403471324}
 --- !u!212 &1707900683
 SpriteRenderer:
   m_ObjectHideFlags: 0

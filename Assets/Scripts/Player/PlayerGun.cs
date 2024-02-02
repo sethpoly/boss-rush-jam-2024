@@ -11,7 +11,7 @@ public class PlayerGun : MonoBehaviour
     private float lastShotTime;
 
     public float baseDamageRate = 1f;
-    public float baseFireRate = 2f;
+    public float baseFireRate = 1.5f;
     public float fireRate;
     public float damageRate;
 

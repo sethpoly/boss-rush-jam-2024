@@ -27,7 +27,7 @@ public class MovementSpeedCard: Card
 
     public static MovementSpeedCard Default(Sprite sprite)
     {
-        var card = new MovementSpeedCard("Speed++", 1, 15f);
+        var card = new MovementSpeedCard("Speed++", 1, 40f);
         card.sprite = sprite;
         return card;
     }
