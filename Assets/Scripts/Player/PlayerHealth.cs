@@ -26,8 +26,12 @@ public class PlayerHealth: MonoBehaviour {
         if(currentHitPoints <= 0)
         {
             currentHitPoints = 0;
+            gameManager.PlayExplosion(this.transform);
             Debug.Log("Game over");
+             Destroy(transform.parent.gameObject);
             // TODO: Go to menu
+        } else {
+
         }
     }
 
