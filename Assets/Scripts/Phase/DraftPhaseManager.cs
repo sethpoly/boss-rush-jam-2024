@@ -43,11 +43,6 @@ class DraftPhaseManager: MonoBehaviour
     public Sprite firerateSprite;
     public Sprite potionSprite;
 
-    void Awake()
-    {
-        ResetAndCreateDeck();
-    }
-
     /// <summary>
     /// This function is called when the object becomes enabled and active.
     /// </summary>
@@ -58,9 +53,9 @@ class DraftPhaseManager: MonoBehaviour
 
     private void OnDraftPhaseResume()
     {
-        DeactivateAllSelectedCards();
         DiscardAllSelectedCards();
         DiscardAllCardsInHand();
+        ResetAndCreateDeck();
 
         for(int i = 0; i < drawCount; i++)
         {
@@ -71,33 +66,28 @@ class DraftPhaseManager: MonoBehaviour
     private void ResetAndCreateDeck()
     {
         cardsInDeck.Clear();
-        for(int i = 0; i < 5; i++)
-        {
-            var card = MovementSpeedCard.Default(sprite: movementSprite);
-            AddCardToDeck(card);
-        }
-        for(int i = 0; i < 5; i++)
-        {
-            var card = FireRateCard.Default(sprite: firerateSprite);
-            AddCardToDeck(card);
-        }
-        for(int i = 0; i < 5; i++)
-        {
-            var card = DamageRateCard.Default(sprite: damageSprite);
-            AddCardToDeck(card);
-        }
-        for(int i = 0; i < 5; i++)
-        {
-            var card = DefenseBuffCard.Default(sprite: defenseSprite);
-            AddCardToDeck(card);
-        }
-        for(int i = 0; i < 5; i++)
-        {
-            var card = PotionCard.Default(sprite: potionSprite);
-            AddCardToDeck(card);
-        }
+ 
+        AddCardToDeck(MovementSpeedCard.Default(sprite: movementSprite));
+        AddCardToDeck(FireRateCard.Default(sprite: firerateSprite));
+        AddCardToDeck(DamageRateCard.Default(sprite: damageSprite));
+        AddCardToDeck(DefenseBuffCard.Default(sprite: defenseSprite));
+        AddCardToDeck(PotionCard.Default(sprite: potionSprite));
         AddCardToDeck(TommyGunCard.Default(sprite: machineGunSprite));
         Debug.Log("Deck created with " + cardsInDeck.Count + " cards");
+        ShuffleDeck();
+    }
+
+    private void ShuffleDeck()
+    {
+        // Knuth shuffle algorithm :: courtesy of Wikipedia :)
+        for (int t = 0; t < cardsInDeck.Count; t++ )
+        {
+            var tmp = cardsInDeck[t];
+            int r = Random.Range(t, cardsInDeck.Count);
+            cardsInDeck[t] = cardsInDeck[r];
+            cardsInDeck[r] = tmp;
+        }
+        Debug.Log("Shuffling deck...");
     }
 
     private void AddCardToDeck(Card card)
