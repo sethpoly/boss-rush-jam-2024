@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class BossController : MonoBehaviour
 {
@@ -15,15 +16,30 @@ public class BossController : MonoBehaviour
     public PlayerGun playerGun;
     public BulletPatternGenerator patternGeneratorMain;
     public BulletPatternGenerator patternGeneratorSecondary;
-    public SpriteRenderer spriteRenderer;
     private Tuple<BulletPatternConfig, BulletPatternConfig?> currentPattern;
-
     [SerializeField] private Animator animator;
     [SerializeField] private bool facingRight = true;
+    [SerializeField] private Transform locationLeft;
+    [SerializeField] private Transform locationRight;
+    [SerializeField] private Transform locationMiddle;
+    private List<Transform> possibleLocations = new();
+    private Transform currentPosition;
+    private float movementSpeed = 1f;
 
     void Awake()
     {
         currentHitPoints = maxHitPoints;
+        possibleLocations.Add(locationLeft);
+        possibleLocations.Add(locationRight);
+        possibleLocations.Add(locationMiddle);
+    }
+
+    void Update() 
+    {
+        if(currentPosition != null)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, currentPosition.position, movementSpeed * Time.deltaTime);
+        }
     }
 
     public void TakeDamage(float hitPoints)
@@ -58,6 +74,7 @@ public class BossController : MonoBehaviour
         patternGeneratorSecondary.Cancel(restart: restartSecondary);
 
         FlipSprite();
+        MoveToRandomLocation();
     }
 
     public void EndPatternGenerators()
@@ -88,5 +105,14 @@ public class BossController : MonoBehaviour
             animator.SetTrigger("FlipRight");
         }
         facingRight = !facingRight;
+    }
+
+    private void MoveToRandomLocation()
+    {
+        int randIndex = Random.Range(0, possibleLocations.Count);
+        
+        // Apply random movement speed
+        movementSpeed = Random.Range(1f, 4f);
+        currentPosition = possibleLocations[randIndex];
     }
 }
