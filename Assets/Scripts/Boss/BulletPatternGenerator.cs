@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,9 +23,11 @@ public class BulletPatternGenerator : MonoBehaviour
     private float angle;
     private float time;
     private bool _reset;
+    private float startingDirection;
 
     void Awake()
     {   
+        startingDirection = transform.rotation.z;
         _reset = reset;
     }
 
@@ -33,7 +36,7 @@ public class BulletPatternGenerator : MonoBehaviour
         if(_reset != reset)
         {
             _reset = reset;
-            Restart();
+            Cancel();
         }
     }
 
@@ -59,11 +62,14 @@ public class BulletPatternGenerator : MonoBehaviour
     /// Restart the generator with the current properties set. Note: Call SetConfig to configure the params
     /// before calling this function
     /// </summary>
-    public void Restart()
+    public void Cancel(Boolean restart = true)
     {
         CancelInvoke();
         RemoveAllParticleSystems();
-        Summon();
+        transform.rotation = Quaternion.Euler(0, 0, direction);
+
+
+        if(restart) Summon();
     }
 
     void FixedUpdate()
@@ -75,7 +81,7 @@ public class BulletPatternGenerator : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, time * spinSpeed);
         } else 
         {
-            transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z + direction);
+            transform.rotation = Quaternion.Euler(0, 0, direction);
         }
     }
 

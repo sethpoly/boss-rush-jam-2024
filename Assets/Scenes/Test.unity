@@ -1322,6 +1322,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 540230475}
+  - component: {fileID: 540230476}
   m_Layer: 0
   m_Name: BossA
   m_TagString: Untagged
@@ -1347,6 +1348,19 @@ Transform:
   m_Father: {fileID: 387805568}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &540230476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540230474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f28b0dcde567245a2bd1ae31feea3714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: 1707900682}
 --- !u!95 &550455524 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5165552859612984599, guid: ed1b8514fb7af4552b8f920a0868a323, type: 3}
@@ -2364,12 +2378,12 @@ GameObject:
   - component: {fileID: 1051312603}
   - component: {fileID: 1051312604}
   m_Layer: 0
-  m_Name: BulletSpawner (1)
+  m_Name: PatternGeneratorSecondary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1051312603
 Transform:
   m_ObjectHideFlags: 0
@@ -3964,6 +3978,7 @@ MonoBehaviour:
   damageOutput: 1
   playerGun: {fileID: 71351517}
   patternGeneratorMain: {fileID: 1444257921}
+  patternGeneratorSecondary: {fileID: 1051312604}
 --- !u!212 &1707900683
 SpriteRenderer:
   m_ObjectHideFlags: 0
