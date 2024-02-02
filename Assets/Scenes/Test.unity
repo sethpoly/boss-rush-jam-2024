@@ -528,9 +528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7807686846547790051, guid: f4b60bf12dfea48c5adcbb7bc6267b56, type: 3}
   laserPrefab: {fileID: 1888893938348753908, guid: 3c0a5334d34064b139b7163886185e56, type: 3}
-  baseDamageRate: 1
   fireRateBuff: 0
-  damageRate: 0
+  damageRateBuff: 0
 --- !u!114 &71351518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6035,7 +6034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &387805568
 Transform:
   m_ObjectHideFlags: 0
@@ -9323,7 +9322,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.212312, y: -0.38270664}
+  m_Offset: {x: -1.0608988, y: -0.049598694}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9334,7 +9333,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 17.080519, y: 18.461637}
+  m_Size: {x: 14.597345, y: 17.795422}
   m_EdgeRadius: 0
 --- !u!95 &1707900685
 Animator:
