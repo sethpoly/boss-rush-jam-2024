@@ -13,6 +13,7 @@ public class PlayerGunManager : MonoBehaviour
     public GameObject rocketPrefab;
     public float fireRateBuff = 0f;
     public float damageRateBuff = 0f;
+    private bool isReady = false;
 
     void Awake()
     {
@@ -21,7 +22,23 @@ public class PlayerGunManager : MonoBehaviour
 
     void Update()
     {
-        Shoot();
+        if(isReady) Shoot();
+    }
+
+    void OnEnable() 
+    {
+        StartCoroutine(PrepareForBattle());
+    }
+
+    void OnDisable()
+    {
+        isReady = false;
+    }
+
+    private IEnumerator PrepareForBattle()
+    {
+        yield return new WaitForSeconds(1f);
+        isReady = true;
     }
 
     private void Shoot()
