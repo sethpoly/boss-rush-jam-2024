@@ -35,13 +35,15 @@ public class Gun: MonoBehaviour {
         this.type = gunType;
     }
 
-    public void Shoot(float fireRateBuff)
+    public bool Shoot(float fireRateBuff)
     {
         this.fireRateBuff = fireRateBuff;
         if (canShoot && bullet != null)
         {
             Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, 0f), transform.rotation);
             Debug.Log("Shooting with " + type + "with firerate buff: " + fireRateBuff);
+            return true;
         }
+        return false;
     }
 }

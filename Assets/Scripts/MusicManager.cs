@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MusicManager : MonoBehaviour
@@ -8,6 +6,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioSource deselectCard;
     [SerializeField] private AudioSource buttonClick;
     [SerializeField] private AudioSource hit;
+    [SerializeField] private AudioSource shoot;
 
 
     public void PlayCardSelect()
@@ -27,5 +26,10 @@ public class MusicManager : MonoBehaviour
     public void PlayHit()
     {
         hit.Play();
+    }
+
+    public void PlayShoot()
+    {
+        shoot.Play();
     }
 }
