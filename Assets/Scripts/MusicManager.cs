@@ -11,6 +11,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioSource explosion;
     [SerializeField] private AudioSource battlePhaseEnd;
     [SerializeField] private AudioSource menuTheme;
+    [SerializeField] private AudioSource draftTheme;
 
     public void PlayCardSelect()
     {
@@ -53,11 +54,23 @@ public class MusicManager : MonoBehaviour
 
     public void PlayMenuTheme()
     {
+        if (menuTheme.isPlaying) return;
         menuTheme.Play();
     }
 
     public void StopMenuTheme()
     {
         menuTheme.Stop();
+    }
+    public void PlayDraftTheme()
+    {
+        Debug.Log("Play draft");
+        if (draftTheme.isPlaying) return;
+        draftTheme.Play();
+    }
+
+    public void StopDraftTheme()
+    {
+        draftTheme.Stop();
     }
 }

@@ -51,6 +51,7 @@ class DraftPhaseManager: MonoBehaviour
 
     private void OnDraftPhaseResume()
     {
+        gameManager.musicManager.PlayDraftTheme();
         DiscardAllSelectedCards();
         DiscardAllCardsInHand();
         ResetAndCreateDeck();
@@ -282,6 +283,7 @@ class DraftPhaseManager: MonoBehaviour
     /// </summary>
     public void EndDraftPhase()
     {
+        gameManager.musicManager.StopDraftTheme();
         gameManager.musicManager.PlayButtonClick();
         // Call levelLoader.loadNextPhase
         levelLoader.LoadNextPhase();

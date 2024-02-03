@@ -439,6 +439,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2656901051896477691, guid: c06e6f71341984e439b4c08de07f7dae, type: 3}
+      propertyPath: menuTheme
+      value: 
+      objectReference: {fileID: 872314468}
     - target: {fileID: 2656901051896477692, guid: c06e6f71341984e439b4c08de07f7dae, type: 3}
       propertyPath: m_Name
       value: MusicManager
@@ -462,7 +466,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 02efeab8783c44e99ac142c36e0c8d43, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.67
+  m_Volume: 0.845
   m_Pitch: 1
   Loop: 0
   Mute: 0
