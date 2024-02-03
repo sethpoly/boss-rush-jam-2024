@@ -43,6 +43,7 @@ public class BattlePhaseManager : MonoBehaviour
     private void OnBattlePhaseResume()
     {
         Debug.Log("Battle Phase Resume");
+        gameManager.musicManager.PlayBattleTheme();
         ResetBattleTimer();
     }
 
@@ -50,6 +51,7 @@ public class BattlePhaseManager : MonoBehaviour
     public void OnBattleTimerExpired()
     {
         Debug.Log("Battle Timer expired");
+        gameManager.musicManager.PauseBattleTheme();
         gameManager.musicManager.PlayBattlePhaseEnd();
         levelLoader.LoadNextPhase();
     }
