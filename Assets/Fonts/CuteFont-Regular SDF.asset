@@ -131,7 +131,7 @@ MonoBehaviour:
     m_StyleName: Regular
     m_PointSize: 108
     m_Scale: 1
-    m_LineHeight: 135
+    m_LineHeight: 60
     m_AscentLine: 76.68
     m_CapLine: 47
     m_MeanLine: 35
