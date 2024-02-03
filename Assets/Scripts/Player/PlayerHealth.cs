@@ -40,7 +40,8 @@ public class PlayerHealth: MonoBehaviour {
             gameManager.PlayExplosion(this.transform);
             Debug.Log("Game over");
              Destroy(transform.parent.gameObject);
-            // TODO: Go to menu
+            // Go to menu
+            gameManager.LoadScene("Menu");
         } else {
             StartCoroutine(Flash());
         }
