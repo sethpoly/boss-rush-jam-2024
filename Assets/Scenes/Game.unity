@@ -1348,7 +1348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelLoader: {fileID: 563868021}
   minutes: 0
-  seconds: 20
+  seconds: 30
   timerLabel: {fileID: 271233394}
   endingTimerLabel: {fileID: 1132845157}
 --- !u!1 &403471323
