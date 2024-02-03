@@ -9,7 +9,7 @@ public class BattlePhaseManager : MonoBehaviour
     public int seconds;
     public TextMeshProUGUI timerLabel;
     private SimpleTimer battlePhaseTimer;
-    
+    [SerializeField] private TextMeshProUGUI endingTimerLabel;
 
     void Awake()
     {
@@ -60,9 +60,20 @@ public class BattlePhaseManager : MonoBehaviour
     private void UpdateTimerLabel()
     {
         if(battlePhaseTimer == null) return;
-        TimeSpan time = TimeSpan.FromSeconds(battlePhaseTimer.TimeLeft);
+        float seconds = battlePhaseTimer.TimeLeft;
+        TimeSpan time = TimeSpan.FromSeconds(seconds);
 
         string formattedTime = time.ToString(@"\:ss");
         timerLabel.text = formattedTime;
+
+        // Update ending timer (3..2..1)
+        if(seconds <= 3)
+        {
+            endingTimerLabel.text = seconds.ToString();
+        }
+        else
+        {
+            endingTimerLabel.text = "";
+        }
     }
 }
