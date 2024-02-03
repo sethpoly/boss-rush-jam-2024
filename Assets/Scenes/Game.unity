@@ -561,7 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1023263121}
   sr: {fileID: 71351510}
-  maxHitPoints: 15
+  maxHitPoints: 5
   currentHitPoints: 0
   healthBar: {fileID: 829370025}
   defenseBuffMultiplier: 0
