@@ -702,12 +702,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '0
-
-'
+  m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
+  m_sharedMaterial: {fileID: -8540558165611930653, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -731,8 +729,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -934,7 +932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.19, y: -0.68}
+  m_AnchoredPosition: {x: -0.19, y: -0.484}
   m_SizeDelta: {x: 5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &237361474
@@ -959,8 +957,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Draft Phase
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
+  m_sharedMaterial: {fileID: -8540558165611930653, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -984,8 +982,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.9
+  m_fontSizeBase: 0.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1309,7 +1307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &387805568
 Transform:
   m_ObjectHideFlags: 0
@@ -2959,7 +2957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1105022657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4397,7 +4395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.18, y: -1.2399999}
+  m_AnchoredPosition: {x: -0.18, y: -1.203}
   m_SizeDelta: {x: 5.02, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1486300862
@@ -4422,8 +4420,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Add new cards to your deck by exchanging energy
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
+  m_sharedMaterial: {fileID: -8540558165611930653, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4447,8 +4445,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 0.2
+  m_fontSize: 0.3
+  m_fontSizeBase: 0.3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6338,6 +6336,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2774825857284100212, guid: 1208e702b0bb54f8d87622ad5e42cfd9, type: 3}
+      propertyPath: m_text
+      value: 'Battle
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774825857284100212, guid: 1208e702b0bb54f8d87622ad5e42cfd9, type: 3}
+      propertyPath: m_fontSize
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774825857284100212, guid: 1208e702b0bb54f8d87622ad5e42cfd9, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
+    - target: {fileID: 2774825857284100212, guid: 1208e702b0bb54f8d87622ad5e42cfd9, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774825857284100212, guid: 1208e702b0bb54f8d87622ad5e42cfd9, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -8540558165611930653, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1208e702b0bb54f8d87622ad5e42cfd9, type: 3}
 --- !u!1001 &3964879795602700348
