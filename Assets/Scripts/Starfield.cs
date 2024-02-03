@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Starfield : MonoBehaviour
@@ -32,7 +29,7 @@ public class Starfield : MonoBehaviour
 
             _stars[i].position = GetRandomInRectangle(_fieldWidth, _fieldHeight) + transform.position;
             _stars[i].startSize = _starSize * randsize;
-            _stars[i].startColor = (Color32)new Color(1f, scaledColor, scaledColor, 1f);
+            _stars[i].startColor = (Color32)new Color(1f, 1f, 1f, 1f);//scaledColor, scaledColor, 1f);
         }
         _particles.SetParticles(_stars, _stars.Length);
     }

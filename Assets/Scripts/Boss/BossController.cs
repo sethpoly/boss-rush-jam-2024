@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -57,12 +55,13 @@ public class BossController : MonoBehaviour
         if (currentHitPoints <= 0)
         {
             gameManager.PlayExplosion(transform);
+            gameManager.musicManager.PlayExplosion();
+            gameManager.LoadScene("Credits");
             Destroy(transform.parent.gameObject);
-            Debug.Log("Game Over");
-            // TODO: Show credits
         } else 
         {
             // Toggle flashing
+            gameManager.musicManager.PlayHit();
             if(!flashing)
             {
                 StartCoroutine(Flash());

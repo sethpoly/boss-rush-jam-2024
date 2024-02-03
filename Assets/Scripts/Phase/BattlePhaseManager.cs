@@ -1,18 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BattlePhaseManager : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     public LevelLoader levelLoader;
     public int minutes;
     public int seconds;
     public TextMeshProUGUI timerLabel;
     private SimpleTimer battlePhaseTimer;
-    
+    [SerializeField] private TextMeshProUGUI endingTimerLabel;
 
     void Awake()
     {
@@ -45,6 +43,7 @@ public class BattlePhaseManager : MonoBehaviour
     private void OnBattlePhaseResume()
     {
         Debug.Log("Battle Phase Resume");
+        gameManager.musicManager.PlayBattleTheme();
         ResetBattleTimer();
     }
 
@@ -52,6 +51,8 @@ public class BattlePhaseManager : MonoBehaviour
     public void OnBattleTimerExpired()
     {
         Debug.Log("Battle Timer expired");
+        gameManager.musicManager.PauseBattleTheme();
+        gameManager.musicManager.PlayBattlePhaseEnd();
         levelLoader.LoadNextPhase();
     }
 
@@ -63,9 +64,20 @@ public class BattlePhaseManager : MonoBehaviour
     private void UpdateTimerLabel()
     {
         if(battlePhaseTimer == null) return;
-        TimeSpan time = TimeSpan.FromSeconds(battlePhaseTimer.TimeLeft);
+        float seconds = battlePhaseTimer.TimeLeft;
+        TimeSpan time = TimeSpan.FromSeconds(seconds);
 
         string formattedTime = time.ToString(@"\:ss");
         timerLabel.text = formattedTime;
+
+        // Update ending timer (3..2..1)
+        if(seconds <= 3)
+        {
+            endingTimerLabel.text = seconds.ToString();
+        }
+        else
+        {
+            endingTimerLabel.text = "";
+        }
     }
 }

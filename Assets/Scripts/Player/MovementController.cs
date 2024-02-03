@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MovementController : MonoBehaviour
 {
@@ -17,10 +14,11 @@ public class MovementController : MonoBehaviour
     [Space]
     [Header("Playtest settings")]
     public bool godMode;
-
     private float horizontal;
     private float vertical;
     private Vector3 originalPosition;
+
+
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.

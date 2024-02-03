@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerGunManager : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     public GameObject bulletPrefab;
     public GameObject laserPrefab;
     public GameObject machineGunBulletPrefab;
@@ -45,7 +42,8 @@ public class PlayerGunManager : MonoBehaviour
     {
         foreach(Gun gun in GetComponents<Gun>())
         {
-            gun.Shoot(fireRateBuff: fireRateBuff);
+            bool didShoot = gun.Shoot(fireRateBuff: fireRateBuff);
+            if(didShoot) gameManager.musicManager.PlayShoot();
         }
     }
 

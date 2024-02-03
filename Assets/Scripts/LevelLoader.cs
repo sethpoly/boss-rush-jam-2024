@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -24,5 +24,13 @@ public class LevelLoader : MonoBehaviour
 
         // Enable wanted scene
         phase.SetActive(true);
+    }
+
+    public IEnumerator LoadScene(string sceneName, float delay = 0)
+    {
+        yield return new WaitForSeconds(delay);
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(sceneName);
     }
 }

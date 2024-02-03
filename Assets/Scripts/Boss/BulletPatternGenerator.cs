@@ -1,10 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class BulletPatternGenerator : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     public bool reset;
     public ParticleSystem system;
     public int columnNumber;
@@ -28,6 +28,14 @@ public class BulletPatternGenerator : MonoBehaviour
     {   
         startingDirection = transform.rotation.z;
         _reset = reset;
+    }
+
+    /// <summary>
+    /// This function is called when the behaviour becomes disabled or inactive.
+    /// </summary>
+    void OnDisable()
+    {
+        CancelInvoke();
     }
 
     void Update()
@@ -123,7 +131,6 @@ public class BulletPatternGenerator : MonoBehaviour
             forma.sprite = null;
         }
 
-        // Every 2 secs we will emit.
         InvokeRepeating(nameof(DoEmit), 0f, firerate);
     }
 
@@ -140,6 +147,10 @@ public class BulletPatternGenerator : MonoBehaviour
             };
             system.Emit(emitParams, 10);
             system.Play(); // Continue normal emissions
+        }
+        if(gameManager != null) 
+        {
+            gameManager.musicManager.PlayBossShoot();
         }
     }
 

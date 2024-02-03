@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 class DraftPhaseManager: MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     public int drawCount = 4;
     public List<GameObject> cardsInDeck;
     public List<GameObject> selectedCards;
@@ -53,6 +51,7 @@ class DraftPhaseManager: MonoBehaviour
 
     private void OnDraftPhaseResume()
     {
+        gameManager.musicManager.PlayDraftTheme();
         DiscardAllSelectedCards();
         DiscardAllCardsInHand();
         ResetAndCreateDeck();
@@ -162,7 +161,7 @@ class DraftPhaseManager: MonoBehaviour
 
             controller.MouseClickOccuredOnSelectedCardWithId += OnSelectedCardClicked;
             RefreshCardsInHandPositions(existingCardIndex);
-            
+            gameManager.musicManager.PlayCardSelect();
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
         else
@@ -192,6 +191,7 @@ class DraftPhaseManager: MonoBehaviour
 
             // Replace energy
             energyController.ReplaceEnergy(amount: controller.card.cardCost);
+            gameManager.musicManager.PlayDeselectCard();
 
             Debug.Log("Player deselected card: " + GetController(cardsInHand[^1]).card.cardName);
         }
@@ -283,6 +283,8 @@ class DraftPhaseManager: MonoBehaviour
     /// </summary>
     public void EndDraftPhase()
     {
+        gameManager.musicManager.StopDraftTheme();
+        gameManager.musicManager.PlayButtonClick();
         // Call levelLoader.loadNextPhase
         levelLoader.LoadNextPhase();
 

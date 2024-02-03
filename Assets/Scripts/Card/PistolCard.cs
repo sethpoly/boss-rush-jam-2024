@@ -21,7 +21,7 @@ public class PistolCard: Card
 
     public static PistolCard Default(Sprite sprite)
     {
-        var card = new PistolCard("Pistol", 1);
+        var card = new PistolCard("Pistol", 2);
         card.sprite = sprite;
         return card;
     }
