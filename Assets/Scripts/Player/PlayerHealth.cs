@@ -38,6 +38,7 @@ public class PlayerHealth: MonoBehaviour {
         {
             currentHitPoints = 0;
             gameManager.PlayExplosion(this.transform);
+            gameManager.musicManager.PlayExplosion();
             Debug.Log("Game over");
              Destroy(transform.parent.gameObject);
             // Go to menu
