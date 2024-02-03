@@ -25,7 +25,7 @@ public class DefenseBuffCard: Card
 
     public static DefenseBuffCard Default(Sprite sprite)
     {
-        var card = new DefenseBuffCard("Defense Buff++", 1, .25f);
+        var card = new DefenseBuffCard("Defense Buff++", 2, .25f);
         card.sprite = sprite;
         return card;
     }
