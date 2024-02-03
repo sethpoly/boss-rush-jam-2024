@@ -5,6 +5,7 @@ using UnityEngine;
 
 class DraftPhaseManager: MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     public int drawCount = 4;
     public List<GameObject> cardsInDeck;
     public List<GameObject> selectedCards;
@@ -159,7 +160,7 @@ class DraftPhaseManager: MonoBehaviour
 
             controller.MouseClickOccuredOnSelectedCardWithId += OnSelectedCardClicked;
             RefreshCardsInHandPositions(existingCardIndex);
-            
+            gameManager.musicManager.PlayCardSelect();
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
         else

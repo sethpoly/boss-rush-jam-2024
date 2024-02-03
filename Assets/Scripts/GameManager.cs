@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Camera mainCamera;
-
+    public MusicManager musicManager;
     [SerializeField] private ParticleSystem ps;
     [SerializeField] private LevelLoader levelLoader;
 

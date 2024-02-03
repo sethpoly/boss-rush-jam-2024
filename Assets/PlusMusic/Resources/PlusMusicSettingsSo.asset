@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlusMusicSettingsSo
   m_EditorClassIdentifier: 
   _projectId: 0
-  _authToken: 
-  _deviceId: 
+  _authToken: $2y$13$E8Aef27hi8LuyQLDhZn67O64cvNh6aVeGCX/SY.yNv1a6SgKpzTIG
+  _deviceId: 5112
   _musicVolume: 1
   _autoLoadProject: 1
   _autoPlayProject: 1
