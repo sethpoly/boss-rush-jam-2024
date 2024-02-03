@@ -63,6 +63,7 @@ public class BossController : MonoBehaviour
             if(!flashing)
             {
                 StartCoroutine(Flash());
+                gameManager.musicManager.PlayHit();
             }
         }
     }

@@ -7,7 +7,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioSource cardSelect;
     [SerializeField] private AudioSource deselectCard;
     [SerializeField] private AudioSource buttonClick;
-
+    [SerializeField] private AudioSource hit;
 
 
     public void PlayCardSelect()
@@ -24,5 +24,8 @@ public class MusicManager : MonoBehaviour
     {
         buttonClick.Play();
     }
-
+    public void PlayHit()
+    {
+        hit.Play();
+    }
 }

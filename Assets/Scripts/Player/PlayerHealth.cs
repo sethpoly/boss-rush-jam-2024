@@ -44,6 +44,7 @@ public class PlayerHealth: MonoBehaviour {
             gameManager.LoadScene("Menu");
         } else {
             StartCoroutine(Flash());
+            gameManager.musicManager.PlayHit();
         }
     }
 

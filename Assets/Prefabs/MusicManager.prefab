@@ -50,6 +50,7 @@ MonoBehaviour:
   cardSelect: {fileID: 2656901051896477689}
   deselectCard: {fileID: 2656901051896477688}
   buttonClick: {fileID: 2656901051896477687}
+  hit: {fileID: 0}
 --- !u!82 &2656901051896477689
 AudioSource:
   m_ObjectHideFlags: 0
