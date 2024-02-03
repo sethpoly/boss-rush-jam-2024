@@ -61,10 +61,10 @@ public class BossController : MonoBehaviour
         } else 
         {
             // Toggle flashing
+            gameManager.musicManager.PlayHit();
             if(!flashing)
             {
                 StartCoroutine(Flash());
-                gameManager.musicManager.PlayHit();
             }
         }
     }
