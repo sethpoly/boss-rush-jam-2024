@@ -8,6 +8,7 @@ public class MenuManager: MonoBehaviour
     public void StartGame()
     {
         musicManager.PlayButtonClick();
+        musicManager.StopMenuTheme();
         StartCoroutine(levelLoader.LoadScene("Game"));
     }
 

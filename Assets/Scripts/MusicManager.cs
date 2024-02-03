@@ -10,6 +10,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioSource bossShoot;
     [SerializeField] private AudioSource explosion;
     [SerializeField] private AudioSource battlePhaseEnd;
+    [SerializeField] private AudioSource menuTheme;
 
     public void PlayCardSelect()
     {
@@ -48,5 +49,15 @@ public class MusicManager : MonoBehaviour
     public void PlayBattlePhaseEnd()
     {
         battlePhaseEnd.Play();
+    }
+
+    public void PlayMenuTheme()
+    {
+        menuTheme.Play();
+    }
+
+    public void StopMenuTheme()
+    {
+        menuTheme.Stop();
     }
 }
