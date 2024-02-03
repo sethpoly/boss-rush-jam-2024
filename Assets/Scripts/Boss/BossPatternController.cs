@@ -100,23 +100,12 @@ public class BossPatternController: MonoBehaviour {
     private void ChooseNextPattern()
     {
         float percentageOfBossHealth = boss.currentHitPoints / boss.maxHitPoints;
-        if(percentageOfBossHealth > .75f)
-        {
-            var nextIndex = random.Next(easyPatterns.Count);
-            boss.SetPattern(easyPatterns[nextIndex]);
-            boss.RestartCurrentPattern();
-        } else if(percentageOfBossHealth < .75f && percentageOfBossHealth > .5f)
+        if(percentageOfBossHealth > .5f)
         {
             var nextIndex = random.Next(easyMediumPatterns.Count);
             boss.SetPattern(easyMediumPatterns[nextIndex]);
             boss.RestartCurrentPattern();
-        } else if(percentageOfBossHealth < .5f && percentageOfBossHealth > .3f)
-        {
-            var nextIndex = random.Next(allPatterns.Count);
-            boss.SetPattern(allPatterns[nextIndex]);
-            boss.RestartCurrentPattern();
-        } 
-        else if(percentageOfBossHealth > 0 && percentageOfBossHealth < .3f)
+        } else if(percentageOfBossHealth > 0 && percentageOfBossHealth <= .5f)
         {
             var nextIndex = random.Next(mediumHardPatterns.Count);
             boss.SetPattern(mediumHardPatterns[nextIndex]);
@@ -133,7 +122,7 @@ public class BossPatternController: MonoBehaviour {
         {
             columnNumber = 10,
             baseAngle = 180f,
-            speed = 1.5f,
+            speed = 2.2f,
             color = Color.white,
             lifetime = 5f,
             firerate = 1.5f,
@@ -147,7 +136,7 @@ public class BossPatternController: MonoBehaviour {
         {
             columnNumber = 10,
             baseAngle = 180f,
-            speed = 2f,
+            speed = 2.8f,
             color = Color.white,
             lifetime = 5f,
             firerate = 1f,
