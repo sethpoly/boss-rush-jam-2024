@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattlePhaseManager : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     public LevelLoader levelLoader;
     public int minutes;
     public int seconds;
@@ -49,6 +50,7 @@ public class BattlePhaseManager : MonoBehaviour
     public void OnBattleTimerExpired()
     {
         Debug.Log("Battle Timer expired");
+        gameManager.musicManager.PlayBattlePhaseEnd();
         levelLoader.LoadNextPhase();
     }
 
