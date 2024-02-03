@@ -190,6 +190,7 @@ class DraftPhaseManager: MonoBehaviour
 
             // Replace energy
             energyController.ReplaceEnergy(amount: controller.card.cardCost);
+            gameManager.musicManager.PlayDeselectCard();
 
             Debug.Log("Player deselected card: " + GetController(cardsInHand[^1]).card.cardName);
         }
@@ -281,6 +282,7 @@ class DraftPhaseManager: MonoBehaviour
     /// </summary>
     public void EndDraftPhase()
     {
+        gameManager.musicManager.PlayButtonClick();
         // Call levelLoader.loadNextPhase
         levelLoader.LoadNextPhase();
 
