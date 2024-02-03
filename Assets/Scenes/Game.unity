@@ -4818,7 +4818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1023263121}
-  maxHitPoints: 200
+  maxHitPoints: 250
   currentHitPoints: 0
   healthBar: {fileID: 76521528}
   damageOutput: 1
