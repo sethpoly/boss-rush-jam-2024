@@ -955,7 +955,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Powerup Phase
+  m_text: Shop
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
   m_sharedMaterial: {fileID: -8540558165611930653, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
@@ -982,8 +982,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.9
-  m_fontSizeBase: 0.9
+  m_fontSize: 0.8
+  m_fontSizeBase: 0.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4555,7 +4555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Add new cards to your deck by exchanging energy
+  m_text: Buy new abilities and guns by exchanging energy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
   m_sharedMaterial: {fileID: -8540558165611930653, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
