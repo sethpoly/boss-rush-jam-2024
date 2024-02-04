@@ -144,7 +144,7 @@ class DraftPhaseManager: MonoBehaviour
 
             if(!enoughEnergy) 
             {
-                // TODO: Screenshake?
+                gameManager.ScreenShake();
                 return;
             }
 
