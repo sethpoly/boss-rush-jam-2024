@@ -253,12 +253,12 @@ public class BossPatternController: MonoBehaviour {
         }, 
         new()
         {
-            columnNumber = 40,
+            columnNumber = 30,
             baseAngle = 40f,
             speed = 3f,
             color = Color.white,
             lifetime = 5f,
-            firerate = 1f,
+            firerate = 1.3f,
             size = .2f,
             shouldSpin = true,
             spinSpeed = 75f,
