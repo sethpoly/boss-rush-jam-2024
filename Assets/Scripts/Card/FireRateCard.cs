@@ -24,6 +24,11 @@ public class FireRateCard: Card
         player.ResetFireRate();
     }
 
+    public override string Description()
+    {
+        return "Shoot 20% faster with all weapons (stacks)";
+    }
+
     public static FireRateCard Default(Sprite sprite)
     {
         var card = new FireRateCard("Fire Rate++", 2, .2f);

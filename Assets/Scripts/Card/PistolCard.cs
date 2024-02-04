@@ -19,9 +19,14 @@ public class PistolCard: Card
         base.ResetEffect(player);
     }
 
+    public override string Description()
+    {
+        return "Equip an additional gun that is completely average (stacks)";
+    }
+
     public static PistolCard Default(Sprite sprite)
     {
-        var card = new PistolCard("Pistol", 2);
+        var card = new PistolCard("Pistol", 1);
         card.sprite = sprite;
         return card;
     }

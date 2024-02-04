@@ -18,6 +18,9 @@ public class CardController : MonoBehaviour
     public SpriteRenderer backRenderer;
     public event Action<string> MouseClickOccuredOnDrawnCardWithId;
     public event Action<string> MouseClickOccuredOnSelectedCardWithId;
+    public event Action<string> MouseHoverOnCardWithId;
+    public event Action MouseStopHoverOnCard;
+
     private Vector2 startingPosition;
     public CardState cardState = CardState.decked;
 
@@ -116,7 +119,8 @@ public class CardController : MonoBehaviour
         Debug.Log(card.cardName + " = " + cardState);
         if(cardState != CardState.drawn) return;
         var yOffset = startingPosition.y + .5f;
-        iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));    
+        iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));   
+        MouseHoverOnCardWithId.Invoke(card.id); 
     }
 
     private void MoveCardDownAnimation()
@@ -124,5 +128,6 @@ public class CardController : MonoBehaviour
         if(cardState != CardState.drawn) return;
         var yOffset = startingPosition.y;
         iTween.MoveTo(gameObject, iTween.Hash("y", yOffset, "time", 1, "islocal", true));
+        MouseStopHoverOnCard.Invoke();
     }
 }

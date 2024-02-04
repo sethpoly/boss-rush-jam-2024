@@ -27,4 +27,9 @@ public class Card
         isActive = false;
         Debug.Log("Deactivating card: " + cardName);
     }
+
+    public virtual string Description()
+    {
+        return "Who knows?";
+    }
 }

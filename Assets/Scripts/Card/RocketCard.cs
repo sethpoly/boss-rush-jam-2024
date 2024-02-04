@@ -19,6 +19,11 @@ public class RocketCard: Card
         base.ResetEffect(player);
     }
 
+    public override string Description()
+    {
+        return "Equip an additional gun that shoots very slow, but deals a whole lot of damage (stacks)";
+    }
+
     public static RocketCard Default(Sprite sprite)
     {
         var card = new RocketCard("Rocket Launcher", 3);

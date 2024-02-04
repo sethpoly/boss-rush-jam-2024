@@ -25,9 +25,14 @@ public class MovementSpeedCard: Card
         player.ResetMovementSpeed();
     }
 
+    public override string Description()
+    {
+        return "Move 40% faster (stacks)";
+    }
+
     public static MovementSpeedCard Default(Sprite sprite)
     {
-        var card = new MovementSpeedCard("Speed++", 1, 40f);
+        var card = new MovementSpeedCard("Agility++", 1, 40f);
         card.sprite = sprite;
         return card;
     }
