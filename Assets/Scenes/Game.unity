@@ -1307,7 +1307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &387805568
 Transform:
   m_ObjectHideFlags: 0
@@ -2176,7 +2176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Battle Phase
+  m_text: Gorj
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
   m_sharedMaterial: {fileID: -8540558165611930653, guid: c9811d6fb29144b3c94ed9dcf88936a8, type: 2}
@@ -2957,7 +2957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1105022657
 MonoBehaviour:
   m_ObjectHideFlags: 0
