@@ -23,6 +23,11 @@ public class PotionCard: Card
         base.ResetEffect(player);
     }
 
+    public override string Description()
+    {
+        return "Heal to max health at the start of the next battle (1 time use)";
+    }
+
     public static PotionCard Default(Sprite sprite)
     {
         var card = new PotionCard("Potion", 3, 10f);

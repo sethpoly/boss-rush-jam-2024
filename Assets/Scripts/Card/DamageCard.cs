@@ -24,6 +24,11 @@ public class DamageRateCard: Card
         player.ResetFireRate();
     }
 
+    public override string Description()
+    {
+        return "Deal 50% more damage with all weapons (stacks)";
+    }
+
     public static DamageRateCard Default(Sprite sprite)
     {
         var card = new DamageRateCard("Damage++", 2, .5f)

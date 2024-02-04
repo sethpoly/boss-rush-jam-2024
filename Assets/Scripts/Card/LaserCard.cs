@@ -19,6 +19,11 @@ public class LaserCard: Card
         base.ResetEffect(player);
     }
 
+    public override string Description()
+    {
+        return "Equip an additional gun that shoots slow, but deals more damage (stacks)";
+    }
+
     public static LaserCard Default(Sprite sprite)
     {
         var card = new LaserCard("Laser Gun", 3);

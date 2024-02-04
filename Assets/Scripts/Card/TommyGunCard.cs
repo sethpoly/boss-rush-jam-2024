@@ -19,6 +19,11 @@ public class TommyGunCard: Card
         base.ResetEffect(player);
     }
 
+    public override string Description()
+    {
+        return "Equip an additional gun that shoots fast, but deals less damage (stacks)";
+    }
+
     public static TommyGunCard Default(Sprite sprite)
     {
         var card = new TommyGunCard("Machine Gun", 3);

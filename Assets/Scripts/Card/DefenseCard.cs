@@ -23,9 +23,14 @@ public class DefenseBuffCard: Card
         base.ResetEffect(player);
     }
 
+    public override string Description()
+    {
+        return "Take 25% less damage than usual (stacks)";
+    }
+
     public static DefenseBuffCard Default(Sprite sprite)
     {
-        var card = new DefenseBuffCard("Defense++", 2, .25f);
+        var card = new DefenseBuffCard("Armor++", 2, .25f);
         card.sprite = sprite;
         return card;
     }

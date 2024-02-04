@@ -28,6 +28,7 @@ class DraftPhaseManager: MonoBehaviour
     public LevelLoader levelLoader;
     public BattlePhaseManager battlePhaseManager;
     public TextMeshProUGUI cardListText;
+    [SerializeField] private TextMeshProUGUI hoveredCardDescription;
 
     [Space]
     [Header("Card Sprites")]
@@ -98,6 +99,8 @@ class DraftPhaseManager: MonoBehaviour
         var controller = cardPrefab.GetComponent<CardController>();
         controller.card = card;
         controller.MouseClickOccuredOnDrawnCardWithId += OnDrawnCardClicked;
+        controller.MouseHoverOnCardWithId += SetHoveredCardDescription;
+        controller.MouseStopHoverOnCard += RemoveHoveredCardDescription;
         cardsInDeck.Add(cardPrefab);
     }
 
@@ -162,6 +165,7 @@ class DraftPhaseManager: MonoBehaviour
             controller.MouseClickOccuredOnSelectedCardWithId += OnSelectedCardClicked;
             RefreshCardsInHandPositions(existingCardIndex);
             gameManager.musicManager.PlayCardSelect();
+            RemoveHoveredCardDescription();
             Debug.Log("Player selected card from hand: " + GetController(selectedCards[^1]).card.cardName);
         }
         else
@@ -333,6 +337,21 @@ class DraftPhaseManager: MonoBehaviour
             cardToMove.GetComponent<CardController>().DidStartRefreshing();
             iTween.MoveTo(cardToMove, iTween.Hash("y", blankPosition.position.y, "x", blankPosition.position.x, "time", 1, "islocal", true, "onComplete", "OnDidFinishRefreshing"));  
         }
+    }
+
+    private void SetHoveredCardDescription(string cardId)
+    {
+        int existingCardIndex = cardsInHand.FindIndex(card => card.GetComponent<CardController>().card.id == cardId);
+        if (existingCardIndex != -1)
+        {
+            var controller = cardsInHand[existingCardIndex].GetComponent<CardController>();
+            hoveredCardDescription.text = controller.card.Description();
+        }
+    }
+
+    private void RemoveHoveredCardDescription()
+    {
+        hoveredCardDescription.text = "";
     }
 
     private CardController GetController(GameObject obj)
