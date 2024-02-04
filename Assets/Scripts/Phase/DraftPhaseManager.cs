@@ -306,6 +306,9 @@ class DraftPhaseManager: MonoBehaviour
 
         // Replenish energy
         energyController.ResetEnergy();
+
+        // Update player loadout static variable
+        GameManager.SetPlayerLoadout(playerCards);
     }
 
     private Transform PositionForNextDrawnCard(int cardsInHandCount)
