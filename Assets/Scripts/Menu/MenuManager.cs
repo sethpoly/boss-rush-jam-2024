@@ -12,9 +12,8 @@ public class MenuManager: MonoBehaviour
         StartCoroutine(levelLoader.LoadScene("Game"));
     }
 
-    public void QuitGame()
+    public void RestartGame()
     {
-        musicManager.PlayButtonClick();
-        Application.Quit();
+        StartCoroutine(levelLoader.LoadScene("Menu"));
     }
 }
